@@ -3,15 +3,28 @@ import {ref} from "vue";
 import type {LoginProps} from "../../types/Auth.ts";
 import {Eye, EyeOff} from "lucide-vue-next";
 import {styles} from "../../styles/DefaultStyles.ts";
+import api from "../../Api.ts";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const form = ref<LoginProps>({
-  username: '',
+  login: '',
   password: '',
   rememberMe: false,
 })
 
-function submit() {
-  console.log(form.value);
+async function submit() {
+  try {
+   const res = await api.post("/auth/login", form.value);
+   if (res.status === 200) {
+     setTimeout(() => {
+       router.push("/")
+     }, 3000)
+   }
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 const showPassword = ref(false);
@@ -29,7 +42,7 @@ function toggleShowPassword() {
       <input
           id="username"
           type="text"
-          v-model="form.username"
+          v-model="form.login"
           :class="styles.defaultInput"
           placeholder="johndoe"
           required

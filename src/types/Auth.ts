@@ -1,5 +1,5 @@
 export interface LoginProps {
-    username: string;
+    login: string;
     password: string;
     rememberMe: boolean;
 }

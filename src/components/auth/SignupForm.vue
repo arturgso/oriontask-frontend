@@ -3,6 +3,7 @@ import {ref} from "vue";
 import {Eye, EyeOff} from "lucide-vue-next";
 import {styles} from "../../styles/DefaultStyles.ts";
 import type {SignupProps} from "../../types/Auth.ts";
+import axios from "axios";
 
 const form = ref<SignupProps>({
   name: '',
@@ -11,8 +12,13 @@ const form = ref<SignupProps>({
   password: '',
 })
 
-function submit() {
-  console.log(form.value);
+async function submit() {
+  try {
+    const res = await axios.post("http://localhost:8080/api/v1/auth/signup", form.value);
+    console.log(res.data);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const showPassword = ref(false);
