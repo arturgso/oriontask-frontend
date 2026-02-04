@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import {ref} from "vue";
 import LoginForm from "../components/auth/LoginForm.vue";
+import SignupForm from "../components/auth/SignupForm.vue";
 
 const page = ref(false);
 
@@ -33,7 +34,7 @@ function changePage() {
       </div>
       <div class="bg-card shadow-lg border border-border p-8 rounded-md">
         <LoginForm v-if="!page" />
-
+        <SignupForm v-if="page" />
       </div>
     </div>
   </div>
