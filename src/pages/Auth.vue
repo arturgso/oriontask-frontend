@@ -33,9 +33,30 @@ function changePage() {
         </button>
       </div>
       <div class="bg-card shadow-lg border border-border p-8 rounded-md">
-        <LoginForm v-if="!page" />
-        <SignupForm v-if="page" />
+        <Transition name="expand" mode="out-in">
+          <LoginForm v-if="!page" />
+          <SignupForm v-else />
+        </Transition>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 0.25s ease;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  opacity: 0;
+  transform: scaleY(0.95);
+}
+
+.expand-enter-to,
+.expand-leave-from {
+  opacity: 1;
+  transform: scaleY(1);
+}
+</style>
