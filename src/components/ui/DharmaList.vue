@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 mt-10">
+  <div class="flex flex-col gap-3 mt-10 text-text-primary">
     <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden': '']">Dharmas</h1>
     <button v-for="d in mockDharmas"
             :key="d.id"

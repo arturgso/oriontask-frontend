@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import type {Dharma} from "../../types/Dharma.ts";
-import {PanelLeftClose} from 'lucide-vue-next';
+import {PanelLeftClose, Zap, List, User} from 'lucide-vue-next';
 import {ref} from "vue";
 import DharmaList from './DharmaList.vue';
+import Divider from './Divider.vue';
+import NavButton from "../sidebar/NavButton.vue";
 
 const mockDharmas: Dharma[] = [
   {
@@ -34,7 +36,7 @@ const mockDharmas: Dharma[] = [
   }
 ]
 
-const closed = ref(true);
+const closed = ref(false);
 
 function collapsePanel() {
   closed.value = !closed.value;
@@ -51,6 +53,17 @@ function collapsePanel() {
       <PanelLeftClose/>
     </button>
     <DharmaList :mockDharmas="mockDharmas" :closed="closed" />
+
+    <Divider />
+
+    <div class="flex flex-col gap-3 mt-10 text-text-primary">
+      <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden': '']">Navegação</h1>
+      <div>
+        <NavButton :icon="Zap" text="Agora" push="now" :closed="closed" />
+        <NavButton :icon="List" text="Todos os dharmas" push="dharmas" :closed="closed" />
+        <NavButton :icon="User" text="Meu Perfil" push="profile" :closed="closed" />
+      </div>
+    </div>
 
   </aside>
 </template>
