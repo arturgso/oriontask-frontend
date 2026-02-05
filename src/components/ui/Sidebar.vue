@@ -58,12 +58,11 @@ function collapsePanel() {
 
     <div class="flex flex-col gap-3 mt-10 text-text-primary">
       <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden': '']">Navegação</h1>
-      <div>
+      <div class="flex flex-col gap-3">
         <NavButton :icon="Zap" text="Agora" push="now" :closed="closed" />
         <NavButton :icon="List" text="Todos os dharmas" push="dharmas" :closed="closed" />
         <NavButton :icon="User" text="Meu Perfil" push="profile" :closed="closed" />
       </div>
     </div>
-
   </aside>
 </template>
