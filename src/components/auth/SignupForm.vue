@@ -22,9 +22,8 @@ async function submit() {
       setTimeout(() => {
         window.location.href = '/';
       }, 1500);
-    } else {
-      alert('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
     }
+
   } catch (error) {
     alert('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
     console.error(error);

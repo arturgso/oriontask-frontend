@@ -5,6 +5,7 @@ import {Eye, EyeOff} from "lucide-vue-next";
 import {styles} from "../../styles/DefaultStyles.ts";
 import api from "../../Api.ts";
 import {useRouter} from "vue-router";
+import { AuthService } from "../../services/AuthService.ts";
 
 const router = useRouter();
 
@@ -15,12 +16,15 @@ const form = ref<LoginProps>({
 })
 
 async function submit() {
+  const authService = new AuthService();
+
   try {
-   const res = await api.post("/auth/login", form.value);
-   if (res.status === 200) {
+   const res = await authService.login(form.value);
+   if (res === 200) {
+    alert("Logado com sucesso");
      setTimeout(() => {
        router.push("/")
-     }, 3000)
+     }, 1500)
    }
   } catch (e) {
     console.error(e);
