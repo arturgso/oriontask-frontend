@@ -3,7 +3,7 @@ import {ref} from "vue";
 import {Eye, EyeOff} from "lucide-vue-next";
 import {styles} from "../../styles/DefaultStyles.ts";
 import type {SignupProps} from "../../types/Auth.ts";
-import axios from "axios";
+import { AuthService } from "../../services/AuthService.ts";
 
 const form = ref<SignupProps>({
   name: '',
@@ -13,11 +13,21 @@ const form = ref<SignupProps>({
 })
 
 async function submit() {
+  const authService = new AuthService();
+
   try {
-    const res = await axios.post("http://localhost:8080/api/v1/auth/signup", form.value);
-    console.log(res.data);
+    const res = await authService.signup(form.value);
+    if (res === 201) {
+      alert('Cadastro realizado com sucesso!');
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1500);
+    } else {
+      alert('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
+    }
   } catch (error) {
-    console.log(error);
+    alert('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
+    console.error(error);
   }
 }
 

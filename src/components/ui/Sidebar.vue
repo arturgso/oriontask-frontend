@@ -90,7 +90,6 @@ function collapsePanel() {
         <LogOut class="text-red-600"/>
         <p :class="[closed ? 'hidden' : '']">Sair</p>
       </button>
-
     </div>
   </aside>
 </template>

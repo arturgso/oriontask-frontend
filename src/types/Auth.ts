@@ -10,3 +10,10 @@ export interface SignupProps {
     email: string;
     password: string;
 }
+
+export interface AuthResponse {
+    token: string;
+    id: string;
+    username: string;
+    name: string;
+}
