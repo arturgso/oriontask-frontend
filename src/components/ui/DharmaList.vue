@@ -12,6 +12,7 @@ defineProps<{
   <div class="flex flex-col gap-3 mt-10 text-text-primary">
     <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden': '']">Dharmas</h1>
     <button v-for="d in mockDharmas"
+            :title="d.name"
             :key="d.id"
             :class="[
                 'flex flex-row items-center gap-2 rounded-lg hover:bg-card transtion duration-150',
@@ -34,8 +35,9 @@ defineProps<{
       </p>
     </button>
     <button
+    title="Novo Dharma"
         :class="['flex flex-row items-center',
-        closed ? 'justify-center' : ' gap-2 border-dashed border-2 border-border p-2 rounded-lg hover:bg-card transtion'
+        closed ? '' : 'gap-2 border-dashed border-2 border-border p-2 rounded-lg hover:bg-card transtion'
         ]">
       <Plus/>
       <p :class="[closed ? 'hidden' : '']">Gerenciar Dharmas</p>

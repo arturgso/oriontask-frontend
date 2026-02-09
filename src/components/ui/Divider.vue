@@ -2,5 +2,5 @@
 </script>
 
 <template>
-  <div class="w-full border border-border my-8 rounded-lg"></div>
+  <div class="w-full border border-border my-4 rounded-lg"></div>
 </template>
