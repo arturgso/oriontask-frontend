@@ -1,6 +1,5 @@
-<script lang="ts" setup>
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div class="w-full border border-border my-4 rounded-lg"></div>
+    <div class="w-full border border-border my-4 rounded-lg"></div>
 </template>

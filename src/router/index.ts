@@ -1,23 +1,23 @@
-import Dashboard from "../pages/Dashboard.vue";
-import Auth from "../pages/Auth.vue";
-import {createRouter, createWebHistory} from "vue-router";
+import Dashboard from '../pages/Dashboard.vue';
+import Auth from '../pages/Auth.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
     {
         path: '/',
         name: 'dashboard',
-        component: Dashboard
+        component: Dashboard,
     },
     {
         path: '/auth',
         name: 'auth',
-        component: Auth
-    }
-]
+        component: Auth,
+    },
+];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
-})
+    routes,
+});
 
 export default router;

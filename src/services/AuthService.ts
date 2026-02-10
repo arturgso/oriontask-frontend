@@ -1,6 +1,6 @@
-import api from "../Api";
-import type { AuthResponse, LoginProps, SignupProps } from "../types/Auth";
-import Cookie from "js-cookie";
+import api from '../Api';
+import type { AuthResponse, LoginProps, SignupProps } from '../types/Auth';
+import Cookie from 'js-cookie';
 
 export class AuthService {
     async signup(form: SignupProps): Promise<number> {
@@ -17,16 +17,16 @@ export class AuthService {
     }
 
     async login(form: LoginProps): Promise<number> {
-        const res = await api.post("/auth/login", form, {
+        const res = await api.post('/auth/login', form, {
             headers: {
-                "Content-Type": "application/json",
-            }
+                'Content-Type': 'application/json',
+            },
         });
 
         if (res.status !== 200) {
             throw new Error('Failed to login');
         }
-        
+
         const data = res.data as AuthResponse;
 
         Cookie.set('access_token', data.token);
@@ -35,7 +35,7 @@ export class AuthService {
 
     async logout(): Promise<void> {
         try {
-            await api.post("/auth/logout");
+            await api.post('/auth/logout');
         } finally {
             Cookie.remove('access_token');
             Cookie.remove('uid');
@@ -48,10 +48,10 @@ export class AuthService {
         if (!token) return false;
 
         try {
-            const res = await api.post("/auth/validate", null, {
+            const res = await api.post('/auth/validate', null, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             return res.status === 200;
