@@ -1,38 +1,65 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import type { NewDharmaProps } from '@/types/Dharma';
 import { styles } from '@/styles/DefaultStyles';
+import { defaultColors } from '@/types/DefaultDharmaColors';
 
 const form = ref<NewDharmaProps>({
     name: '',
-    description: '',
     color: '',
 });
+
+watch(
+    form,
+    (newForm) => {
+        console.log(newForm);
+    },
+    { deep: true },
+);
+
+const submit = () => {};
 </script>
 
 <template>
-    <form>
+    <form :class="styles.input.inputDiv" @submit.prevent="submit">
         <div :class="styles.input.inputDiv">
-            <labe form="name">Nome</labe>
+            <label for="name">Nome</label>
             <input
                 id="name"
                 v-model="form.name"
                 type="text"
                 :class="styles.input.defaultInput"
-                placeholder="Saúde"
+                placeholder="Ex: Saúde, Trabalho, Família"
                 required
             />
         </div>
-        <div :class="styles.input.inputDiv">
-            <labe form="description">Nome</labe>
-            <input
-                id="name"
-                v-model="form.name"
-                type="text"
-                :class="styles.input.defaultInput"
-                placeholder="Saúde"
-                required
+
+        <div class="flex flex-wrap gap-2 justify-between items-center mt-4">
+            <button
+                type="button"
+                class="w-8 h-8 rounded-md cursor-pointer border-2 transition-all hover:scale-110"
+                :class="form.color === '' ? 'border-accent shadow-lg' : 'border-border'"
+                @click="form.color = ''"
+                title="Randomizar"
+                style="background: linear-gradient(90deg, #ef4444, #f59e0b, #eab308, #22c55e, #06b6d4, #3b82f6, #8b5cf6);"
+            />
+
+            <button
+                v-for="color in defaultColors"
+                :key="color"
+                type="button"
+                :style="{ backgroundColor: color }"
+                class="w-8 h-8 rounded-md cursor-pointer border-2 transition-all hover:scale-110"
+                :class="form.color === color ? 'border-accent shadow-lg' : 'border-transparent'"
+                @click="form.color = color"
             />
         </div>
+
+        <button
+            type="submit"
+            class="w-full p-2 bg-accent rounded-md font-bold text-white text-lg mt-4 hover:bg-accent-hover transition duration-150 hover:shadow-lg"
+        >
+            Criar
+        </button>
     </form>
 </template>

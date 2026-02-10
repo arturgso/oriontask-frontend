@@ -51,10 +51,10 @@ function openModal() {
             @click="openModal"
         >
             <Plus />
-            <p :class="[closed ? 'hidden' : '']">Gerenciar Dharmas</p>
+            <p :class="[closed ? 'hidden' : '']">Novo Dharma</p>
         </button>
     </div>
-    <Modal :open="modalOpen" :on-close="openModal">
-        <NewDharmaForm /> 
+    <Modal :open="modalOpen" :on-close="openModal" title="novo dharma">
+        <NewDharmaForm />
     </Modal>
 </template>
