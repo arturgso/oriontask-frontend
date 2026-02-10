@@ -55,6 +55,6 @@ function openModal() {
         </button>
     </div>
     <Modal :open="modalOpen" :on-close="openModal" title="novo dharma">
-        <NewDharmaForm />
+        <NewDharmaForm @success="modalOpen = false" />
     </Modal>
 </template>

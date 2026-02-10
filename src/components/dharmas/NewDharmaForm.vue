@@ -3,6 +3,10 @@ import { ref, watch } from 'vue';
 import type { NewDharmaProps } from '@/types/Dharma';
 import { styles } from '@/styles/DefaultStyles';
 import { defaultColors } from '@/types/DefaultDharmaColors';
+import { DharmaService } from '@/services/DharmaService';
+import { toast } from 'vue3-toastify';
+
+const emit = defineEmits<{ (e: 'success'): void }>();
 
 const form = ref<NewDharmaProps>({
     name: '',
@@ -17,7 +21,15 @@ watch(
     { deep: true },
 );
 
-const submit = () => {};
+const submit = async () => {
+    const service = new DharmaService();
+    const res = await service.create(form.value);
+
+    if (res) {
+        toast.success('Dharma cadastrado com sucesso');
+        emit('success');
+    }
+};
 </script>
 
 <template>
@@ -39,9 +51,20 @@ const submit = () => {};
                 type="button"
                 class="w-8 h-8 rounded-md cursor-pointer border-2 transition-all hover:scale-110"
                 :class="form.color === '' ? 'border-accent shadow-lg' : 'border-border'"
-                @click="form.color = ''"
                 title="Randomizar"
-                style="background: linear-gradient(90deg, #ef4444, #f59e0b, #eab308, #22c55e, #06b6d4, #3b82f6, #8b5cf6);"
+                style="
+                    background: linear-gradient(
+                        90deg,
+                        #ef4444,
+                        #f59e0b,
+                        #eab308,
+                        #22c55e,
+                        #06b6d4,
+                        #3b82f6,
+                        #8b5cf6
+                    );
+                "
+                @click="form.color = ''"
             />
 
             <button
