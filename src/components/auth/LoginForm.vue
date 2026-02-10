@@ -3,7 +3,6 @@ import {ref} from "vue";
 import type {LoginProps} from "../../types/Auth.ts";
 import {Eye, EyeOff} from "lucide-vue-next";
 import {styles} from "../../styles/DefaultStyles.ts";
-import api from "../../Api.ts";
 import {useRouter} from "vue-router";
 import { AuthService } from "../../services/AuthService.ts";
 
@@ -36,7 +35,6 @@ const showPassword = ref(false);
 function toggleShowPassword() {
   return showPassword.value = !showPassword.value;
 }
-
 </script>
 
 <template>

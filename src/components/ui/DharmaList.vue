@@ -1,11 +1,19 @@
 <script lang="ts" setup>
+import { ref } from "vue";
 import type {Dharma} from "../../types/Dharma.ts";
 import {Plus} from 'lucide-vue-next';
+import Modal from "../modals/Modal.vue";
 
 defineProps<{
   mockDharmas: Dharma[];
   closed: boolean;
 }>();
+
+const modalOpen = ref(false);
+
+function openModal() {
+ modalOpen.value = !modalOpen.value; 
+}
 </script>
 
 <template>
@@ -38,9 +46,13 @@ defineProps<{
     title="Novo Dharma"
         :class="['flex flex-row items-center',
         closed ? '' : 'gap-2 border-dashed border-2 border-border p-2 rounded-lg hover:bg-card transtion'
-        ]">
+        ]"
+        @click="openModal">
       <Plus/>
       <p :class="[closed ? 'hidden' : '']">Gerenciar Dharmas</p>
     </button>
   </div>
+  <Modal :open="modalOpen" :onClose="openModal">
+    <h1>Modal</h1>
+  </Modal>
 </template>
