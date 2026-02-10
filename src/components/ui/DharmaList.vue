@@ -7,7 +7,6 @@ import NewDharmaForm from '@/components/dharmas/NewDharmaForm.vue';
 import { DharmaService } from '@/services/DharmaService';
 
 defineProps<{
-    mockDharmas: Dharma[];
     closed: boolean;
 }>();
 
