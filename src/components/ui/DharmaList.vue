@@ -1,14 +1,31 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import type { Dharma } from '@/types/Dharma';
 import { Plus } from 'lucide-vue-next';
 import Modal from '@/components/modals/Modal.vue';
 import NewDharmaForm from '@/components/dharmas/NewDharmaForm.vue';
+import { DharmaService } from '@/services/DharmaService';
 
 defineProps<{
     mockDharmas: Dharma[];
     closed: boolean;
 }>();
+
+const dharmas = ref<Dharma[]>([]);
+const loading = ref(true);
+
+onMounted(async () => {
+    loading.value = true;
+    const serv = new DharmaService();
+
+    try {
+        dharmas.value = await serv.getUserDharmas();
+    } catch (err) {
+        console.error(err);
+    } finally {
+        loading.value = false;
+    }
+});
 
 const modalOpen = ref(false);
 
@@ -18,12 +35,13 @@ function openModal() {
 </script>
 
 <template>
-    <div class="flex flex-col gap-3 mt-10 text-text-primary">
+    <div v-if="loading">Carregando...</div>
+    <div v-else class="flex flex-col gap-3 mt-10 text-text-primary">
         <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden' : '']">
             Dharmas
         </h1>
         <button
-            v-for="d in mockDharmas"
+            v-for="d in dharmas"
             :key="d.id"
             :title="d.name"
             :class="[

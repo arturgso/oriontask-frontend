@@ -3,15 +3,15 @@ import type { Dharma, NewDharmaProps } from '@/types/Dharma';
 import Cookies from 'js-cookie';
 
 export class DharmaService {
-    async create(form: NewDharmaProps): Promise<Dharma> {
-        const userId = this.getUserId();
-        const token = this.getToken();
+    userId = this.getUserId();
+    token = this.getToken();
 
+    async create(form: NewDharmaProps): Promise<Dharma> {
         try {
-            const res = await api.post(`/dharma/${userId}/create`, form, {
+            const res = await api.post(`/dharma/${this.userId}/create`, form, {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${this.token}`,
                 },
             });
 
@@ -20,6 +20,16 @@ export class DharmaService {
             console.error(e);
             throw new Error('Error while creating dharma');
         }
+    }
+
+    async getUserDharmas(): Promise<Dharma[]> {
+        const res = await api.get(`/dharma/user/${this.userId}`, {
+            headers: {
+                Authorization: `Bearer ${this.token}`,
+            },
+        });
+
+        return res.data as Dharma[];
     }
 
     private getUserId(): string {
