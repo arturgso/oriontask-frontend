@@ -45,6 +45,7 @@ function toggleShowPassword() {
                 id="username"
                 v-model="form.login"
                 type="text"
+                autocapitalize="none"
                 :class="styles.input.defaultInput"
                 placeholder="johndoe"
                 required

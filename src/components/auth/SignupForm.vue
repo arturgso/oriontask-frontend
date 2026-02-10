@@ -67,6 +67,7 @@ function toggleShowPassword() {
                 id="email"
                 v-model="form.email"
                 type="email"
+                autocapitalize="none"
                 :class="styles.input.defaultInput"
                 placeholder="johndoe@mail.com"
                 required
