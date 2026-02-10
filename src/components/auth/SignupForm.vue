@@ -37,14 +37,14 @@ function toggleShowPassword() {
 </script>
 
 <template>
-    <form class="flex flex-col gap-3" @submit.prevent="submit">
+    <form class="flex flex-col gap-3 w-full" @submit.prevent="submit">
         <div class="flex flex-col gap-2">
             <label form="name">Nome</label>
             <input
                 id="name"
                 v-model="form.name"
                 type="text"
-                :class="styles.defaultInput"
+                :class="styles.input.defaultInput"
                 placeholder="John Doe"
                 required
             />
@@ -55,7 +55,7 @@ function toggleShowPassword() {
                 id="username"
                 v-model="form.username"
                 type="text"
-                :class="styles.defaultInput"
+                :class="styles.input.defaultInput"
                 placeholder="johndoe"
                 required
             />
@@ -67,18 +67,19 @@ function toggleShowPassword() {
                 id="email"
                 v-model="form.email"
                 type="email"
-                :class="styles.defaultInput"
+                :class="styles.input.defaultInput"
                 placeholder="johndoe@mail.com"
                 required
             />
         </div>
-        <div class="flex flex-col gap-2 relative">
+        <div class="relative"
+        :class="styles.input.inputDiv">
             <label form="password">Senha</label>
             <input
                 id="password"
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
-                :class="styles.defaultInput"
+                :class="styles.input.defaultInput"
                 placeholder="************"
                 required
             />

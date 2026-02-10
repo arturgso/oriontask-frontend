@@ -38,7 +38,7 @@ function toggleShowPassword() {
 </script>
 
 <template>
-    <form class="flex flex-col gap-3" @submit.prevent="submit">
+    <form class="flex flex-col gap-3 w-full" @submit.prevent="submit">
         <div class="flex flex-col gap-2">
             <label form="username">Nome de usuário</label>
             <input
@@ -66,12 +66,12 @@ function toggleShowPassword() {
             </button>
         </div>
 
-        <div class="flex items-center justify-between gap-12">
-            <div class="flex gap-2">
+        <div class="flex items-center justify-between gap-12 text-sm">
+            <div class="flex gap-2 items-center">
                 <input id="rememberMe" v-model="form.rememberMe" type="checkbox" />
                 <label form="rememberMe">Lembrar de mim</label>
             </div>
-            <a> Esqueceu a senha? </a>
+            <a class="whitespace-nowrap cursor-pointer hover:underline"> Esqueceu a senha? </a>
         </div>
         <button
             type="submit"
