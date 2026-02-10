@@ -72,8 +72,7 @@ function toggleShowPassword() {
                 required
             />
         </div>
-        <div class="relative"
-        :class="styles.input.inputDiv">
+        <div class="relative" :class="styles.input.inputDiv">
             <label form="password">Senha</label>
             <input
                 id="password"

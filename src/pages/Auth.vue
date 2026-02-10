@@ -47,7 +47,7 @@ function changePage() {
                         Cadastrar
                     </button>
                 </div>
-                
+
                 <LoginForm v-if="!page" />
                 <SignupForm v-else />
             </div>
