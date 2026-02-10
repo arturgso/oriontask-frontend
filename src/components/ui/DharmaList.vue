@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import type { Dharma } from '../../types/Dharma.ts';
+import type { Dharma } from '@/types/Dharma';
 import { Plus } from 'lucide-vue-next';
-import Modal from '../modals/Modal.vue';
+import Modal from '@/components/modals/Modal.vue';
+import NewDharmaForm from '@/components/dharmas/NewDharmaForm.vue';
 
 defineProps<{
     mockDharmas: Dharma[];
@@ -54,6 +55,6 @@ function openModal() {
         </button>
     </div>
     <Modal :open="modalOpen" :on-close="openModal">
-        <h1>Modal</h1>
+        <NewDharmaForm /> 
     </Modal>
 </template>

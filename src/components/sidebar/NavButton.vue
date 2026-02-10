@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Component } from 'vue';
 import { useRouter } from 'vue-router';
-import { styles } from '../../styles/DefaultStyles.ts';
+import { styles } from '@/styles/DefaultStyles';
 
 interface Props {
     icon: Component;
@@ -21,7 +21,7 @@ function handlePush() {
 
 <template>
     <button
-        :class="[styles.navButton.default, closed ? '' : styles.navButton.open]"
+        :class="[styles.input.navButton.default, closed ? '' : styles.input.navButton.open]"
         :title="props.title"
         @click="handlePush"
     >

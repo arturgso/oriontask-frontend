@@ -1,5 +1,5 @@
-import api from '../Api';
-import type { AuthResponse, LoginProps, SignupProps } from '../types/Auth';
+import api from '@/Api';
+import type { AuthResponse, LoginProps, SignupProps } from '@/types/Auth';
 import Cookie from 'js-cookie';
 
 export class AuthService {

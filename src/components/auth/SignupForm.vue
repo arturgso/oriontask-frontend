@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Eye, EyeOff } from 'lucide-vue-next';
-import { styles } from '../../styles/DefaultStyles.ts';
-import type { SignupProps } from '../../types/Auth.ts';
-import { AuthService } from '../../services/AuthService.ts';
+import { styles } from '@/styles/DefaultStyles';
+import type { SignupProps } from '@/types/Auth';
+import { AuthService } from '@/services/AuthService';
 
 const form = ref<SignupProps>({
     name: '',

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { LoginProps } from '../../types/Auth.ts';
+import type { LoginProps } from '@/types/Auth';
 import { Eye, EyeOff } from 'lucide-vue-next';
-import { styles } from '../../styles/DefaultStyles.ts';
+import { styles } from '@/styles/DefaultStyles';
 import { useRouter } from 'vue-router';
-import { AuthService } from '../../services/AuthService.ts';
+import { AuthService } from '@/services/AuthService';
 
 const router = useRouter();
 
@@ -45,7 +45,7 @@ function toggleShowPassword() {
                 id="username"
                 v-model="form.login"
                 type="text"
-                :class="styles.defaultInput"
+                :class="styles.input.defaultInput"
                 placeholder="johndoe"
                 required
             />
@@ -56,7 +56,7 @@ function toggleShowPassword() {
                 id="password"
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
-                :class="styles.defaultInput"
+                :class="styles.input.defaultInput"
                 placeholder="************"
                 required
             />

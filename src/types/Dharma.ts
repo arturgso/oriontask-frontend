@@ -8,3 +8,16 @@ export interface Dharma {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface NewDharmaProps {
+    name: string;
+    description?: string;
+    color: string;
+}
+
+export interface EditDharmaProps {
+    name: string;
+    description?: string;
+    color: string;
+    hidden: boolean;
+}

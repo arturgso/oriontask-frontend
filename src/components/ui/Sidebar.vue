@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import type { Dharma } from '../../types/Dharma.ts';
+import type { Dharma } from '@/types/Dharma';
 import { PanelLeftClose, Zap, List, User, Moon, LogOut } from 'lucide-vue-next';
 import { ref } from 'vue';
-import DharmaList from './DharmaList.vue';
-import Divider from './Divider.vue';
-import NavButton from '../sidebar/NavButton.vue';
-import SettingsSection from '../sidebar/SettingsSection.vue';
-import { styles } from '../../styles/DefaultStyles.ts';
+import DharmaList from '@/components/ui/DharmaList.vue';
+import Divider from '@/components/ui/Divider.vue';
+import NavButton from '@/components/sidebar/NavButton.vue';
+import SettingsSection from '@/components/sidebar/SettingsSection.vue';
+import { styles } from '@/styles/DefaultStyles';
 
 const mockDharmas: Dharma[] = [
     {
@@ -92,14 +92,14 @@ function collapsePanel() {
             <SettingsSection :closed="closed" />
             <button
                 title="Mudar tema"
-                :class="[styles.navButton.default, closed ? '' : styles.navButton.open]"
+                :class="[styles.input.navButton.default, closed ? '' : styles.input.navButton.open]"
             >
                 <Moon />
                 <p :class="[closed ? 'hidden' : '']">Modo Escuro</p>
             </button>
             <button
                 title="Sair"
-                :class="[styles.navButton.default, closed ? '' : styles.navButton.open]"
+                :class="[styles.input.navButton.default, closed ? '' : styles.input.navButton.open]"
             >
                 <LogOut class="text-red-600" />
                 <p :class="[closed ? 'hidden' : '']">Sair</p>
