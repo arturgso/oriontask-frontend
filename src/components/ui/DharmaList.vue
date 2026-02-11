@@ -35,7 +35,7 @@ function openModal() {
 
 <template>
     <div v-if="loading">Carregando...</div>
-    <div v-else class="flex flex-col gap-3 mt-10 text-text-primary">
+    <div v-else class="flex flex-col gap-3 text-text-primary">
         <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden' : '']">
             Dharmas
         </h1>

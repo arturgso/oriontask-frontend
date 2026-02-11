@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { PanelLeftClose, Zap, List, User, Moon, LogOut, Menu } from 'lucide-vue-next';
-import { onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import DharmaList from '@/components/ui/DharmaList.vue';
 import Divider from '@/components/ui/Divider.vue';
 import NavButton from '@/components/sidebar/NavButton.vue';
@@ -11,13 +11,23 @@ const closed = ref(false);
 const isMobileMenuOpen = ref(false)
 const isMobile = ref(false)
 
+const checkMobile = () => {
+    isMobile.value = window.innerWidth < 768;
+};
+
 onMounted(() => {
-    const checkMobile = () => {
-        isMobile.value = window.innerWidth < 768;
-    }
     checkMobile();
     window.addEventListener('resize', checkMobile);
-})
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', checkMobile);
+    document.body.style.overflow = '';
+});
+
+watch([isMobileMenuOpen, isMobile], ([menuOpen, mobile]) => {
+    document.body.style.overflow = menuOpen && mobile ? 'hidden' : '';
+});
 
 function collapsePanel() {
     closed.value = !closed.value;
@@ -40,9 +50,9 @@ function collapsePanel() {
             'bg-surface p-4 relative flex flex-col justify-between border-r border-border',
             isMobile && 'p-3 text-sm leading-tight',
             !isMobile && 'min-h-screen',
-            isMobile && 'h-[100dvh] overflow-y-auto',
+            isMobile && 'h-[100dvh] max-h-[100dvh] overflow-y-auto overscroll-contain pb-6',
             !isMobile && (closed ? 'max-w-16' : 'min-w-64'),
-            isMobile && 'fixed top-0 left-0 z-50 w-72 transition-transform duration-300',
+            isMobile && 'fixed top-0 left-0 z-50 w-[85vw] max-w-fit transition-transform duration-300',
             isMobile && !isMobileMenuOpen && '-translate-x-full'
         ]"
     >
@@ -91,13 +101,6 @@ function collapsePanel() {
         <div :class="['flex flex-col', isMobile ? 'gap-2' : 'gap-3']">
             <Divider />
             <SettingsSection :closed="closed" />
-            <button
-                title="Mudar tema"
-                :class="[styles.input.navButton.default, closed ? '' : styles.input.navButton.open]"
-            >
-                <Moon />
-                <p :class="[closed ? 'hidden' : '', isMobile ? 'text-xs' : '']">Modo Escuro</p>
-            </button>
             <button
                 title="Sair"
                 :class="[styles.input.navButton.default, closed ? '' : styles.input.navButton.open]"
