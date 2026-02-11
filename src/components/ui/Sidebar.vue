@@ -58,7 +58,7 @@ function collapsePanel() {
             isMobile && 'h-[100dvh] max-h-[100dvh] overflow-y-auto overscroll-contain',
             !isMobile && (closed ? 'w-16' : 'w-64'),
             isMobile && (closed ? 'w-0' : 'w-64'),
-            isMobile && !isMobileMenuOpen && '-translate-x-full', 
+            isMobile && !isMobileMenuOpen && '-translate-x-full',
         ]"
     >
         <!-- Collapse Button -->
@@ -74,10 +74,16 @@ function collapsePanel() {
         <div class="w-full">
             <div class="flex flex-col w-full">
                 <div
-                    :class="['w-full flex flex-col items-center gap-3', closed ? 'hidden' : '', isMobile ? 'mb-4 gap-2' : 'mb-6']"
+                    :class="[
+                        'w-full flex flex-col items-center gap-3',
+                        closed ? 'hidden' : '',
+                        isMobile ? 'mb-4 gap-2' : 'mb-6',
+                    ]"
                 >
                     <img src="/logo.svg" :class="isMobile ? 'w-12' : 'w-16'" />
-                    <h1 :class="['font-bold text-text-primary', isMobile ? 'text-lg' : 'text-xl']">OrionTask</h1>
+                    <h1 :class="['font-bold text-text-primary', isMobile ? 'text-lg' : 'text-xl']">
+                        OrionTask
+                    </h1>
                 </div>
 
                 <!-- Dharmas -->
