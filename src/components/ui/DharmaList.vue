@@ -9,9 +9,6 @@ defineProps<{
     closed: boolean;
 }>();
 
-// const dharmas = ref<Dharma[]>([]);
-// const loading = ref(true);
-
 const dharmaStore = useDharmaStore();
 const modalOpen = ref(false);
 
@@ -19,17 +16,6 @@ onMounted(() => {
     if (!dharmaStore.dharmas.length) {
         dharmaStore.fetchDharmas();
     }
-
-    // loading.value = true;
-    // const serv = new DharmaService();
-
-    // try {
-    //     dharmas.value = await serv.getUserDharmas();
-    // } catch (err) {
-    //     console.error(err);
-    // } finally {
-    //     loading.value = false;
-    // }
 });
 
 
