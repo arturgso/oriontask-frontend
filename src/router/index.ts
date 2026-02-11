@@ -1,6 +1,7 @@
 import Dashboard from '@/pages/Dashboard.vue';
 import Auth from '@/pages/Auth.vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import Dharmas from '@/pages/Dharmas.vue';
 
 const routes = [
     {
@@ -12,6 +13,11 @@ const routes = [
         path: '/auth',
         name: 'auth',
         component: Auth,
+    },
+    {
+        path: '/dharmas',
+        name: 'dharmas',
+        component: Dharmas,
     },
 ];
 

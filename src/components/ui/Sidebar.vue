@@ -37,8 +37,8 @@ function collapsePanel() {
 <template>
     <button
         v-if="isMobile && !isMobileMenuOpen"
-        @click="isMobileMenuOpen = true"
         class="fixed top-4 left-4 z-50 text-text-muted"
+        @click="isMobileMenuOpen = true"
     >
         <Menu />
     </button>
