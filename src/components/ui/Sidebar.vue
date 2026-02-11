@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { PanelLeftClose, Zap, List, User, Moon, LogOut, Menu } from 'lucide-vue-next';
+import { PanelLeftClose, Zap, List, User, LogOut, Menu } from 'lucide-vue-next';
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import DharmaList from '@/components/ui/DharmaList.vue';
 import Divider from '@/components/ui/Divider.vue';
