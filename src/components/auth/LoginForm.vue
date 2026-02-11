@@ -61,7 +61,11 @@ function toggleShowPassword() {
                 placeholder="************"
                 required
             />
-            <button :onclick="toggleShowPassword" class="absolute right-2 top-10 cursor-pointer">
+            <button
+                type="button"
+                :onclick="toggleShowPassword"
+                class="absolute right-2 top-10 cursor-pointer"
+            >
                 <Eye v-if="showPassword" />
                 <EyeOff v-else />
             </button>

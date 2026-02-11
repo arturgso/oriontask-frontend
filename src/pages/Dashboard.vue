@@ -15,8 +15,10 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="flex">
+    <div class="flex min-h-screen">
         <Sidebar />
-        <h1 class="text-4xl">Dashboard Page</h1>
+        <main class="flex-1 transition-all duration-300 md:ml-64">
+            <h1 class="text-4xl p-8">Dashboard Page</h1>
+        </main>
     </div>
 </template>

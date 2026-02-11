@@ -1,15 +1,33 @@
 <script setup lang="ts">
 import { X } from 'lucide-vue-next';
+import { nextTick, ref, watch } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     open: boolean;
     title: string;
     onClose: () => void;
 }>();
+
+const modalRef = ref<HTMLDivElement | null>(null);
+
+watch(
+    () => props.open,
+    async (isOpen) => {
+        if (isOpen) {
+            await nextTick();
+            modalRef.value?.focus();
+        }
+    },
+);
 </script>
 
 <template>
-    <div :class="['fixed inset-0 bg-black/60 z-50 grid place-items-center', open ? '' : 'hidden']">
+    <div
+        ref="modalRef"
+        @keydown.esc="onClose()"
+        tabindex="0"
+        :class="['fixed inset-0 bg-black/60 z-50 grid place-items-center', open ? '' : 'hidden']"
+    >
         <div
             class="relative w-full max-w-md rounded-md bg-white p-6 shadow-xl border-2 border-border"
         >
