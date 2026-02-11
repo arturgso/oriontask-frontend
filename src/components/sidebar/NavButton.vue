@@ -26,6 +26,6 @@ function handlePush() {
         @click="handlePush"
     >
         <component :is="props.icon" />
-        <p :class="[closed ? 'hidden' : '']">{{ props.text }}</p>
+        <p :class="[closed ? 'hidden' : '', 'min-w-0 truncate']">{{ props.text }}</p>
     </button>
 </template>
