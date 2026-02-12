@@ -18,7 +18,6 @@ onMounted(() => {
     }
 });
 
-
 function openModal() {
     modalOpen.value = !modalOpen.value;
 }

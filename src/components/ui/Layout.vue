@@ -11,16 +11,15 @@ onMounted(async () => {
 
     if (!ok) {
         await authService.logout();
-        route.push("/auth") 
+        route.push('/auth');
     }
-})
-
+});
 </script>
 
 <template>
     <Sidebar />
     <main class="px-4 mt-16">
-       <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3">
             <slot />
         </div>
     </main>
