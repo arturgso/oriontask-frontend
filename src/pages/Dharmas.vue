@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import EditDharmaForm from '@/components/dharmas/EditDharmaForm.vue';
 import Layout from '@/components/ui/Layout.vue';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { ChevronDown } from 'lucide-vue-next';
@@ -22,11 +23,11 @@ const isOpen = (id: number) => !!openById.value[id];
 
 <template>
     <Layout>
-        <div class="flex flex-col lg:grid lg:grid-cols-2 gap-3 relative">
+        <div class="flex flex-col lg:grid lg:grid-cols-2 gap-3 ">
             <div
                 v-for="d in dharmaStore.dharmas"
                 :key="d.id"
-                class="border-2 rounded-md border-border w-full flex flex-col justify-between p-3 bg-card hover:bg-surface hover:shadow-md transition duration-150"
+                class="border-2 rounded-md border-border w-full flex flex-col justify-between p-3 bg-card hover:shadow-md transition duration-150 relative"
                 @click="toggleOpen(d.id)"
             >
                 <div class="flex gap-3 items-center">
@@ -42,7 +43,9 @@ const isOpen = (id: number) => !!openById.value[id];
                     />
                 </button>
 
-                <div v-if="isOpen(d.id)">TEse</div>
+                <div v-if="isOpen(d.id)">
+                    <EditDharmaForm :dharma="d"/>
+                </div>
             </div>
         </div>
     </Layout>

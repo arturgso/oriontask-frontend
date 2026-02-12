@@ -11,11 +11,11 @@ export interface Dharma {
 
 export interface NewDharmaProps {
     name: string;
-    color?: string;
+    color: string;
 }
 
 export interface EditDharmaProps {
     name: string;
-    color?: string;
+    color: string;
     hidden: boolean;
 }
