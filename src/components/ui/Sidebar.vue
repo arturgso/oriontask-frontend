@@ -51,9 +51,9 @@ function collapsePanel() {
 
     <aside
         :class="[
-            'bg-surface p-4 flex flex-col border-r border-border fixed top-0 left-0 z-50 transition-all duration-300',
-            !isMobile && 'justify-between',
-            isMobile && 'p-3 text-sm leading-tight',
+            'bg-surface p-4 flex flex-col  border-r border-border  ',
+            !isMobile && 'justify-between relative',
+            isMobile && 'p-3 text-sm leading-tight fixed top-0 left-0 z-50 transition-all duration-300',
             'min-h-screen',
             isMobile && 'h-[100dvh] max-h-[100dvh] overflow-y-auto overscroll-contain',
             !isMobile && (closed ? 'w-16' : 'w-64'),
