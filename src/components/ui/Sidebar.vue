@@ -1,15 +1,26 @@
 <script lang="ts" setup>
-import { PanelLeftClose, Zap, List, User, LogOut, Menu } from 'lucide-vue-next';
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { PanelLeftClose, Zap, List, User, LogOut } from 'lucide-vue-next';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import DharmaList from '@/components/ui/DharmaList.vue';
 import Divider from '@/components/ui/Divider.vue';
 import NavButton from '@/components/sidebar/NavButton.vue';
 import SettingsSection from '@/components/sidebar/SettingsSection.vue';
 import { styles } from '@/styles/DefaultStyles';
 
+const props = defineProps<{
+    mobileMenuOpen?: boolean;
+}>();
+
+const emit = defineEmits<{
+    (e: 'update:mobileMenuOpen', value: boolean): void;
+}>();
+
 const closed = ref(false);
-const isMobileMenuOpen = ref(false);
 const isMobile = ref(false);
+const isMobileMenuOpen = computed({
+    get: () => props.mobileMenuOpen ?? false,
+    set: (value: boolean) => emit('update:mobileMenuOpen', value),
+});
 
 const checkMobile = () => {
     isMobile.value = window.innerWidth < 768;
@@ -35,14 +46,6 @@ function collapsePanel() {
 </script>
 
 <template>
-    <button
-        v-if="isMobile && !isMobileMenuOpen"
-        class="fixed top-4 left-4 z-50 text-text-muted"
-        @click="isMobileMenuOpen = true"
-    >
-        <Menu />
-    </button>
-
     <div
         v-if="isMobile && isMobileMenuOpen"
         class="fixed inset-0 bg-black/50 z-40"
