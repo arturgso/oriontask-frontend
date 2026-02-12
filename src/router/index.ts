@@ -1,4 +1,4 @@
-import Dashboard from '@/pages/Dashboard.vue';
+import Now from '@/pages/Now.vue';
 import Auth from '@/pages/Auth.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Dharmas from '@/pages/Dharmas.vue';
@@ -6,8 +6,8 @@ import Dharmas from '@/pages/Dharmas.vue';
 const routes = [
     {
         path: '/',
-        name: 'dashboard',
-        component: Dashboard,
+        name: 'now',
+        component: Now,
     },
     {
         path: '/auth',

@@ -111,7 +111,7 @@ function collapsePanel() {
                     Navegação
                 </h1>
                 <div :class="['flex flex-col', isMobile ? 'gap-2' : 'gap-3']">
-                    <NavButton title="Agora" :icon="Zap" text="Agora" push="now" :closed="closed" />
+                    <NavButton title="Agora" :icon="Zap" text="Agora" push="/" :closed="closed" />
                     <NavButton
                         title="Todos os dharmas"
                         :icon="List"
