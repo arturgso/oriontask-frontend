@@ -24,7 +24,7 @@ function toggleModal() {
     <ActionButton type="button" text="Nova task" width="auto" :icon="Plus" @click="toggleModal" />
 
     <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
-        <form @submit.prevent="" class="flex flex-col gap-3">
+        <form class="flex flex-col gap-3" @submit.prevent="">
             <div :class="styles.input.inputDiv">
                 <label form="title">Título</label>
                 <input
