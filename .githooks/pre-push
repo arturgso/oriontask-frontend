@@ -1,13 +1,5 @@
 #!/usr/bin/env sh
 set -e
 
-staged_files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx|vue|css|scss|html|json|md|yml|yaml)$' || true)
-
-if [ -n "$staged_files" ]; then
-  echo "pre-push: formatting staged files with bun/prettier..."
-  printf '%s\n' "$staged_files" | xargs bunx prettier --write
-  printf '%s\n' "$staged_files" | xargs git add
-fi
-
 echo "pre-push: validating build with bun..."
 bun run build
