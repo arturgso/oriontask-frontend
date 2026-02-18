@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { Menu } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, type Component } from 'vue';
 import Sidebar from './Sidebar.vue';
 
 const isMobileMenuOpen = ref(false);
+
+const props = defineProps<{
+    icon?: Component;
+    title: string;
+}>();
 </script>
 
 <template>
@@ -25,6 +30,12 @@ const isMobileMenuOpen = ref(false);
         <Sidebar v-model:mobile-menu-open="isMobileMenuOpen" />
         <div class="px-4 w-full pt-20 md:pt-0 md:mt-16">
             <div class="flex flex-col gap-3">
+                <div class="flex items-center gap-2">
+                    <component :is="props.icon" :size="32" color="#7c3aed" />
+                    <h1 class="text-3xl text-text-secondary font-bold">
+                        {{ props.title }}
+                    </h1>
+                </div>
                 <slot />
             </div>
         </div>
