@@ -1,10 +1,10 @@
 import api from '@/Api';
 import type { Dharma, NewDharmaProps } from '@/types/Dharma';
-import Cookies from 'js-cookie';
+import { getCookie } from '@/utils/AuthUtils';
 
 export class DharmaService {
-    userId = this.getUserId();
-    token = this.getToken();
+    userId = getCookie('uid');
+    token = getCookie('access_token');
 
     async create(form: NewDharmaProps): Promise<Dharma> {
         try {
@@ -30,21 +30,5 @@ export class DharmaService {
         });
 
         return res.data as Dharma[];
-    }
-
-    private getUserId(): string {
-        const uid = Cookies.get('uid');
-
-        if (!uid) throw new Error('User not Authenticated');
-
-        return uid;
-    }
-
-    private getToken(): string {
-        const token = Cookies.get('access_token');
-
-        if (!token) throw new Error('User not Authenticated');
-
-        return token;
     }
 }

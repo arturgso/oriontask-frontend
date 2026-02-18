@@ -6,17 +6,35 @@ import { ref } from 'vue';
 import { styles } from '@/styles/DefaultStyles';
 import type { NewTaskProps } from '@/types/Tasks';
 import { EFFORT_LABELS, EFFORT_LEVEL, KARMA_LABELS, KARMA_TYPES } from '@/types/Types';
+import { TasksService } from '@/services/TasksService';
+import { useDharmaStore } from '@/stores/dharmaStore';
+import { toast } from 'vue3-toastify';
 
 const form = ref<NewTaskProps>({
     title: '',
+    description: '',
     effortLevel: 'MEDIUM',
     karmaType: 'ACTION',
 });
+
+const DESCRIPTION_LIMIT = 200;
+const dharmasStore = useDharmaStore();
+const selectedDharma = ref<number | null>(null);
 
 const isModalOpen = ref(true);
 
 function toggleModal() {
     isModalOpen.value = !isModalOpen.value;
+}
+
+async function handleSubmit() {
+    const service = new TasksService();
+
+    const res = await service.create(form.value, selectedDharma.value);
+
+    if (res) {
+        toast.success('Task criado com sucesso');
+    }
 }
 </script>
 
@@ -24,7 +42,26 @@ function toggleModal() {
     <ActionButton type="button" text="Nova task" width="auto" :icon="Plus" @click="toggleModal" />
 
     <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
-        <form class="flex flex-col gap-3" @submit.prevent="">
+        <form class="flex flex-col gap-3" @submit.prevent="handleSubmit">
+            <div :class="styles.input.inputDiv">
+                <label for="dharmas">Dharmas</label>
+                <select
+                    id="Dharmas"
+                    v-model="selectedDharma"
+                    :class="styles.input.defaultInput"
+                    class="w-full"
+                >
+                    <option disabled value="null" hidden>Selecione o Dharma</option>
+                    <option
+                        v-for="option in dharmasStore.dharmas"
+                        :key="option.id"
+                        :value="option.id"
+                    >
+                        {{ option.name }}
+                    </option>
+                </select>
+            </div>
+
             <div :class="styles.input.inputDiv">
                 <label form="title">Título</label>
                 <input
@@ -33,8 +70,30 @@ function toggleModal() {
                     type="text"
                     required
                     placeholder="Saúde"
+                    autocomplete="off"
                     :class="styles.input.defaultInput"
                 />
+            </div>
+            <div :class="styles.input.inputDiv">
+                <label form="description">Descrição</label>
+                <textarea
+                    id="description"
+                    v-model="form.description"
+                    :maxlength="DESCRIPTION_LIMIT"
+                    :class="styles.input.defaultInput"
+                    autocomplete="off"
+                    class="min-h-28 max-h-28"
+                ></textarea>
+                <p
+                    class="text-end text-sm"
+                    :class="
+                        form.description.length >= DESCRIPTION_LIMIT
+                            ? 'text-red-500'
+                            : 'text-text-secondary'
+                    "
+                >
+                    {{ form.description.length }}/{{ DESCRIPTION_LIMIT }}
+                </p>
             </div>
             <div :class="styles.input.inputDiv">
                 <label form="effortLevel">Esforço</label>
@@ -63,7 +122,7 @@ function toggleModal() {
                     </option>
                 </select>
             </div>
-            <ActionButton type="submit" text="Criar" />
+            <ActionButton type="submit" text="Criar" extra-class="mt-4" />
         </form>
     </Modal>
 </template>
