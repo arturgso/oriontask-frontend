@@ -5,7 +5,10 @@ import { nextTick, ref, watch } from 'vue';
 const props = defineProps<{
     open: boolean;
     title: string;
-    onClose: () => void;
+}>();
+
+const emit = defineEmits<{
+    (e: 'close'): void;
 }>();
 
 const modalRef = ref<HTMLDivElement | null>(null);
@@ -19,6 +22,10 @@ watch(
         }
     },
 );
+
+function handleClose() {
+    emit('close');
+}
 </script>
 
 <template>
@@ -26,7 +33,7 @@ watch(
         ref="modalRef"
         tabindex="0"
         :class="['fixed inset-0 bg-black/60 z-50 grid place-items-center', open ? '' : 'hidden']"
-        @keydown.esc="onClose()"
+        @keydown.esc="handleClose"
     >
         <div
             class="relative w-full max-w-md rounded-md bg-white p-6 shadow-xl border-2 border-border"
@@ -36,7 +43,7 @@ watch(
             </h1>
             <button
                 class="text-text-primary absolute top-3 right-3 hover:bg-surface rounded-full p-1"
-                @click="onClose()"
+                @click="handleClose"
             >
                 <X />
             </button>
