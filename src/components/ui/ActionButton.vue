@@ -6,6 +6,7 @@ const props = defineProps<{
     text: string;
     width?: string;
     icon?: Component;
+    extraClass?: string;
 }>();
 
 const emit = defineEmits<{
@@ -16,7 +17,8 @@ const emit = defineEmits<{
 <template>
     <button
         :type="props.type"
-        class="p-2 bg-accent rounded-md font-bold text-white text-lg mt-4 hover:bg-accent-hover transition duration-150 hover:shadow-lg flex items-center gap-1"
+        class="p-2 bg-accent rounded-md font-bold text-white text-lg hover:bg-accent-hover transition duration-150 hover:shadow-lg flex items-center gap-1"
+        :class="props.extraClass"
         :style="{ width: props.width ?? '100%' }"
         @click="emit('click')"
     >

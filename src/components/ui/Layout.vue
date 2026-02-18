@@ -2,7 +2,6 @@
 import { Menu } from 'lucide-vue-next';
 import { ref, type Component } from 'vue';
 import Sidebar from './Sidebar.vue';
-import NewTaskButon from '../tasks/NewTaskButon.vue';
 
 const isMobileMenuOpen = ref(false);
 
@@ -39,7 +38,9 @@ const props = defineProps<{
                             {{ props.title }}
                         </h1>
                     </div>
-                    <NewTaskButon />
+                    <div v-if="sideComponent">
+                        <component :is="sideComponent" />
+                    </div>
                 </div>
                 <slot />
             </div>

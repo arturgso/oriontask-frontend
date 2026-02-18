@@ -22,7 +22,7 @@ const isOpen = (id: number) => !!openById.value[id];
 </script>
 
 <template>
-    <Layout>
+    <Layout title="Todos os dharmas">
         <div class="flex flex-col lg:grid lg:grid-cols-2 lg:items-start gap-3">
             <div
                 v-for="d in dharmaStore.dharmas"
@@ -44,7 +44,7 @@ const isOpen = (id: number) => !!openById.value[id];
                 </button>
 
                 <div v-if="isOpen(d.id)">
-                    <EditDharmaForm :dharma="d"/>
+                    <EditDharmaForm :dharma="d" />
                 </div>
             </div>
         </div>
