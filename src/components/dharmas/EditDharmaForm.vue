@@ -30,7 +30,7 @@ const form = ref<EditDharmaProps>({
         <div class="flex items-center gap-2">
         <ActionButton type="submit" text="Salvar" />
         <button class="p-2 bg-red-500 rounded-md font-bold text-white  mt-4 hover:bg-red-700 transition duration-150 hover:shadow-lg ">
-            <Trash :size="28"/>
+        <Trash :size="28"/>
         </button>
         </div>
     </form>
