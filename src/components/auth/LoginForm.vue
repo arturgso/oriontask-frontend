@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-vue-next';
 import { styles } from '@/styles/DefaultStyles';
 import { useRouter } from 'vue-router';
 import { AuthService } from '@/services/AuthService';
+import { toast } from 'vue3-toastify';
 
 const router = useRouter();
 
@@ -20,12 +21,13 @@ async function submit() {
     try {
         const res = await authService.login(form.value);
         if (res === 200) {
-            alert('Logado com sucesso');
+            toast.success('Logado com sucesso');
             setTimeout(() => {
                 router.push('/');
             }, 1500);
         }
     } catch (e) {
+        toast.error('Email ou senha incorretas');
         console.error(e);
     }
 }
