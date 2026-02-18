@@ -23,11 +23,11 @@ const isOpen = (id: number) => !!openById.value[id];
 
 <template>
     <Layout>
-        <div class="flex flex-col lg:grid lg:grid-cols-2 gap-3 ">
+        <div class="flex flex-col lg:grid lg:grid-cols-2 lg:items-start gap-3">
             <div
                 v-for="d in dharmaStore.dharmas"
                 :key="d.id"
-                class="border-2 rounded-md border-border w-full flex flex-col justify-between p-3 bg-card hover:shadow-md transition duration-150 relative"
+                class="border-2 rounded-md border-border w-full h-fit flex flex-col p-3 bg-card hover:shadow-md transition duration-150 relative"
                 @click="toggleOpen(d.id)"
             >
                 <div class="flex gap-3 items-center">

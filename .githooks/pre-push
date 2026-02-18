@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+set -e
+
+echo "pre-push: validating build with bun..."
+bun run build

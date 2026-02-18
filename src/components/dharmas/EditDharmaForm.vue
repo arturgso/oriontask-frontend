@@ -3,6 +3,7 @@ import { styles } from '@/styles/DefaultStyles';
 import type { Dharma, EditDharmaProps } from '@/types/Dharma';
 import { ref } from 'vue';
 import ColorPicker from './ColorPicker.vue';
+import ActionButton from '../ui/ActionButton.vue';
 
 const props = defineProps<{
     dharma: Dharma
@@ -22,8 +23,9 @@ const form = ref<EditDharmaProps>({
             <label for="name">
                 Nome
             </label>
-            <input :class="styles.input.defaultInput" id="name" :placeholder="dharma.name"/>  
+            <input id="name" :class="styles.input.defaultInput"  :placeholder="dharma.name"/>  
         </div>
         <ColorPicker v-model:color="form.color" /> 
+        <ActionButton type="submit" text="Salvar" />
     </form>
 </template>

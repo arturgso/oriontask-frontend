@@ -24,9 +24,9 @@ watch(
 <template>
     <div
         ref="modalRef"
-        @keydown.esc="onClose()"
         tabindex="0"
         :class="['fixed inset-0 bg-black/60 z-50 grid place-items-center', open ? '' : 'hidden']"
+        @keydown.esc="onClose()"
     >
         <div
             class="relative w-full max-w-md rounded-md bg-white p-6 shadow-xl border-2 border-border"
