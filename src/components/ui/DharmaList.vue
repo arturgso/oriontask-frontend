@@ -61,7 +61,7 @@ function openModal() {
             <p :class="[closed ? 'hidden' : '']">Novo Dharma</p>
         </button>
     </div>
-    <Modal :open="modalOpen" @close="openModal" title="novo dharma">
+    <Modal :open="modalOpen" title="novo dharma" @close="openModal">
         <NewDharmaForm @success="modalOpen = false" />
     </Modal>
 </template>
