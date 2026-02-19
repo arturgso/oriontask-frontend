@@ -34,7 +34,7 @@ const props = defineProps<{
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <component :is="props.icon" :size="32" color="#7c3aed" />
-                        <h1 class="text-3xl text-text-secondary font-bold">
+                        <h1 class="text-3xl text-text-secondary font-bold capitalize">
                             {{ props.title }}
                         </h1>
                     </div>
