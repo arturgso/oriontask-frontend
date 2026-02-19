@@ -27,6 +27,25 @@ export class TasksService {
         }
     }
 
+    async fetchByDharma(dharmaId: number): Promise<Tasks[]> {
+        if (dharmaId === null) {
+            throw new Error('id not defined');
+        }
+
+        try {
+            const res = await api.get(`${this.TASKS_ENDPOINT}/dharmas/${dharmaId}`, {
+                headers: {
+                    Authorization: `Bearer ${this.token}`,
+                },
+            });
+
+            return res.data.content;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while fetching tasks');
+        }
+    }
+
     async listAllUserTasks(): Promise<Tasks[]> {
         try {
             const res = await api.get(`${this.TASKS_ENDPOINT}/user/${this.uid}`, {

@@ -25,6 +25,22 @@ export const useTasksStore = defineStore('tasks', () => {
         }
     }
 
+    async function fetchTasksByDharma(dharmaId: number): Promise<Tasks[]> {
+        loading.value = true;
+        error.value = null;
+
+        try {
+            const res = await serv.fetchByDharma(dharmaId);
+            return res as Tasks[];
+        } catch (e) {
+            console.error(e);
+            error.value = 'Erro enquanto fazia fetch das tasks';
+            return [];
+        } finally {
+            loading.value = false;
+        }
+    }
+
     async function fetchCurrentTasks() {
         loading.value = true;
         error.value = null;
@@ -46,5 +62,6 @@ export const useTasksStore = defineStore('tasks', () => {
         error,
         fetchTasks,
         fetchCurrentTasks,
+        fetchTasksByDharma,
     };
 });
