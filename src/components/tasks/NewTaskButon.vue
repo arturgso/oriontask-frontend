@@ -21,7 +21,7 @@ const DESCRIPTION_LIMIT = 200;
 const dharmasStore = useDharmaStore();
 const selectedDharma = ref<number | null>(null);
 
-const isModalOpen = ref(true);
+const isModalOpen = ref(false);
 
 function toggleModal() {
     isModalOpen.value = !isModalOpen.value;
@@ -82,6 +82,7 @@ async function handleSubmit() {
                     :maxlength="DESCRIPTION_LIMIT"
                     :class="styles.input.defaultInput"
                     autocomplete="off"
+                    placeholder="Digite a descrição"
                     class="min-h-28 max-h-28"
                 ></textarea>
                 <p
