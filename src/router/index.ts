@@ -3,6 +3,7 @@ import Auth from '@/pages/Auth.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Dharmas from '@/pages/Dharmas.vue';
 import { AuthService } from '@/services/AuthService';
+import DharmasDetails from '@/pages/DharmasDetails.vue';
 
 const routes = [
     {
@@ -20,6 +21,12 @@ const routes = [
         name: 'dharmas',
         component: Dharmas,
     },
+    {
+        path: '/dharmas/:id',
+        name: 'dharmas-details',
+        component: DharmasDetails,
+        props: true,
+    },
 ];
 
 const router = createRouter({
@@ -27,9 +34,9 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach(async (to)  => {
+router.beforeEach(async (to) => {
     if (to.name === 'auth') {
-        return true
+        return true;
     }
 
     const authService = new AuthService();
@@ -37,10 +44,10 @@ router.beforeEach(async (to)  => {
 
     if (!ok) {
         await authService.logout();
-        return {name: 'auth'};
+        return { name: 'auth' };
     }
 
-    return true
-})
+    return true;
+});
 
 export default router;

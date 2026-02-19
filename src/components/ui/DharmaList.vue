@@ -4,11 +4,13 @@ import { Plus } from 'lucide-vue-next';
 import Modal from '@/components/modals/Modal.vue';
 import NewDharmaForm from '@/components/dharmas/NewDharmaForm.vue';
 import { useDharmaStore } from '@/stores/dharmaStore';
+import { useRouter } from 'vue-router';
 
 defineProps<{
     closed: boolean;
 }>();
 
+const router = useRouter();
 const dharmaStore = useDharmaStore();
 const modalOpen = ref(false);
 
@@ -37,6 +39,7 @@ function openModal() {
                 'flex flex-row items-center gap-2 rounded-lg hover:bg-card transtion duration-150',
                 closed ? '' : 'border border-border p-2',
             ]"
+            @click="router.push(`/dharmas/${d.id}`)"
         >
             <div
                 :title="d.name"
