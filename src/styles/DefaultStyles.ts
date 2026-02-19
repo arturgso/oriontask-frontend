@@ -8,4 +8,9 @@ export const styles = {
             open: 'p-2 border-b-2 border-border shadow-sm border-border hover:bg-card hover:shadow-md',
         },
     },
+
+    card: {
+        surface:
+            'border-2 rounded-md border-border w-full h-fit flex flex-col p-3 bg-card hover:shadow-md transition duration-150',
+    },
 };
