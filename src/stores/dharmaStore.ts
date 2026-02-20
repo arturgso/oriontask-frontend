@@ -1,7 +1,7 @@
 import { DharmaService } from '@/services/DharmaService';
 import type { Dharma, NewDharmaProps } from '@/types/Dharma';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 export const useDharmaStore = defineStore('dharma', () => {
     const dharmas = ref<Dharma[]>([]);
@@ -30,9 +30,19 @@ export const useDharmaStore = defineStore('dharma', () => {
         return newDharma;
     }
 
-    const dharmaById = computed(() => {
-        return (id: number) => dharmas.value.find((d) => d.id === id);
-    });
+    function dharmaById(id: number) {
+        return dharmas.value.find((d) => d.id === id);
+    }
+
+    function getDharmaColor(id: number): string {
+        const dharma = dharmaById(id);
+
+        if (!dharma) {
+            return '#000000';
+        }
+
+        return dharma.color;
+    }
 
     return {
         dharmas,
@@ -41,5 +51,6 @@ export const useDharmaStore = defineStore('dharma', () => {
         fetchDharmas,
         createDharma,
         dharmaById,
+        getDharmaColor,
     };
 });

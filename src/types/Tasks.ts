@@ -1,4 +1,4 @@
-import type { EffortLevel, KarmaType } from './Types';
+import type { EffortLevel, KarmaType, TaskStatus } from './Types';
 
 export interface NewTaskProps {
     title: string;
@@ -14,10 +14,10 @@ export interface Tasks {
     description: string;
     effortLevel: EffortLevel;
     karmaType: KarmaType;
-    status: string; //TODO - Change to const, same as EffortLevel or KarmaType
+    status: TaskStatus;
     hidden: boolean;
-    completedAt: Date;
-    snoozedUntil: Date;
-    createdAt: Date;
-    updatedAt: Date;
+    completedAt: number;
+    snoozedUntil: number;
+    createdAt: number;
+    updatedAt: number;
 }
