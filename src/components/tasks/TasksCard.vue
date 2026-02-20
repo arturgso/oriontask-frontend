@@ -2,10 +2,12 @@
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { styles } from '@/styles/DefaultStyles';
 import type { Tasks } from '@/types/Tasks';
-import { ChevronDown, ChevronUp } from 'lucide-vue-next';
+import { Check, ChevronDown, ChevronUp, Clock } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import Divider from '../ui/Divider.vue';
+import VerticalDivider from '../ui/VerticalDivider.vue';
 import { EFFORT_LABELS, KARMA_LABELS, TASKS_LABELS } from '@/types/Types';
+import TaskCardButton from './TaskCardButton.vue';
 
 const props = defineProps<{ task: Tasks }>();
 const MAX_DESC_LENGTH = 60;
@@ -49,52 +51,48 @@ function formatTimestamp(timestamp: number) {
 </script>
 
 <template>
-    <div :class="[styles.card.surface, 'gap-3']">
-        <!-- Header -->
-        <header class="flex gap-2 items-center">
-            <div class="w-4 h-4" :style="{ backgroundColor: dharmaColor }" />
-            <h1 class="capitalize">{{ props.task.title }}</h1>
-        </header>
+    <div :class="styles.card.surface" class="!p-0 !flex-row !border-l-0">
+        <div class="w-2 rounded-l-md self-stretch" :style="{ backgroundColor: dharmaColor }"></div>
 
-        <!-- Body -->
-        <div>
-            <div class="relative bg-surface p-4 rounded-md" v-if="props.task.description">
-                <p class="pr-16 text-text-secondary break-words">
-                    {{ displayText }}
-                </p>
-                <button
-                    v-if="props.task.description.length > MAX_DESC_LENGTH"
-                    @click="toggle"
-                    class="absolute top-3 right-3"
-                >
-                    <div v-if="expanded">
-                        <ChevronUp />
-                    </div>
-                    <div v-else>
-                        <ChevronDown />
-                    </div>
-                </button>
+        <div class="flex-1 p-4 gap-4">
+            <h1 class="font-bold text-lg">{{ task.title }}</h1>
+            <div class="flex flex-col gap-3">
+                <div v-if="props.task.description" class="relative">
+                    <p class="pr-16 text-text-secondary break-words">
+                        {{ displayText }}
+                    </p>
+                    <button
+                        v-if="props.task.description.length > MAX_DESC_LENGTH"
+                        class="mt-1 text-text-secondary hover:underline"
+                        @click="toggle"
+                    >
+                        <div v-if="expanded">Ver menos...</div>
+                        <div v-else>Ver mais...</div>
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-sm font-bold py-1 px-2 bg-blue-600 text-white rounded-full">
+                        {{ TASKS_LABELS[task.status] }}
+                    </span>
+                    <span class="text-sm font-bold py-1 px-2 bg-[#EF4444] text-white rounded-full">
+                        {{ EFFORT_LABELS[task.effortLevel] }}
+                    </span>
+                    <span class="text-sm font-bold py-1 px-2 bg-[#DB2777] text-white rounded-full">
+                        {{ KARMA_LABELS[task.karmaType] }}
+                    </span>
+                </div>
             </div>
-            <Divider />
-            <div class="flex gap-2">
-                <span class="text-sm font-bold py-1 px-2 bg-blue-600 text-white rounded-full">
-                    {{ TASKS_LABELS[task.status] }}
-                </span>
-                <span class="text-sm font-bold py-1 px-2 bg-[#EF4444] text-white rounded-full">
-                    {{ EFFORT_LABELS[task.effortLevel] }}
-                </span>
-                <span class="text-sm font-bold py-1 px-2 bg-[#DB2777] text-white rounded-full">
-                    {{ KARMA_LABELS[task.karmaType] }}
-                </span>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <Divider />
-        <div>
-            <button>Depois</button>
-            <button>Concluir</button>
-            <span>{{ formatTimestamp(props.task.createdAt) }}</span>
+            <Divider :margin="true" />
+            <footer class="mt-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <TaskCardButton text="Adiar" :icon="Clock" />
+                    <TaskCardButton text="Concluir" :icon="Check" />
+                </div>
+                <div class="text-sm text-text-secondary">
+                    Criada em: <br />
+                    {{ formatTimestamp(task.createdAt) }}
+                </div>
+            </footer>
         </div>
     </div>
 </template>

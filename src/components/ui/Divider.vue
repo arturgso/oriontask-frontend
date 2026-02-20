@@ -1,5 +1,9 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps<{
+    margin?: boolean;
+}>();
+</script>
 
 <template>
-    <div class="w-full border border-border my-4 rounded-lg"></div>
+    <div class="w-full border border-border rounded-lg" :class="margin ? 'my-4' : ''"></div>
 </template>
