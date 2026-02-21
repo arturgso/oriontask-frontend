@@ -1,13 +1,30 @@
 <script lang="ts" setup>
+import { AuthService } from '@/services/AuthService';
+import Cookie from 'js-cookie';
 import { ref } from 'vue';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import LoginForm from '@/components/auth/LoginForm.vue';
 import SignupForm from '@/components/auth/SignupForm.vue';
 
 const page = ref(false);
+const router = useRouter();
 
 function changePage() {
     return (page.value = !page.value);
 }
+
+onMounted(async () => {
+    const token = Cookie.get('access_token');
+    if (!token) return;
+
+    const authService = new AuthService();
+    const ok = await authService.validateToken();
+
+    if (ok) {
+        router.push('/');
+    }
+});
 </script>
 
 <template>

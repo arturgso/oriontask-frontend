@@ -6,6 +6,7 @@ import { AuthService } from '@/services/AuthService';
 import DharmasDetails from '@/pages/DharmasDetails.vue';
 import Profile from '@/pages/Profile.vue';
 import Settings from '@/pages/Settings.vue';
+import NotFound from '@/pages/NotFound.vue';
 
 const routes = [
     {
@@ -39,6 +40,11 @@ const routes = [
         name: 'settings',
         component: Settings,
     },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: NotFound,
+    },
 ];
 
 const router = createRouter({
@@ -47,7 +53,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-    if (to.name === 'auth') {
+    if (to.name === 'auth' || to.name === 'not-found') {
         return true;
     }
 
