@@ -35,6 +35,8 @@ const displayText = computed(() => {
     return expanded.value ? props.task.description : truncatedText.value;
 });
 
+// function snoozedNextOrWaiting(task)
+
 function toggle() {
     expanded.value = !expanded.value;
 }
@@ -80,7 +82,7 @@ function formatTimestamp(timestamp: number) {
             <Divider :margin="true" />
             <footer class="mt-4 flex justify-between items-center">
                 <div class="flex items-center gap-3">
-                    <TaskCardButton text="Adiar" :icon="Clock" />
+                    <!-- <TaskCardButton :text="task.snoozedUntil ? " :icon="Clock" /> -->
                     <TaskCardButton text="Concluir" :icon="Check" />
                 </div>
                 <div class="text-sm text-text-secondary">

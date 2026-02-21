@@ -11,43 +11,40 @@ function changePage() {
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col justify-center items-center bg-background">
-        <div class="max-w-[26rem] md:min-w-[26rem] w-full px-4 md:px-0 flex flex-col gap-4">
-            <div
-                class="bg-card shadow-lg border border-border gap-6 p-4 md:p-8 rounded-md flex flex-col items-center"
-            >
-                <div class="flex flex-col items-center w-full gap-3">
-                    <div class="w-[5rem]">
-                        <img src="/logo.svg" />
-                    </div>
-                    <div class="text-center">
-                        <h1 class="text-text-primary text-3xl font-bold">OrionTask</h1>
-                        <p class="text-text-secondary">Tarefas com propósito</p>
-                    </div>
-                </div>
-                <div
-                    class="flex items-center justify-between w-full gap-3 bg-surface shadow-lg border border-border rounded-md"
-                >
-                    <button
-                        :onClick="changePage"
-                        :class="[
-                            'w-full p-1 rounded-l-md font-bold',
-                            page ? '' : 'bg-accent text-white',
-                        ]"
-                    >
-                        Entrar
-                    </button>
-                    <button
-                        :onClick="changePage"
-                        :class="[
-                            'w-full p-1 rounded-r-md font-bold',
-                            !page ? '' : 'bg-accent text-white',
-                        ]"
-                    >
-                        Cadastrar
-                    </button>
-                </div>
+    <div class="min-h-screen flex items-center justify-center bg-background px-4">
+        <div class="w-full max-w-[26rem] border border-border rounded-md bg-card p-6 md:p-8">
+            <div class="flex flex-col items-center gap-2">
+                <img src="/logo.svg" class="w-10" />
+                <h1 class="text-text-primary text-2xl font-semibold tracking-tight">OrionTask</h1>
+                <p class="text-text-secondary text-sm">Tarefas com propósito</p>
+            </div>
 
+            <div class="mt-7 border-b border-border flex">
+                <button
+                    @click="changePage"
+                    :class="[
+                        'w-1/2 pb-2 text-sm font-medium transition-colors',
+                        !page
+                            ? 'text-accent border-b-2 border-accent -mb-px'
+                            : 'text-text-secondary hover:text-text-primary',
+                    ]"
+                >
+                    Entrar
+                </button>
+                <button
+                    @click="changePage"
+                    :class="[
+                        'w-1/2 pb-2 text-sm font-medium transition-colors',
+                        page
+                            ? 'text-accent border-b-2 border-accent -mb-px'
+                            : 'text-text-secondary hover:text-text-primary',
+                    ]"
+                >
+                    Cadastrar
+                </button>
+            </div>
+
+            <div class="mt-6">
                 <LoginForm v-if="!page" />
                 <SignupForm v-else />
             </div>

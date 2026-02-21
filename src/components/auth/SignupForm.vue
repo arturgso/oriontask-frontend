@@ -37,60 +37,84 @@ function toggleShowPassword() {
 </script>
 
 <template>
-    <form class="flex flex-col gap-3 w-full" @submit.prevent="submit">
+    <form class="flex flex-col gap-4 w-full" @submit.prevent="submit">
         <div class="flex flex-col gap-2">
-            <label form="name">Nome</label>
+            <label
+                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                form="name"
+            >
+                Nome
+            </label>
             <input
                 id="name"
                 v-model="form.name"
                 type="text"
-                :class="styles.input.defaultInput"
+                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                 placeholder="John Doe"
                 required
             />
         </div>
         <div class="flex flex-col gap-2">
-            <label form="username">Nome de usuário</label>
+            <label
+                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                form="username"
+            >
+                Nome de usuário
+            </label>
             <input
                 id="username"
                 v-model="form.username"
                 type="text"
-                :class="styles.input.defaultInput"
+                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                 placeholder="johndoe"
                 required
             />
         </div>
 
         <div class="flex flex-col gap-2">
-            <label form="email">Email</label>
+            <label
+                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                form="email"
+            >
+                Email
+            </label>
             <input
                 id="email"
                 v-model="form.email"
                 type="email"
                 autocapitalize="none"
-                :class="styles.input.defaultInput"
+                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                 placeholder="johndoe@mail.com"
                 required
             />
         </div>
         <div class="relative" :class="styles.input.inputDiv">
-            <label form="password">Senha</label>
+            <label
+                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                form="password"
+            >
+                Senha
+            </label>
             <input
                 id="password"
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
-                :class="styles.input.defaultInput"
+                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 pr-10 focus:outline-none focus:ring-0 focus:border-accent`"
                 placeholder="************"
                 required
             />
-            <button :onclick="toggleShowPassword" class="absolute right-2 top-10 cursor-pointer">
-                <Eye v-if="showPassword" />
-                <EyeOff v-else />
+            <button
+                @click="toggleShowPassword"
+                type="button"
+                class="absolute right-2.5 top-9 cursor-pointer text-text-muted hover:text-text-primary transition-colors"
+            >
+                <Eye v-if="showPassword" :size="18" />
+                <EyeOff v-else :size="18" />
             </button>
         </div>
         <button
             type="submit"
-            class="bg-accent p-2 rounded-md mt-2 text-white font-bold hover:bg-accent-hover cursor-pointer transition duration-150"
+            class="bg-accent p-2.5 rounded-sm mt-1 text-white font-medium hover:bg-accent-hover cursor-pointer transition-colors duration-150"
         >
             Cadastrar
         </button>
