@@ -1,0 +1,56 @@
+<script setup lang="ts">
+import type { Tasks } from '@/types/Tasks';
+import { computed, ref } from 'vue';
+import EffortLevelBadge from './EffortLevelBadge.vue';
+import KarmaTypeBadge from './KarmaTypeBadge.vue';
+import StatusBadge from './StatusBadge.vue';
+
+const props = defineProps<{ task: Tasks }>();
+const MAX_DESC_LENGTH = 60;
+
+const expanded = ref(false);
+
+const isTruncated = computed(() => {
+    return props.task.description.length > MAX_DESC_LENGTH;
+});
+
+const truncatedText = computed(() => {
+    if (!isTruncated.value) return props.task.description;
+
+    const sliced = props.task.description.slice(0, MAX_DESC_LENGTH);
+    const lastSpace = sliced.lastIndexOf(' ');
+
+    return sliced.slice(0, lastSpace > 0 ? lastSpace : MAX_DESC_LENGTH).trimEnd() + '...';
+});
+
+const displayText = computed(() => {
+    return expanded.value ? props.task.description : truncatedText.value;
+});
+
+function toggle() {
+    expanded.value = !expanded.value;
+}
+</script>
+
+<template>
+    <div class="flex flex-col gap-3 mt-3">
+        <div v-if="props.task.description" class="relative">
+            <p class="text-sm text-text-secondary break-words leading-relaxed">
+                {{ displayText }}
+            </p>
+            <button
+                v-if="props.task.description.length > MAX_DESC_LENGTH"
+                class="mt-1 text-xs font-medium text-accent hover:text-accent-hover transition-colors"
+                @click="toggle"
+            >
+                <div v-if="expanded">Ver menos...</div>
+                <div v-else>Ver mais...</div>
+            </button>
+        </div>
+        <div class="flex gap-2 flex-wrap">
+            <StatusBadge :status="task.status" />
+            <EffortLevelBadge :level="task.effortLevel" />
+            <KarmaTypeBadge :type="task.karmaType" />
+        </div>
+    </div>
+</template>
