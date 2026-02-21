@@ -35,9 +35,10 @@ const props = defineProps<{
         <div class="px-4 w-full pt-20 md:pt-0 md:mt-16">
             <div class="flex flex-col gap-3">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <component :is="props.icon" :size="32" color="#7c3aed" />
-                        <h1 class="text-3xl text-text-secondary font-bold capitalize">
+                    <div class="flex items-center">
+                        <h1
+                            class="text-2xl text-text-primary font-semibold tracking-tight capitalize"
+                        >
                             {{ props.title }}
                         </h1>
                     </div>

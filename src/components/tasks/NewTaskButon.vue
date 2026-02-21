@@ -39,7 +39,14 @@ async function handleSubmit() {
 </script>
 
 <template>
-    <ActionButton type="button" text="Nova task" width="auto" :icon="Plus" @click="toggleModal" />
+    <ActionButton
+        type="button"
+        text="Nova task"
+        width="auto"
+        :icon="Plus"
+        extra-class="!bg-accent/10 !text-accent !border !border-accent/30 !rounded-sm !text-sm !font-medium !hover:bg-accent/15 !hover:shadow-none"
+        @click="toggleModal"
+    />
 
     <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
         <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
