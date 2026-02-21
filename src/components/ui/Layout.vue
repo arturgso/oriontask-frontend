@@ -15,17 +15,20 @@ const props = defineProps<{
 <template>
     <main class="flex gap-3 min-h-screen">
         <header
-            class="md:hidden fixed top-0 left-0 right-0 z-30 h-16 px-4 border-b border-border bg-surface flex items-center justify-between"
+            class="md:hidden fixed top-0 left-0 right-0 z-30 h-16 px-4 border-b border-border bg-background/95 backdrop-blur-sm flex items-center justify-between"
         >
-            <button class="text-text-muted" @click="isMobileMenuOpen = true">
-                <Menu />
+            <button
+                class="h-9 w-9 flex items-center justify-center rounded-sm border border-transparent text-text-muted transition-colors hover:text-accent hover:bg-surface"
+                @click="isMobileMenuOpen = true"
+            >
+                <Menu :size="18" />
             </button>
 
-            <div class="flex items-center gap-2">
-                <img src="/logo.svg" class="w-8" />
-                <h1 class="font-bold text-text-primary text-lg">OrionTask</h1>
+            <div class="flex items-center gap-2.5">
+                <img src="/logo.svg" class="w-7" />
+                <h1 class="font-semibold tracking-tight text-text-primary text-base">OrionTask</h1>
             </div>
-            <div class="w-6" />
+            <div class="w-9" />
         </header>
 
         <Sidebar v-model:mobile-menu-open="isMobileMenuOpen" />

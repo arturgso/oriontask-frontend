@@ -1,24 +1,51 @@
 import api from '@/Api';
-import type { NewTaskProps, Tasks } from '@/types/Tasks';
+import type { NewTaskProps, TaskUpdateProps, Tasks } from '@/types/Tasks';
+import type { TaskStatus } from '@/types/Types';
 import { getCookie } from '@/utils/AuthUtils';
 
 export class TasksService {
-    private token = getCookie('access_token');
-    private uid = getCookie('uid');
-    private TASKS_ENDPOINT = '/tasks';
+    private readonly TASKS_ENDPOINT = '/tasks';
+
+    private getAuthHeaders() {
+        try {
+            const token = getCookie('access_token');
+            return { Authorization: `Bearer ${token}` };
+        } catch {
+            return {};
+        }
+    }
+
+    private unwrapTasksResponse(data: unknown): Tasks[] {
+        if (Array.isArray(data)) {
+            return data as Tasks[];
+        }
+
+        if (data && typeof data === 'object' && Array.isArray((data as { content?: unknown[] }).content)) {
+            return (data as { content: Tasks[] }).content;
+        }
+
+        return [];
+    }
 
     async create(form: NewTaskProps, dharmaId: number | null): Promise<Tasks> {
-        if (dharmaId === null) {
+        if (dharmaId == null) {
             throw new Error('id not defined');
         }
 
         try {
-            const res = await api.post(`${this.TASKS_ENDPOINT}/${dharmaId}/create`, form, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${this.token}`,
+            const res = await api.post(
+                this.TASKS_ENDPOINT,
+                {
+                    ...form,
+                    dharmasId: dharmaId,
                 },
-            });
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...this.getAuthHeaders(),
+                    },
+                },
+            );
 
             return res.data;
         } catch (e) {
@@ -27,52 +54,156 @@ export class TasksService {
         }
     }
 
-    async fetchByDharma(dharmaId: number): Promise<Tasks[]> {
-        if (dharmaId === null) {
+    async fetchByDharma(dharmaId: number, page = 0, size = 20): Promise<Tasks[]> {
+        if (dharmaId == null) {
             throw new Error('id not defined');
         }
 
         try {
-            const res = await api.get(`${this.TASKS_ENDPOINT}?dharmaId=${dharmaId}`, {
+            const res = await api.get(this.TASKS_ENDPOINT, {
+                params: {
+                    dharmaId,
+                    page,
+                    size,
+                },
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    ...this.getAuthHeaders(),
                 },
             });
 
-            return res.data.content;
+            return this.unwrapTasksResponse(res.data);
         } catch (e) {
             console.error(e);
             throw new Error('Error while fetching tasks');
         }
     }
 
-    async listAllUserTasks(): Promise<Tasks[]> {
+    async listAllUserTasks(page = 0, size = 20): Promise<Tasks[]> {
         try {
-            const res = await api.get(`${this.TASKS_ENDPOINT}/user/${this.uid}`, {
+            const res = await api.get(this.TASKS_ENDPOINT, {
+                params: {
+                    page,
+                    size,
+                },
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    ...this.getAuthHeaders(),
                 },
             });
 
-            return res.data.content;
+            return this.unwrapTasksResponse(res.data);
         } catch (e) {
             console.error(e);
             throw new Error('Error while fetching user tasks');
         }
     }
 
-    async fetchTasksByStatus(status: string): Promise<Tasks[]> {
+    async fetchTasksByStatus(status: TaskStatus, page = 0, size = 20): Promise<Tasks[]> {
         try {
-            const res = await api.get(`${this.TASKS_ENDPOINT}/user/${this.uid}/status/${status}`, {
+            const res = await api.get(this.TASKS_ENDPOINT, {
+                params: {
+                    status,
+                    page,
+                    size,
+                },
                 headers: {
-                    Authorization: `Bearer ${this.token}`,
+                    ...this.getAuthHeaders(),
+                },
+            });
+
+            return this.unwrapTasksResponse(res.data);
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while fetching user tasks');
+        }
+    }
+
+    async update(taskId: number, form: TaskUpdateProps): Promise<Tasks> {
+        try {
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}`, form, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...this.getAuthHeaders(),
                 },
             });
 
             return res.data;
         } catch (e) {
             console.error(e);
-            throw new Error('Error while fetching user tasks');
+            throw new Error('Error while updating task');
+        }
+    }
+
+    async moveToNow(taskId: number): Promise<Tasks> {
+        try {
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/now`, null, {
+                headers: {
+                    ...this.getAuthHeaders(),
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while moving task to NOW');
+        }
+    }
+
+    async snooze(taskId: number): Promise<Tasks> {
+        try {
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/snooze`, null, {
+                headers: {
+                    ...this.getAuthHeaders(),
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while snoozing task');
+        }
+    }
+
+    async changeStatus(taskId: number, status: TaskStatus): Promise<Tasks> {
+        try {
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/change-status`, null, {
+                params: { status },
+                headers: {
+                    ...this.getAuthHeaders(),
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while changing task status');
+        }
+    }
+
+    async done(taskId: number): Promise<Tasks> {
+        try {
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/done`, null, {
+                headers: {
+                    ...this.getAuthHeaders(),
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while completing task');
+        }
+    }
+
+    async delete(taskId: number): Promise<void> {
+        try {
+            await api.delete(`${this.TASKS_ENDPOINT}/${taskId}`, {
+                headers: {
+                    ...this.getAuthHeaders(),
+                },
+            });
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while deleting task');
         }
     }
 }

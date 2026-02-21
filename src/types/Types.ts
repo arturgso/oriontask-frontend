@@ -1,6 +1,6 @@
 export const EFFORT_LEVEL = ['LOW', 'MEDIUM', 'HIGH'] as const;
 export const KARMA_TYPES = ['ACTION', 'PEOPLE', 'THINKING'] as const;
-export const TASKS_STATUS = ['NOW', 'NEXT', 'WAITING', 'DONE'] as const;
+export const TASKS_STATUS = ['NOW', 'NEXT', 'WAITING', 'SNOOZED', 'DONE'] as const;
 
 export type EffortLevel = (typeof EFFORT_LEVEL)[number];
 export type KarmaType = (typeof KARMA_TYPES)[number];
@@ -22,5 +22,6 @@ export const TASKS_LABELS: Record<TaskStatus, string> = {
     NOW: 'Agora',
     NEXT: 'Próximo',
     WAITING: 'Aguardando',
+    SNOOZED: 'Adiada',
     DONE: 'Concluída',
 };

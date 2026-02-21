@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useDharmaStore } from '@/stores/dharmaStore';
-import { styles } from '@/styles/DefaultStyles';
 import type { Tasks } from '@/types/Tasks';
 import { Check } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
@@ -54,38 +53,38 @@ function formatTimestamp(timestamp: number) {
 </script>
 
 <template>
-    <div :class="styles.card.surface" class="!p-0 !flex-row !border-l-0">
-        <div class="w-2 rounded-l-md self-stretch" :style="{ backgroundColor: dharmaColor }"></div>
+    <div class="w-full h-fit flex flex-row rounded-sm border border-border bg-card">
+        <div class="w-1.5 rounded-l-sm self-stretch" :style="{ backgroundColor: dharmaColor }"></div>
 
-        <div class="flex-1 p-4 gap-4">
-            <h1 class="font-bold text-lg">{{ task.title }}</h1>
-            <div class="flex flex-col gap-3">
+        <div class="flex-1 p-4">
+            <h1 class="font-semibold text-base text-text-primary">{{ task.title }}</h1>
+            <div class="flex flex-col gap-3 mt-3">
                 <div v-if="props.task.description" class="relative">
-                    <p class="pr-16 text-text-secondary break-words">
+                    <p class="pr-16 text-sm text-text-secondary break-words leading-relaxed">
                         {{ displayText }}
                     </p>
                     <button
                         v-if="props.task.description.length > MAX_DESC_LENGTH"
-                        class="mt-1 text-text-secondary hover:underline"
+                        class="mt-1 text-xs font-medium text-accent hover:text-accent-hover transition-colors"
                         @click="toggle"
                     >
                         <div v-if="expanded">Ver menos...</div>
                         <div v-else>Ver mais...</div>
                     </button>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 flex-wrap">
                     <StatusBadge :status="task.status" />
                     <EffortLevelBadge :level="task.effortLevel" />
                     <KarmaTypeBadge :type="task.karmaType" />
                 </div>
             </div>
             <Divider :margin="true" />
-            <footer class="mt-4 flex justify-between items-center">
+            <footer class="mt-1 flex justify-between items-end gap-4">
                 <div class="flex items-center gap-3">
                     <!-- <TaskCardButton :text="task.snoozedUntil ? " :icon="Clock" /> -->
                     <TaskCardButton text="Concluir" :icon="Check" />
                 </div>
-                <div class="text-sm text-text-secondary">
+                <div class="text-xs text-text-muted text-right">
                     Criada em: <br />
                     {{ formatTimestamp(task.createdAt) }}
                 </div>

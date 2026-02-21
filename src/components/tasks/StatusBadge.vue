@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { styles } from '@/styles/DefaultStyles';
 import { TASKS_LABELS, type TaskStatus } from '@/types/Types';
 
 defineProps<{ status: TaskStatus }>();
 
-function getBadgeColor(status: TaskStatus) {
+function getBadgeStyle(status: TaskStatus) {
     switch (status) {
         case 'NOW':
-            return '#3B82F6';
+            return 'border-blue-200 bg-blue-50 text-blue-700';
         case 'DONE':
-            return '#22C55E';
+            return 'border-emerald-200 bg-emerald-50 text-emerald-700';
         case 'NEXT':
-            return '#7C3AED';
+            return 'border-accent/30 bg-accent/10 text-accent';
         case 'WAITING':
-            return '#EAB308';
+            return 'border-amber-200 bg-amber-50 text-amber-700';
+        case 'SNOOZED':
+            return 'border-slate-200 bg-slate-100 text-slate-700';
         default:
-            return '#000000';
+            return 'border-border bg-surface text-text-primary';
     }
 }
 </script>
 
 <template>
-    <span :class="styles.badge" :style="{ backgroundColor: getBadgeColor(status) }">
+    <span :class="['text-xs font-medium py-1 px-2 rounded-sm border', getBadgeStyle(status)]">
         {{ TASKS_LABELS[status] }}
     </span>
 </template>

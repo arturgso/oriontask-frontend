@@ -2,9 +2,17 @@ import type { EffortLevel, KarmaType, TaskStatus } from './Types';
 
 export interface NewTaskProps {
     title: string;
-    description: string;
+    description?: string;
     karmaType: KarmaType;
     effortLevel: EffortLevel;
+}
+
+export interface TaskUpdateProps {
+    title?: string;
+    description?: string;
+    karmaType?: KarmaType;
+    effortLevel?: EffortLevel;
+    hidden?: boolean;
 }
 
 export interface Tasks {
