@@ -3,21 +3,14 @@ import type { AuthResponse, LoginProps, SignupProps } from '@/types/Auth';
 import Cookie from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 
-
 export class AuthService {
     private setAuthCookie(token: string): void {
         try {
-            const decoded = jwtDecode<{sub: string, username: string, exp?: number, iat?: number}>(token);
-            const expires = decoded.exp
-                ? new Date(decoded.exp * 1000)
-                : undefined;
+            const decoded = jwtDecode<{ sub: string; exp?: number; iat?: number }>(token);
+            const expires = decoded.exp ? new Date(decoded.exp * 1000) : undefined;
 
-            Cookie.set('access_token', token, {expires});
-                Cookie.set('uid', decoded.sub, {expires});
-                Cookie.set('uname', decoded.username, {expires});
-                
-
-
+            Cookie.set('access_token', token, { expires });
+            Cookie.set('uid', decoded.sub, { expires });
         } catch {
             Cookie.set('access_token', token);
         }

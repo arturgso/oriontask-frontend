@@ -2,7 +2,7 @@
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { styles } from '@/styles/DefaultStyles';
 import type { Tasks } from '@/types/Tasks';
-import { Check, Clock } from 'lucide-vue-next';
+import { Check } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import Divider from '../ui/Divider.vue';
 import TaskCardButton from './TaskCardButton.vue';

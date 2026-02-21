@@ -28,7 +28,12 @@ function openModal() {
 <template>
     <div v-if="dharmaStore.loading">Carregando...</div>
     <div v-else class="flex flex-col gap-3 text-text-primary">
-        <h1 :class="['text-text-secondary font-semibold text-sm', closed ? 'hidden' : '']">
+        <h1
+            :class="[
+                'text-text-secondary font-medium text-xs uppercase tracking-wide',
+                closed ? 'hidden' : '',
+            ]"
+        >
             Dharmas
         </h1>
         <button
@@ -36,32 +41,34 @@ function openModal() {
             :key="d.id"
             :title="d.name"
             :class="[
-                'flex flex-row items-center gap-2 rounded-lg hover:bg-card transtion duration-150',
-                closed ? '' : 'border border-border p-2',
+                'flex flex-row items-center gap-2 rounded-sm text-sm border transition-colors duration-150',
+                closed
+                    ? 'justify-center border-transparent px-2 py-2 hover:bg-surface'
+                    : 'border-transparent px-2.5 py-2 hover:bg-surface',
             ]"
             @click="router.push(`/dharmas/${d.id}`)"
         >
             <div
                 :title="d.name"
-                :class="['w-4 h-4 rounded-sm', closed ? 'w-6 h-6' : '']"
+                :class="['w-3.5 h-3.5 rounded-sm', closed ? 'w-5 h-5' : '']"
                 :style="{ backgroundColor: d.color }"
             />
-            <p :class="['font-semibold', closed ? 'hidden' : '']">
+            <p :class="['font-medium min-w-0 truncate', closed ? 'hidden' : '']">
                 {{ d.name }}
             </p>
         </button>
         <button
             title="Novo Dharma"
             :class="[
-                'flex flex-row items-center',
+                'flex flex-row items-center rounded-sm text-sm transition-colors',
                 closed
-                    ? ''
-                    : 'gap-2 border-dashed border-2 border-border p-2 rounded-lg hover:bg-card transtion',
+                    ? 'justify-center px-2 py-2 hover:bg-surface'
+                    : 'gap-2 px-2.5 py-2 border border-dashed border-border hover:bg-surface',
             ]"
             @click="openModal"
         >
-            <Plus />
-            <p :class="[closed ? 'hidden' : '']">Novo Dharma</p>
+            <Plus :size="18" />
+            <p :class="[closed ? 'hidden' : '', 'font-medium']">Novo Dharma</p>
         </button>
     </div>
     <Modal :open="modalOpen" title="novo dharma" @close="openModal">

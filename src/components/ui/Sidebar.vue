@@ -5,7 +5,6 @@ import DharmaList from '@/components/ui/DharmaList.vue';
 import Divider from '@/components/ui/Divider.vue';
 import NavButton from '@/components/sidebar/NavButton.vue';
 import SettingsSection from '@/components/sidebar/SettingsSection.vue';
-import { styles } from '@/styles/DefaultStyles';
 
 const props = defineProps<{
     mobileMenuOpen?: boolean;
@@ -48,19 +47,19 @@ function collapsePanel() {
 <template>
     <div
         v-if="isMobile && isMobileMenuOpen"
-        class="fixed inset-0 bg-black/50 z-40"
+        class="fixed inset-0 bg-black/30 z-40"
         @click="isMobileMenuOpen = false"
     />
 
     <aside
         :class="[
-            'bg-surface p-4 flex flex-col  border-r border-border  ',
+            'bg-background p-4 flex flex-col border-r border-border',
             !isMobile && 'justify-between sticky top-0 self-start h-screen overflow-y-auto',
             isMobile &&
-                'p-3 text-sm leading-tight fixed top-0 left-0 z-50 transition-all duration-300',
+                'p-4 text-sm leading-tight fixed top-0 left-0 z-50 transition-all duration-300',
             'min-h-screen',
             isMobile && 'h-[100dvh] max-h-[100dvh] overflow-y-auto overscroll-contain',
-            !isMobile && (closed ? 'w-16' : 'w-64'),
+            !isMobile && (closed ? 'w-[4.5rem]' : 'w-64'),
             isMobile && (closed ? 'w-0' : 'w-64'),
             isMobile && !isMobileMenuOpen && '-translate-x-full',
         ]"
@@ -68,10 +67,13 @@ function collapsePanel() {
         <!-- Collapse Button -->
         <button
             v-if="!isMobile"
-            :class="['absolute top-4 text-text-muted', closed ? '' : 'right-4']"
+            :class="[
+                'absolute top-4 text-text-muted hover:text-accent transition-colors',
+                closed ? 'left-1/2 -translate-x-1/2' : 'right-4',
+            ]"
             @click="collapsePanel"
         >
-            <PanelLeftClose />
+            <PanelLeftClose :size="18" />
         </button>
 
         <!-- Logo -->
@@ -81,11 +83,16 @@ function collapsePanel() {
                     :class="[
                         'w-full flex flex-col items-center gap-3',
                         closed ? 'hidden' : '',
-                        isMobile ? 'mb-4 gap-2' : 'mb-6',
+                        isMobile ? 'mb-5 gap-2' : 'mb-7',
                     ]"
                 >
-                    <img src="/logo.svg" :class="isMobile ? 'w-12' : 'w-16'" />
-                    <h1 :class="['font-bold text-text-primary', isMobile ? 'text-lg' : 'text-xl']">
+                    <img src="/logo.svg" :class="isMobile ? 'w-10' : 'w-12'" />
+                    <h1
+                        :class="[
+                            'font-semibold text-text-primary tracking-tight',
+                            isMobile ? 'text-lg' : 'text-xl',
+                        ]"
+                    >
                         OrionTask
                     </h1>
                 </div>
@@ -107,8 +114,7 @@ function collapsePanel() {
             >
                 <h1
                     :class="[
-                        'text-text-secondary font-semibold text-sm',
-                        isMobile ? 'text-xs' : '',
+                        'text-text-secondary font-medium text-xs uppercase tracking-wide',
                         closed ? 'hidden' : '',
                     ]"
                 >
@@ -140,9 +146,14 @@ function collapsePanel() {
             <SettingsSection :closed="closed" />
             <button
                 title="Sair"
-                :class="[styles.input.navButton.default, closed ? '' : styles.input.navButton.open]"
+                :class="[
+                    'w-full flex items-center gap-3 rounded-sm px-2.5 py-2 border text-sm transition-colors',
+                    closed
+                        ? 'justify-center px-2 border-transparent text-red-600 hover:bg-red-50'
+                        : 'border-transparent text-red-600 hover:bg-red-50',
+                ]"
             >
-                <LogOut class="text-red-600" />
+                <LogOut :size="18" />
                 <p :class="[closed ? 'hidden' : '', isMobile ? 'text-xs' : '']">Sair</p>
             </button>
         </div>

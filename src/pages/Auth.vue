@@ -21,24 +21,24 @@ function changePage() {
 
             <div class="mt-7 border-b border-border flex">
                 <button
-                    @click="changePage"
                     :class="[
                         'w-1/2 pb-2 text-sm font-medium transition-colors',
                         !page
                             ? 'text-accent border-b-2 border-accent -mb-px'
                             : 'text-text-secondary hover:text-text-primary',
                     ]"
+                    @click="changePage"
                 >
                     Entrar
                 </button>
                 <button
-                    @click="changePage"
                     :class="[
                         'w-1/2 pb-2 text-sm font-medium transition-colors',
                         page
                             ? 'text-accent border-b-2 border-accent -mb-px'
                             : 'text-text-secondary hover:text-text-primary',
                     ]"
+                    @click="changePage"
                 >
                     Cadastrar
                 </button>

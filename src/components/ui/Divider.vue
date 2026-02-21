@@ -5,5 +5,5 @@ defineProps<{
 </script>
 
 <template>
-    <div class="w-full border border-border rounded-lg" :class="margin ? 'my-4' : ''"></div>
+    <div class="w-full border-t border-border" :class="margin ? 'my-4' : 'my-5'"></div>
 </template>

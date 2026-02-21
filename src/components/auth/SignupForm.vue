@@ -8,7 +8,6 @@ import { AuthService } from '@/services/AuthService';
 const form = ref<SignupProps>({
     name: '',
     email: '',
-    username: '',
     password: '',
 });
 
@@ -57,23 +56,6 @@ function toggleShowPassword() {
         <div class="flex flex-col gap-2">
             <label
                 class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                form="username"
-            >
-                Nome de usuário
-            </label>
-            <input
-                id="username"
-                v-model="form.username"
-                type="text"
-                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                placeholder="johndoe"
-                required
-            />
-        </div>
-
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
                 form="email"
             >
                 Email
@@ -104,9 +86,9 @@ function toggleShowPassword() {
                 required
             />
             <button
-                @click="toggleShowPassword"
                 type="button"
                 class="absolute right-2.5 top-9 cursor-pointer text-text-muted hover:text-text-primary transition-colors"
+                @click="toggleShowPassword"
             >
                 <Eye v-if="showPassword" :size="18" />
                 <EyeOff v-else :size="18" />

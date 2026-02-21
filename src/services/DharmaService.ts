@@ -8,7 +8,7 @@ export class DharmaService {
 
     async create(form: NewDharmaProps): Promise<Dharma> {
         try {
-            const res = await api.post(`/dharmas/${this.userId}/create`, form, {
+            const res = await api.post(`/dharmas`, form, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${this.token}`,
@@ -23,7 +23,7 @@ export class DharmaService {
     }
 
     async getUserDharmas(): Promise<Dharma[]> {
-        const res = await api.get(`/dharmas/user/${this.userId}`, {
+        const res = await api.get(`/dharmas`, {
             headers: {
                 Authorization: `Bearer ${this.token}`,
             },

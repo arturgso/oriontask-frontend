@@ -33,7 +33,7 @@ export class TasksService {
         }
 
         try {
-            const res = await api.get(`${this.TASKS_ENDPOINT}/dharmas/${dharmaId}`, {
+            const res = await api.get(`${this.TASKS_ENDPOINT}?dharmaId=${dharmaId}`, {
                 headers: {
                     Authorization: `Bearer ${this.token}`,
                 },

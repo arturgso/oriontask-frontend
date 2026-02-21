@@ -10,7 +10,7 @@ import { toast } from 'vue3-toastify';
 const router = useRouter();
 
 const form = ref<LoginProps>({
-    login: '',
+    email: '',
     password: '',
     rememberMe: false,
 });
@@ -50,7 +50,7 @@ function toggleShowPassword() {
             </label>
             <input
                 id="username"
-                v-model="form.login"
+                v-model="form.email"
                 type="text"
                 autocapitalize="none"
                 :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
@@ -75,8 +75,8 @@ function toggleShowPassword() {
             />
             <button
                 type="button"
-                @click="toggleShowPassword"
                 class="absolute right-2.5 top-9 cursor-pointer text-text-muted hover:text-text-primary transition-colors"
+                @click="toggleShowPassword"
             >
                 <Eye v-if="showPassword" :size="18" />
                 <EyeOff v-else :size="18" />
