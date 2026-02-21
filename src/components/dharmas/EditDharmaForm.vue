@@ -18,18 +18,32 @@ const form = ref<EditDharmaProps>({
 </script>
 
 <template>
-    <form class="mt-4" @submit.prevent="">
+    <form class="mt-1 flex flex-col gap-4" @submit.prevent="">
         <div :class="styles.input.inputDiv">
-            <label for="name"> Nome </label>
-            <input id="name" :class="styles.input.defaultInput" :placeholder="dharma.name" />
+            <label
+                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                for="name"
+            >
+                Nome
+            </label>
+            <input
+                id="name"
+                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
+                :placeholder="dharma.name"
+            />
         </div>
         <ColorPicker v-model:color="form.color" />
         <div class="flex items-center gap-2">
-            <ActionButton type="submit" text="Salvar" />
+            <ActionButton
+                type="submit"
+                text="Salvar"
+                extra-class="!rounded-sm !font-medium !text-sm !hover:shadow-none"
+            />
             <button
-                class="p-2 bg-red-500 rounded-md font-bold text-white mt-4 hover:bg-red-700 transition duration-150 hover:shadow-lg"
+                type="button"
+                class="p-2.5 mt-1 rounded-sm border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
             >
-                <Trash :size="28" />
+                <Trash :size="18" />
             </button>
         </div>
     </form>

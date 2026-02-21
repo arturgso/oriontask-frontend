@@ -32,7 +32,7 @@ const props = defineProps<{
         </header>
 
         <Sidebar v-model:mobile-menu-open="isMobileMenuOpen" />
-        <div class="px-4 w-full pt-20 md:pt-0 md:mt-16">
+        <div class="px-4 w-full pt-20 md:pt-0 md:mt-16 md:max-w-5xl md:mx-auto">
             <div class="flex flex-col gap-3">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
@@ -47,6 +47,7 @@ const props = defineProps<{
                     </div>
                 </div>
                 <slot />
+                <footer class="h-10 md:h-12" />
             </div>
         </div>
     </main>
