@@ -44,24 +44,24 @@ function toggleShowPassword() {
         <div class="flex flex-col gap-2">
             <label
                 class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                form="username"
+                for="email"
             >
-                Nome de usuário
+                Email
             </label>
             <input
-                id="username"
+                id="email"
                 v-model="form.email"
-                type="text"
+                type="email"
                 autocapitalize="none"
                 :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                placeholder="johndoe"
+                placeholder="johndoe@mail.com"
                 required
             />
         </div>
         <div class="flex flex-col gap-2 relative">
             <label
                 class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                form="password"
+                for="password"
             >
                 Senha
             </label>
@@ -91,7 +91,7 @@ function toggleShowPassword() {
                     type="checkbox"
                     class="h-4 w-4 rounded-sm border-border text-accent focus:ring-0"
                 />
-                <label class="text-text-secondary" form="rememberMe">Lembrar de mim</label>
+                <label class="text-text-secondary" for="rememberMe">Lembrar de mim</label>
             </div>
             <a
                 class="whitespace-nowrap cursor-pointer text-text-secondary hover:text-text-primary transition-colors"
