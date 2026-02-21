@@ -32,22 +32,25 @@ function handleClose() {
     <div
         ref="modalRef"
         tabindex="0"
-        :class="['fixed inset-0 bg-black/60 z-50 grid place-items-center', open ? '' : 'hidden']"
+        :class="[
+            'fixed inset-0 bg-black/35 z-50 grid place-items-center p-4',
+            open ? '' : 'hidden',
+        ]"
         @keydown.esc="handleClose"
     >
         <div
-            class="relative w-full max-w-md rounded-md bg-white p-6 shadow-xl border-2 border-border"
+            class="relative w-full max-w-md rounded-sm bg-card p-5 md:p-6 border border-border max-h-[85vh] overflow-y-auto"
         >
-            <h1 class="capitalize font-bold text-xl text-text-secondary">
+            <h1 class="capitalize font-semibold text-base text-text-primary tracking-tight">
                 {{ title }}
             </h1>
             <button
-                class="text-text-primary absolute top-3 right-3 hover:bg-surface rounded-full p-1"
+                class="text-text-muted absolute top-3 right-3 h-8 w-8 flex items-center justify-center rounded-sm border border-transparent hover:bg-surface hover:text-accent transition-colors"
                 @click="handleClose"
             >
-                <X />
+                <X :size="18" />
             </button>
-            <div class="mt-6">
+            <div class="mt-5">
                 <slot />
             </div>
         </div>

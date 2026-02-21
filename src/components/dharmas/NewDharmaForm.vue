@@ -35,12 +35,17 @@ const submit = async () => {
 <template>
     <form :class="styles.input.inputDiv" @submit.prevent="submit">
         <div :class="styles.input.inputDiv">
-            <label for="name">Nome</label>
+            <label
+                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                for="name"
+            >
+                Nome
+            </label>
             <input
                 id="name"
                 v-model="form.name"
                 type="text"
-                :class="styles.input.defaultInput"
+                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                 placeholder="Ex: Saúde, Trabalho, Família"
                 required
             />
@@ -49,8 +54,8 @@ const submit = async () => {
         <div class="flex flex-wrap gap-2 justify-between items-center mt-4">
             <button
                 type="button"
-                class="w-8 h-8 rounded-md cursor-pointer border-2 transition-all hover:scale-110"
-                :class="form.color === '' ? 'border-accent shadow-lg' : 'border-border'"
+                class="w-8 h-8 rounded-sm cursor-pointer border-2 transition-colors"
+                :class="form.color === '' ? 'border-accent' : 'border-border'"
                 title="Randomizar"
                 style="
                     background: linear-gradient(
@@ -72,15 +77,15 @@ const submit = async () => {
                 :key="color"
                 type="button"
                 :style="{ backgroundColor: color }"
-                class="w-8 h-8 rounded-md cursor-pointer border-2 transition-all hover:scale-110"
-                :class="form.color === color ? 'border-accent shadow-lg' : 'border-transparent'"
+                class="w-8 h-8 rounded-sm cursor-pointer border-2 transition-colors"
+                :class="form.color === color ? 'border-accent' : 'border-transparent'"
                 @click="form.color = color"
             />
         </div>
 
         <button
             type="submit"
-            class="w-full p-2 bg-accent rounded-md font-bold text-white text-lg mt-4 hover:bg-accent-hover transition duration-150 hover:shadow-lg"
+            class="w-full p-2.5 bg-accent rounded-sm font-medium text-white text-base mt-4 hover:bg-accent-hover transition-colors"
         >
             Criar
         </button>

@@ -42,13 +42,18 @@ async function handleSubmit() {
     <ActionButton type="button" text="Nova task" width="auto" :icon="Plus" @click="toggleModal" />
 
     <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
-        <form class="flex flex-col gap-3" @submit.prevent="handleSubmit">
+        <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
             <div :class="styles.input.inputDiv">
-                <label for="dharmas">Dharmas</label>
+                <label
+                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                    for="dharmas"
+                >
+                    Dharmas
+                </label>
                 <select
                     id="Dharmas"
                     v-model="selectedDharma"
-                    :class="styles.input.defaultInput"
+                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                     class="w-full"
                 >
                     <option disabled value="null" hidden>Selecione o Dharma</option>
@@ -63,7 +68,12 @@ async function handleSubmit() {
             </div>
 
             <div :class="styles.input.inputDiv">
-                <label form="title">Título</label>
+                <label
+                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                    form="title"
+                >
+                    Título
+                </label>
                 <input
                     id="username"
                     v-model="form.title"
@@ -71,16 +81,21 @@ async function handleSubmit() {
                     required
                     placeholder="Saúde"
                     autocomplete="off"
-                    :class="styles.input.defaultInput"
+                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                 />
             </div>
             <div :class="styles.input.inputDiv">
-                <label form="description">Descrição</label>
+                <label
+                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                    form="description"
+                >
+                    Descrição
+                </label>
                 <textarea
                     id="description"
                     v-model="form.description"
                     :maxlength="DESCRIPTION_LIMIT"
-                    :class="styles.input.defaultInput"
+                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                     autocomplete="off"
                     placeholder="Digite a descrição"
                     class="min-h-28 max-h-28"
@@ -97,11 +112,16 @@ async function handleSubmit() {
                 </p>
             </div>
             <div :class="styles.input.inputDiv">
-                <label form="effortLevel">Esforço</label>
+                <label
+                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                    form="effortLevel"
+                >
+                    Esforço
+                </label>
                 <select
                     id="effortLevel"
                     v-model="form.effortLevel"
-                    :class="styles.input.defaultInput"
+                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                     class="w-full"
                 >
                     <option v-for="option in EFFORT_LEVEL" :key="option" :value="option">
@@ -111,11 +131,16 @@ async function handleSubmit() {
             </div>
 
             <div :class="styles.input.inputDiv">
-                <label form="karmaType">Karma</label>
+                <label
+                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
+                    form="karmaType"
+                >
+                    Karma
+                </label>
                 <select
                     id="karmaType"
                     v-model="form.karmaType"
-                    :class="styles.input.defaultInput"
+                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
                     class="w-full"
                 >
                     <option v-for="option in KARMA_TYPES" :key="option" :value="option">
@@ -123,7 +148,11 @@ async function handleSubmit() {
                     </option>
                 </select>
             </div>
-            <ActionButton type="submit" text="Criar" extra-class="mt-4" />
+            <ActionButton
+                type="submit"
+                text="Criar"
+                extra-class="mt-2 rounded-sm font-medium text-base hover:shadow-none"
+            />
         </form>
     </Modal>
 </template>
