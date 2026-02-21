@@ -4,26 +4,38 @@ import { Eye, EyeOff } from 'lucide-vue-next';
 import { styles } from '@/styles/DefaultStyles';
 import type { SignupProps } from '@/types/Auth';
 import { AuthService } from '@/services/AuthService';
+import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 const form = ref<SignupProps>({
     name: '',
     email: '',
     password: '',
 });
+const router = useRouter();
 
 async function submit() {
     const authService = new AuthService();
 
     try {
-        const res = await authService.signup(form.value);
-        if (res === 201) {
-            alert('Cadastro realizado com sucesso!');
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1500);
+        const signupStatus = await authService.signup(form.value);
+
+        if (signupStatus === 201) {
+            const loginStatus = await authService.login({
+                email: form.value.email,
+                password: form.value.password,
+                rememberMe: false,
+            });
+
+            if (loginStatus === 200) {
+                toast.success('Cadastro realizado e login efetuado');
+                setTimeout(() => {
+                    router.push('/');
+                }, 1500);
+            }
         }
     } catch (error) {
-        alert('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
+        toast.error('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
         console.error(error);
     }
 }

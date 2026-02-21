@@ -7,6 +7,7 @@ import DharmasDetails from '@/pages/DharmasDetails.vue';
 import Profile from '@/pages/Profile.vue';
 import Settings from '@/pages/Settings.vue';
 import NotFound from '@/pages/NotFound.vue';
+import Cookie from 'js-cookie';
 
 const routes = [
     {
@@ -53,11 +54,32 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-    if (to.name === 'auth' || to.name === 'not-found') {
+    if (to.name === 'not-found') {
         return true;
     }
 
     const authService = new AuthService();
+    const hasToken = Boolean(Cookie.get('access_token'));
+
+    if (to.name === 'auth') {
+        if (!hasToken) {
+            return true;
+        }
+
+        const ok = await authService.validateToken();
+
+        if (ok) {
+            return { name: 'now' };
+        }
+
+        await authService.logout();
+        return true;
+    }
+
+    if (!hasToken) {
+        return { name: 'auth' };
+    }
+
     const ok = await authService.validateToken();
 
     if (!ok) {

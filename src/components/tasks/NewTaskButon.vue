@@ -6,8 +6,8 @@ import { ref } from 'vue';
 import { styles } from '@/styles/DefaultStyles';
 import type { NewTaskProps } from '@/types/Tasks';
 import { EFFORT_LABELS, EFFORT_LEVEL, KARMA_LABELS, KARMA_TYPES } from '@/types/Types';
-import { TasksService } from '@/services/TasksService';
 import { useDharmaStore } from '@/stores/dharmaStore';
+import { useTasksStore } from '@/stores/TasksStore';
 import { toast } from 'vue3-toastify';
 
 const form = ref<NewTaskProps>({
@@ -19,6 +19,7 @@ const form = ref<NewTaskProps>({
 
 const DESCRIPTION_LIMIT = 200;
 const dharmasStore = useDharmaStore();
+const tasksStore = useTasksStore();
 const selectedDharma = ref<number | null>(null);
 
 const isModalOpen = ref(false);
@@ -28,12 +29,11 @@ function toggleModal() {
 }
 
 async function handleSubmit() {
-    const service = new TasksService();
-
-    const res = await service.create(form.value, selectedDharma.value);
+    const res = await tasksStore.createTask(form.value, selectedDharma.value);
 
     if (res) {
         toast.success('Task criado com sucesso');
+        isModalOpen.value = false;
     }
 }
 </script>

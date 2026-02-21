@@ -1,5 +1,5 @@
 import { TasksService } from '@/services/TasksService';
-import type { Tasks } from '@/types/Tasks';
+import type { NewTaskProps, Tasks } from '@/types/Tasks';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
@@ -55,6 +55,18 @@ export const useTasksStore = defineStore('tasks', () => {
         }
     }
 
+    async function createTask(form: NewTaskProps, dharmaId: number | null): Promise<Tasks> {
+        const newTask = await serv.create(form, dharmaId);
+
+        tasks.value.unshift(newTask);
+
+        if (newTask.status === 'NOW') {
+            currentTasks.value.unshift(newTask);
+        }
+
+        return newTask;
+    }
+
     return {
         tasks,
         currentTasks,
@@ -63,5 +75,6 @@ export const useTasksStore = defineStore('tasks', () => {
         fetchTasks,
         fetchCurrentTasks,
         fetchTasksByDharma,
+        createTask,
     };
 });

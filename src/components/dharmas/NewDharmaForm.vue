@@ -1,29 +1,21 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import type { NewDharmaProps } from '@/types/Dharma';
 import { styles } from '@/styles/DefaultStyles';
 import { defaultColors } from '@/types/DefaultDharmaColors';
-import { DharmaService } from '@/services/DharmaService';
+import { useDharmaStore } from '@/stores/dharmaStore';
 import { toast } from 'vue3-toastify';
 
 const emit = defineEmits<{ (e: 'success'): void }>();
+const dharmaStore = useDharmaStore();
 
 const form = ref<NewDharmaProps>({
     name: '',
     color: '',
 });
 
-watch(
-    form,
-    (newForm) => {
-        console.log(newForm);
-    },
-    { deep: true },
-);
-
 const submit = async () => {
-    const service = new DharmaService();
-    const res = await service.create(form.value);
+    const res = await dharmaStore.createDharma(form.value);
 
     if (res) {
         toast.success('Dharma cadastrado com sucesso');

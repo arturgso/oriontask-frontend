@@ -104,13 +104,15 @@ export class AuthService {
     async validateToken(): Promise<boolean> {
         const token = Cookie.get('access_token');
 
+        if (!token) {
+            return false;
+        }
+
         try {
             const res = await api.post('/auth/validate', undefined, {
-                headers: token
-                    ? {
-                          Authorization: `Bearer ${token}`,
-                      }
-                    : undefined,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             return res.status === 200 || res.status === 204;
