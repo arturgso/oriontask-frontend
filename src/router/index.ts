@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Dharmas from '@/pages/Dharmas.vue';
 import { AuthService } from '@/services/AuthService';
 import DharmasDetails from '@/pages/DharmasDetails.vue';
+import Profile from '@/pages/Profile.vue';
 
 const routes = [
     {
@@ -26,6 +27,11 @@ const routes = [
         name: 'dharmas-details',
         component: DharmasDetails,
         props: true,
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
     },
 ];
 

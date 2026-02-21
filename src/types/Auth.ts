@@ -11,8 +11,9 @@ export interface SignupProps {
 }
 
 export interface AuthResponse {
-    token: string;
-    id: string;
-    username: string;
-    name: string;
+    token?: string;
+    accessToken?: string;
+    id?: string;
+    name?: string;
+    email?: string;
 }

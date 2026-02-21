@@ -5,6 +5,8 @@ import DharmaList from '@/components/ui/DharmaList.vue';
 import Divider from '@/components/ui/Divider.vue';
 import NavButton from '@/components/sidebar/NavButton.vue';
 import SettingsSection from '@/components/sidebar/SettingsSection.vue';
+import { AuthService } from '@/services/AuthService';
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{
     mobileMenuOpen?: boolean;
@@ -16,6 +18,7 @@ const emit = defineEmits<{
 
 const closed = ref(false);
 const isMobile = ref(false);
+const router = useRouter();
 const isMobileMenuOpen = computed({
     get: () => props.mobileMenuOpen ?? false,
     set: (value: boolean) => emit('update:mobileMenuOpen', value),
@@ -41,6 +44,12 @@ watch([isMobileMenuOpen, isMobile], ([menuOpen, mobile]) => {
 
 function collapsePanel() {
     closed.value = !closed.value;
+}
+
+async function logout() {
+    const authService = new AuthService();
+    await authService.logout();
+    router.push('/auth');
 }
 </script>
 
@@ -152,6 +161,7 @@ function collapsePanel() {
                         ? 'justify-center px-2 border-transparent text-red-600 hover:bg-red-50'
                         : 'border-transparent text-red-600 hover:bg-red-50',
                 ]"
+                @click="logout"
             >
                 <LogOut :size="18" />
                 <p :class="[closed ? 'hidden' : '', isMobile ? 'text-xs' : '']">Sair</p>

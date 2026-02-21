@@ -110,12 +110,12 @@ async function handleSubmit() {
                 <p
                     class="text-end text-sm"
                     :class="
-                        form.description.length >= DESCRIPTION_LIMIT
+                        (form.description?.length ?? 0) >= DESCRIPTION_LIMIT
                             ? 'text-red-500'
                             : 'text-text-secondary'
                     "
                 >
-                    {{ form.description.length }}/{{ DESCRIPTION_LIMIT }}
+                    {{ form.description?.length ?? 0 }}/{{ DESCRIPTION_LIMIT }}
                 </p>
             </div>
             <div :class="styles.input.inputDiv">
