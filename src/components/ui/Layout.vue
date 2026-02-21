@@ -25,7 +25,7 @@ const props = defineProps<{
             </button>
 
             <div class="flex items-center gap-2.5">
-                <img src="/logo.svg" class="w-7" />
+                <img src="/logo.svg" class="w-7 dark:invert" />
                 <h1 class="font-semibold tracking-tight text-text-primary text-base">OrionTask</h1>
             </div>
             <div class="w-9" />

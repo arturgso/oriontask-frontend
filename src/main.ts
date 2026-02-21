@@ -5,8 +5,10 @@ import router from '@/router';
 import 'vue3-toastify/dist/index.css';
 import Vue3Toastify from 'vue3-toastify';
 import { createPinia } from 'pinia';
+import { initTheme } from '@/utils/ThemeUtils';
 
 const pinia = createPinia();
+initTheme();
 
 createApp(App)
     .use(router)

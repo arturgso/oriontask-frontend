@@ -5,6 +5,7 @@ import Dharmas from '@/pages/Dharmas.vue';
 import { AuthService } from '@/services/AuthService';
 import DharmasDetails from '@/pages/DharmasDetails.vue';
 import Profile from '@/pages/Profile.vue';
+import Settings from '@/pages/Settings.vue';
 
 const routes = [
     {
@@ -32,6 +33,11 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: Profile,
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        component: Settings,
     },
 ];
 

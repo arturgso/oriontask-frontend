@@ -95,7 +95,7 @@ async function logout() {
                         isMobile ? 'mb-5 gap-2' : 'mb-7',
                     ]"
                 >
-                    <img src="/logo.svg" :class="isMobile ? 'w-10' : 'w-12'" />
+                    <img src="/logo.svg" :class="[isMobile ? 'w-10' : 'w-12', 'dark:invert']" />
                     <h1
                         :class="[
                             'font-semibold text-text-primary tracking-tight',
