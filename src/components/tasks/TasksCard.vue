@@ -2,12 +2,13 @@
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { styles } from '@/styles/DefaultStyles';
 import type { Tasks } from '@/types/Tasks';
-import { Check, ChevronDown, ChevronUp, Clock } from 'lucide-vue-next';
+import { Check, Clock } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import Divider from '../ui/Divider.vue';
-import VerticalDivider from '../ui/VerticalDivider.vue';
-import { EFFORT_LABELS, KARMA_LABELS, TASKS_LABELS } from '@/types/Types';
 import TaskCardButton from './TaskCardButton.vue';
+import StatusBadge from './StatusBadge.vue';
+import EffortLevelBadge from './EffortLevelBadge.vue';
+import KarmaTypeBadge from './KarmaTypeBadge.vue';
 
 const props = defineProps<{ task: Tasks }>();
 const MAX_DESC_LENGTH = 60;
@@ -71,15 +72,9 @@ function formatTimestamp(timestamp: number) {
                     </button>
                 </div>
                 <div class="flex gap-2">
-                    <span class="text-sm font-bold py-1 px-2 bg-blue-600 text-white rounded-full">
-                        {{ TASKS_LABELS[task.status] }}
-                    </span>
-                    <span class="text-sm font-bold py-1 px-2 bg-[#EF4444] text-white rounded-full">
-                        {{ EFFORT_LABELS[task.effortLevel] }}
-                    </span>
-                    <span class="text-sm font-bold py-1 px-2 bg-[#DB2777] text-white rounded-full">
-                        {{ KARMA_LABELS[task.karmaType] }}
-                    </span>
+                    <StatusBadge :status="task.status" />
+                    <EffortLevelBadge :level="task.effortLevel" />
+                    <KarmaTypeBadge :type="task.karmaType" />
                 </div>
             </div>
             <Divider :margin="true" />

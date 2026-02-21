@@ -13,4 +13,6 @@ export const styles = {
         surface:
             'border-2 rounded-md border-border w-full h-fit flex flex-col p-3 bg-card hover:shadow-md transition duration-150',
     },
+
+    badge: 'text-sm font-bold py-1 px-2 text-white rounded-lg',
 };
