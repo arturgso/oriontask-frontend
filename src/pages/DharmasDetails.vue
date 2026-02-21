@@ -15,6 +15,8 @@ const tasksStore = useTasksStore();
 const dharmaId = computed(() => Number(props.id));
 const dharma = computed(() => store.dharmaById(dharmaId.value));
 const tasks = ref<Tasks[]>([]);
+const activeTasks = computed(() => tasks.value.filter((task) => task.status !== 'SNOOZED'));
+const snoozedTasks = computed(() => tasks.value.filter((task) => task.status === 'SNOOZED'));
 
 async function loadPageData() {
     if (!store.dharmas.length) {
@@ -29,8 +31,26 @@ watch(() => props.id, loadPageData, { immediate: true });
 
 <template>
     <Layout :title="dharma?.name ?? 'dharma'">
-        <div v-for="t in tasks" :key="t.id">
-            <TasksCard :task="t" />
+        <div class="flex flex-col gap-3">
+            <div v-if="activeTasks.length" class="flex flex-col gap-3">
+                <div v-for="t in activeTasks" :key="t.id">
+                    <TasksCard :task="t" @updated="loadPageData" />
+                </div>
+            </div>
+
+            <section
+                v-if="snoozedTasks.length"
+                class="mt-4 border border-border rounded-sm bg-surface/40 p-3"
+            >
+                <h2 class="text-xs font-medium uppercase tracking-wide text-text-secondary mb-3">
+                    Adiadas
+                </h2>
+                <div class="flex flex-col gap-3">
+                    <div v-for="t in snoozedTasks" :key="t.id">
+                        <TasksCard :task="t" @updated="loadPageData" />
+                    </div>
+                </div>
+            </section>
         </div>
     </Layout>
 </template>
