@@ -89,8 +89,8 @@ function toggleShowPassword() {
             </div>
             <button
                 type="button"
-                @click="$emit('forgot-password')"
                 class="whitespace-nowrap cursor-pointer text-text-secondary hover:text-text-primary transition-colors bg-transparent border-none p-0"
+                @click="$emit('forgot-password')"
             >
                 Esqueceu a senha?
             </button>

@@ -73,8 +73,8 @@ async function submit() {
                 >. Por favor, verifique sua caixa de entrada e spam.
             </p>
             <button
-                @click="sent = false"
                 class="text-accent text-sm font-medium hover:underline mt-2"
+                @click="sent = false"
             >
                 Tentar outro email
             </button>
