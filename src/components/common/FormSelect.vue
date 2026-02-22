@@ -1,41 +1,37 @@
 <script setup lang="ts">
 import { styles } from '@/styles/DefaultStyles';
 
+interface Option {
+    value: string | number;
+    label: string;
+}
+
 interface Props {
     id: string;
     label?: string;
-    modelValue?: string | number;
-    type?: string;
+    modelValue?: string | number | null;
+    options: Option[];
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;
     error?: string;
-    minlength?: string | number;
-    maxlength?: string | number;
-    autocomplete?: string;
-    autocapitalize?: string;
 }
 
 withDefaults(defineProps<Props>(), {
     label: '',
     modelValue: '',
-    type: 'text',
-    placeholder: '',
+    placeholder: 'Selecione uma opção',
     required: false,
     disabled: false,
     error: '',
-    minlength: '',
-    maxlength: '',
-    autocomplete: 'off',
-    autocapitalize: 'none',
 });
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void;
+    (e: 'update:modelValue', value: string | number | null): void;
 }>();
 
-const onInput = (event: Event) => {
-    const target = event.target as HTMLInputElement;
+const onChange = (event: Event) => {
+    const target = event.target as HTMLSelectElement;
     emit('update:modelValue', target.value);
 };
 </script>
@@ -49,25 +45,24 @@ const onInput = (event: Event) => {
         >
             {{ label }}
         </label>
-        <input
+        <select
             :id="id"
             :value="modelValue"
-            :type="type"
-            :placeholder="placeholder"
             :required="required"
             :disabled="disabled"
-            :minlength="minlength"
-            :maxlength="maxlength"
-            :autocomplete="autocomplete"
-            :autocapitalize="autocapitalize"
             :class="[
                 styles.input.defaultInput,
-                'bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent transition-colors',
+                'bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent transition-colors w-full cursor-pointer',
                 error ? 'border-red-500' : 'border-border',
                 disabled ? 'opacity-60 cursor-not-allowed' : '',
             ]"
-            @input="onInput"
-        />
+            @change="onChange"
+        >
+            <option v-if="placeholder" disabled value="null" hidden>{{ placeholder }}</option>
+            <option v-for="option in options" :key="option.value" :value="option.value">
+                {{ option.label }}
+            </option>
+        </select>
         <p v-if="error" class="text-xs text-red-500 mt-1">{{ error }}</p>
     </div>
 </template>

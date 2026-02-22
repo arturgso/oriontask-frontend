@@ -3,8 +3,9 @@ import { Plus } from 'lucide-vue-next';
 import ActionButton from '@/components/common/ActionButton.vue';
 import Modal from '@/components/common/modals/Modal.vue';
 import FormInput from '@/components/common/FormInput.vue';
-import { ref } from 'vue';
-import { styles } from '@/styles/DefaultStyles';
+import FormSelect from '@/components/common/FormSelect.vue';
+import FormTextarea from '@/components/common/FormTextarea.vue';
+import { ref, computed } from 'vue';
 import type { NewTaskProps } from '@/types/Tasks';
 import { EFFORT_LABELS, EFFORT_LEVEL, KARMA_LABELS, KARMA_TYPES } from '@/types/Types';
 import { useDharmaStore } from '@/stores/dharmaStore';
@@ -29,6 +30,13 @@ function toggleModal() {
     isModalOpen.value = !isModalOpen.value;
 }
 
+const dharmaOptions = computed(() =>
+    dharmasStore.dharmas.map((d) => ({ value: d.id, label: d.name })),
+);
+
+const effortOptions = EFFORT_LEVEL.map((level) => ({ value: level, label: EFFORT_LABELS[level] }));
+const karmaOptions = KARMA_TYPES.map((type) => ({ value: type, label: KARMA_LABELS[type] }));
+
 async function handleSubmit() {
     const res = await tasksStore.createTask(form.value, selectedDharma.value);
 
@@ -51,29 +59,13 @@ async function handleSubmit() {
 
     <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
         <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
-            <div :class="styles.input.inputDiv">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    for="dharmas"
-                >
-                    Dharmas
-                </label>
-                <select
-                    id="Dharmas"
-                    v-model="selectedDharma"
-                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                    class="w-full"
-                >
-                    <option disabled value="null" hidden>Selecione o Dharma</option>
-                    <option
-                        v-for="option in dharmasStore.dharmas"
-                        :key="option.id"
-                        :value="option.id"
-                    >
-                        {{ option.name }}
-                    </option>
-                </select>
-            </div>
+            <FormSelect
+                id="dharmas"
+                v-model="selectedDharma"
+                label="Dharmas"
+                placeholder="Selecione o Dharma"
+                :options="dharmaOptions"
+            />
 
             <FormInput
                 id="task-title"
@@ -82,70 +74,29 @@ async function handleSubmit() {
                 placeholder="Ex: Saúde"
                 required
             />
-            <div :class="styles.input.inputDiv">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    form="description"
-                >
-                    Descrição
-                </label>
-                <textarea
-                    id="description"
-                    v-model="form.description"
-                    :maxlength="DESCRIPTION_LIMIT"
-                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                    autocomplete="off"
-                    placeholder="Digite a descrição"
-                    class="min-h-28 max-h-28"
-                ></textarea>
-                <p
-                    class="text-end text-sm"
-                    :class="
-                        (form.description?.length ?? 0) >= DESCRIPTION_LIMIT
-                            ? 'text-red-500'
-                            : 'text-text-secondary'
-                    "
-                >
-                    {{ form.description?.length ?? 0 }}/{{ DESCRIPTION_LIMIT }}
-                </p>
-            </div>
-            <div :class="styles.input.inputDiv">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    form="effortLevel"
-                >
-                    Esforço
-                </label>
-                <select
-                    id="effortLevel"
-                    v-model="form.effortLevel"
-                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                    class="w-full"
-                >
-                    <option v-for="option in EFFORT_LEVEL" :key="option" :value="option">
-                        {{ EFFORT_LABELS[option] }}
-                    </option>
-                </select>
-            </div>
 
-            <div :class="styles.input.inputDiv">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    form="karmaType"
-                >
-                    Karma
-                </label>
-                <select
-                    id="karmaType"
-                    v-model="form.karmaType"
-                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                    class="w-full"
-                >
-                    <option v-for="option in KARMA_TYPES" :key="option" :value="option">
-                        {{ KARMA_LABELS[option] }}
-                    </option>
-                </select>
-            </div>
+            <FormTextarea
+                id="description"
+                v-model="form.description"
+                label="Descrição"
+                placeholder="Digite a descrição"
+                :maxlength="DESCRIPTION_LIMIT"
+                show-counter
+            />
+
+            <FormSelect
+                id="effortLevel"
+                v-model="form.effortLevel"
+                label="Esforço"
+                :options="effortOptions"
+            />
+
+            <FormSelect
+                id="karmaType"
+                v-model="form.karmaType"
+                label="Karma"
+                :options="karmaOptions"
+            />
             <ActionButton
                 type="submit"
                 text="Criar"

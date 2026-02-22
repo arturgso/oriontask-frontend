@@ -5,6 +5,9 @@ import { EFFORT_LABELS, EFFORT_LEVEL, KARMA_LABELS, KARMA_TYPES } from '@/types/
 import { MoreVertical, Pencil, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
 import Modal from '@/components/common/modals/Modal.vue';
+import FormInput from '@/components/common/FormInput.vue';
+import FormSelect from '@/components/common/FormSelect.vue';
+import FormTextarea from '@/components/common/FormTextarea.vue';
 import { toast } from 'vue3-toastify';
 
 const props = defineProps<{ task: Tasks }>();
@@ -24,6 +27,9 @@ const editForm = ref<TaskUpdateProps>({
     karmaType: props.task.karmaType,
     effortLevel: props.task.effortLevel,
 });
+
+const effortOptions = EFFORT_LEVEL.map((level) => ({ value: level, label: EFFORT_LABELS[level] }));
+const karmaOptions = KARMA_TYPES.map((type) => ({ value: type, label: KARMA_LABELS[type] }));
 
 function getErrorMessage(error: unknown, fallback: string): string {
     const maybeError = error as {
@@ -136,74 +142,35 @@ async function deleteTask() {
 
     <Modal :open="editModalOpen" title="Editar task" @close="closeEditModal">
         <form class="flex flex-col gap-4" @submit.prevent="saveTaskEdit">
-            <div class="flex flex-col gap-2">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    for="task-title"
-                >
-                    Título
-                </label>
-                <input
-                    id="task-title"
-                    v-model="editForm.title"
-                    type="text"
-                    minlength="5"
-                    maxlength="60"
-                    required
-                    class="p-2 border border-border bg-card rounded-sm focus:outline-none focus:ring-0 focus:border-accent"
-                />
-            </div>
+            <FormInput
+                id="edit-task-title"
+                v-model="editForm.title"
+                label="Título"
+                :minlength="5"
+                :maxlength="60"
+                required
+            />
 
-            <div class="flex flex-col gap-2">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    for="task-description"
-                >
-                    Descrição
-                </label>
-                <textarea
-                    id="task-description"
-                    v-model="editForm.description"
-                    maxlength="200"
-                    class="min-h-24 max-h-32 p-2 border border-border bg-card rounded-sm focus:outline-none focus:ring-0 focus:border-accent"
-                />
-            </div>
+            <FormTextarea
+                id="edit-task-description"
+                v-model="editForm.description"
+                label="Descrição"
+                :maxlength="200"
+            />
 
-            <div class="flex flex-col gap-2">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    for="task-effort"
-                >
-                    Esforço
-                </label>
-                <select
-                    id="task-effort"
-                    v-model="editForm.effortLevel"
-                    class="p-2 border border-border bg-card rounded-sm focus:outline-none focus:ring-0 focus:border-accent"
-                >
-                    <option v-for="option in EFFORT_LEVEL" :key="option" :value="option">
-                        {{ EFFORT_LABELS[option] }}
-                    </option>
-                </select>
-            </div>
+            <FormSelect
+                id="edit-task-effort"
+                v-model="editForm.effortLevel"
+                label="Esforço"
+                :options="effortOptions"
+            />
 
-            <div class="flex flex-col gap-2">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    for="task-karma"
-                >
-                    Karma
-                </label>
-                <select
-                    id="task-karma"
-                    v-model="editForm.karmaType"
-                    class="p-2 border border-border bg-card rounded-sm focus:outline-none focus:ring-0 focus:border-accent"
-                >
-                    <option v-for="option in KARMA_TYPES" :key="option" :value="option">
-                        {{ KARMA_LABELS[option] }}
-                    </option>
-                </select>
-            </div>
+            <FormSelect
+                id="edit-task-karma"
+                v-model="editForm.karmaType"
+                label="Karma"
+                :options="karmaOptions"
+            />
 
             <button
                 type="submit"

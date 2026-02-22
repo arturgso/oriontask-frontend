@@ -29,30 +29,30 @@ function handleClose() {
 </script>
 
 <template>
-    <div
-        ref="modalRef"
-        tabindex="0"
-        :class="[
-            'fixed inset-0 bg-black/35 z-50 grid place-items-center p-4',
-            open ? '' : 'hidden',
-        ]"
-        @keydown.esc="handleClose"
-    >
+    <Teleport to="body">
         <div
-            class="relative w-full max-w-md rounded-sm bg-card p-5 md:p-6 border border-border max-h-[85vh] overflow-y-auto"
+            v-if="open"
+            ref="modalRef"
+            tabindex="0"
+            class="fixed inset-0 bg-black/40 z-[100] grid place-items-center p-4 backdrop-blur-[2px]"
+            @keydown.esc="handleClose"
         >
-            <h1 class="capitalize font-semibold text-base text-text-primary tracking-tight">
-                {{ title }}
-            </h1>
-            <button
-                class="text-text-muted absolute top-3 right-3 h-8 w-8 flex items-center justify-center rounded-sm border border-transparent hover:bg-surface hover:text-accent transition-colors"
-                @click="handleClose"
+            <div
+                class="relative w-full max-w-md rounded-sm bg-card p-5 md:p-6 border border-border max-h-[85vh] overflow-y-auto shadow-2xl"
             >
-                <X :size="18" />
-            </button>
-            <div class="mt-5">
-                <slot />
+                <h1 class="capitalize font-semibold text-base text-text-primary tracking-tight">
+                    {{ title }}
+                </h1>
+                <button
+                    class="text-text-muted absolute top-3 right-3 h-8 w-8 flex items-center justify-center rounded-sm border border-transparent hover:bg-surface hover:text-accent transition-colors"
+                    @click="handleClose"
+                >
+                    <X :size="18" />
+                </button>
+                <div class="mt-5">
+                    <slot />
+                </div>
             </div>
         </div>
-    </div>
+    </Teleport>
 </template>

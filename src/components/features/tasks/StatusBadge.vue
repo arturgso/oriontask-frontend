@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { TASKS_LABELS, type TaskStatus } from '@/types/Types';
+import BaseBadge from '@/components/common/BaseBadge.vue';
 
 defineProps<{ status: TaskStatus }>();
 
@@ -22,7 +23,5 @@ function getBadgeStyle(status: TaskStatus) {
 </script>
 
 <template>
-    <span :class="['text-xs font-medium py-1 px-2 rounded-sm border', getBadgeStyle(status)]">
-        {{ TASKS_LABELS[status] }}
-    </span>
+    <BaseBadge :text="TASKS_LABELS[status]" :variant-class="getBadgeStyle(status)" />
 </template>

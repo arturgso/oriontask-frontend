@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { KARMA_LABELS, type KarmaType } from '@/types/Types';
+import BaseBadge from '@/components/common/BaseBadge.vue';
 
 defineProps<{ type: KarmaType }>();
 
@@ -18,7 +19,5 @@ function getBadgeStyle(type: KarmaType) {
 </script>
 
 <template>
-    <span :class="['text-xs font-medium py-1 px-2 rounded-sm border', getBadgeStyle(type)]">
-        {{ KARMA_LABELS[type] }}
-    </span>
+    <BaseBadge :text="KARMA_LABELS[type]" :variant-class="getBadgeStyle(type)" />
 </template>

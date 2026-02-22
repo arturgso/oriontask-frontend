@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { EFFORT_LABELS, type EffortLevel } from '@/types/Types';
+import BaseBadge from '@/components/common/BaseBadge.vue';
 
 defineProps<{ level: EffortLevel }>();
 
@@ -18,7 +19,5 @@ function getBadgeStyle(level: EffortLevel) {
 </script>
 
 <template>
-    <span :class="['text-xs font-medium py-1 px-2 rounded-sm border', getBadgeStyle(level)]">
-        {{ EFFORT_LABELS[level] }}
-    </span>
+    <BaseBadge :text="EFFORT_LABELS[level]" :variant-class="getBadgeStyle(level)" />
 </template>

@@ -4,30 +4,26 @@ import { styles } from '@/styles/DefaultStyles';
 interface Props {
     id: string;
     label?: string;
-    modelValue?: string | number;
-    type?: string;
+    modelValue?: string;
     placeholder?: string;
     required?: boolean;
     disabled?: boolean;
     error?: string;
-    minlength?: string | number;
-    maxlength?: string | number;
-    autocomplete?: string;
-    autocapitalize?: string;
+    maxlength?: number;
+    showCounter?: boolean;
+    extraClass?: string;
 }
 
 withDefaults(defineProps<Props>(), {
     label: '',
     modelValue: '',
-    type: 'text',
     placeholder: '',
     required: false,
     disabled: false,
     error: '',
-    minlength: '',
-    maxlength: '',
-    autocomplete: 'off',
-    autocapitalize: 'none',
+    maxlength: undefined,
+    showCounter: false,
+    extraClass: '',
 });
 
 const emit = defineEmits<{
@@ -35,7 +31,7 @@ const emit = defineEmits<{
 }>();
 
 const onInput = (event: Event) => {
-    const target = event.target as HTMLInputElement;
+    const target = event.target as HTMLTextAreaElement;
     emit('update:modelValue', target.value);
 };
 </script>
@@ -49,25 +45,36 @@ const onInput = (event: Event) => {
         >
             {{ label }}
         </label>
-        <input
+        <textarea
             :id="id"
             :value="modelValue"
-            :type="type"
             :placeholder="placeholder"
             :required="required"
             :disabled="disabled"
-            :minlength="minlength"
             :maxlength="maxlength"
-            :autocomplete="autocomplete"
-            :autocapitalize="autocapitalize"
             :class="[
                 styles.input.defaultInput,
-                'bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent transition-colors',
+                'bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent transition-colors min-h-[100px]',
                 error ? 'border-red-500' : 'border-border',
                 disabled ? 'opacity-60 cursor-not-allowed' : '',
+                extraClass,
             ]"
             @input="onInput"
         />
-        <p v-if="error" class="text-xs text-red-500 mt-1">{{ error }}</p>
+        <div v-if="showCounter && maxlength" class="flex justify-between mt-1">
+            <p v-if="error" class="text-xs text-red-500">{{ error }}</p>
+            <div v-else></div>
+            <p
+                class="text-xs transition-colors"
+                :class="
+                    modelValue.length >= maxlength
+                        ? 'text-red-500 font-medium'
+                        : 'text-text-secondary'
+                "
+            >
+                {{ modelValue.length }}/{{ maxlength }}
+            </p>
+        </div>
+        <p v-else-if="error" class="text-xs text-red-500 mt-1">{{ error }}</p>
     </div>
 </template>
