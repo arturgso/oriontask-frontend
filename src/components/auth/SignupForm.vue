@@ -6,6 +6,7 @@ import type { SignupProps } from '@/types/Auth';
 import { AuthService } from '@/services/AuthService';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
+import PasswordValidator from './PasswordValidator.vue';
 
 const form = ref<SignupProps>({
     name: '',
@@ -14,7 +15,13 @@ const form = ref<SignupProps>({
 });
 const router = useRouter();
 
+const isPasswordValid = ref(false);
+
 async function submit() {
+    if (!isPasswordValid.value) {
+        return;
+    }
+
     const authService = new AuthService();
 
     try {
@@ -106,6 +113,9 @@ function toggleShowPassword() {
                 <EyeOff v-else :size="18" />
             </button>
         </div>
+
+        <PasswordValidator :password="form.password" @update:is-valid="isPasswordValid = $event" />
+
         <button
             type="submit"
             class="bg-accent p-2.5 rounded-sm mt-1 text-white font-medium hover:bg-accent-hover cursor-pointer transition-colors duration-150"
