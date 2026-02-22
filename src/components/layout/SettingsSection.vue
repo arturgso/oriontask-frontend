@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import NavButton from '@/components/sidebar/NavButton.vue';
+import NavButton from './NavButton.vue';
 import { Settings2 } from 'lucide-vue-next';
 
 defineProps<{

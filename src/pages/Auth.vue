@@ -4,8 +4,8 @@ import Cookie from 'js-cookie';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import LoginForm from '@/components/auth/LoginForm.vue';
-import SignupForm from '@/components/auth/SignupForm.vue';
+import LoginForm from '@/components/features/auth/LoginForm.vue';
+import SignupForm from '@/components/features/auth/SignupForm.vue';
 
 const page = ref(false);
 const router = useRouter();

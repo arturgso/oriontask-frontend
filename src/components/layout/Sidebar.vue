@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { PanelLeftClose, Zap, List, User, LogOut } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import DharmaList from '@/components/ui/DharmaList.vue';
-import Divider from '@/components/ui/Divider.vue';
-import NavButton from '@/components/sidebar/NavButton.vue';
-import SettingsSection from '@/components/sidebar/SettingsSection.vue';
+import DharmaList from '@/components/features/dharmas/DharmaList.vue';
+import Divider from '@/components/common/Divider.vue';
+import NavButton from './NavButton.vue';
+import SettingsSection from './SettingsSection.vue';
 import { AuthService } from '@/services/AuthService';
 import { useRouter } from 'vue-router';
 

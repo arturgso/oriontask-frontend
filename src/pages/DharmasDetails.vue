@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TasksCard from '@/components/tasks/TasksCard.vue';
-import Layout from '@/components/ui/Layout.vue';
+import TasksCard from '@/components/features/tasks/TasksCard.vue';
+import Layout from '@/components/layout/MainLayout.vue';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { useTasksStore } from '@/stores/TasksStore';
 import type { Tasks } from '@/types/Tasks';

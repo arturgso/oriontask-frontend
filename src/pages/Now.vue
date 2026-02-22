@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import NewTaskButon from '@/components/tasks/NewTaskButon.vue';
-import TasksCard from '@/components/tasks/TasksCard.vue';
-import Layout from '@/components/ui/Layout.vue';
+import NewTaskButton from '@/components/features/tasks/NewTaskButton.vue';
+import TasksCard from '@/components/features/tasks/TasksCard.vue';
+import Layout from '@/components/layout/MainLayout.vue';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { useTasksStore } from '@/stores/TasksStore';
 import { Zap } from 'lucide-vue-next';
@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <Layout title="Tasks em foco" :icon="Zap" :side-component="NewTaskButon">
+    <Layout title="Tasks em foco" :icon="Zap" :side-component="NewTaskButton">
         <section>
             <p class="text-xs text-text-secondary mb-4">
                 {{ tasksStore.currentTasks.length }} em Agora

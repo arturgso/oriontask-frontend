@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Plus } from 'lucide-vue-next';
-import ActionButton from '../ui/ActionButton.vue';
-import Modal from '../modals/Modal.vue';
+import ActionButton from '@/components/common/ActionButton.vue';
+import Modal from '@/components/common/modals/Modal.vue';
 import { ref } from 'vue';
 import { styles } from '@/styles/DefaultStyles';
 import type { NewTaskProps } from '@/types/Tasks';

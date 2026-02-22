@@ -2,7 +2,7 @@
 import { useDharmaStore } from '@/stores/dharmaStore';
 import type { Tasks } from '@/types/Tasks';
 import { computed } from 'vue';
-import Divider from '../ui/Divider.vue';
+import Divider from '@/components/common/Divider.vue';
 import TaskCardActions from './TaskCardActions.vue';
 import TaskCardContent from './TaskCardContent.vue';
 import TaskCardMenu from './TaskCardMenu.vue';

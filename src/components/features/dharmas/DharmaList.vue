@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { Plus } from 'lucide-vue-next';
-import Modal from '@/components/modals/Modal.vue';
-import NewDharmaForm from '@/components/dharmas/NewDharmaForm.vue';
+import Modal from '@/components/common/modals/Modal.vue';
+import NewDharmaForm from './NewDharmaForm.vue';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { useRouter } from 'vue-router';
 

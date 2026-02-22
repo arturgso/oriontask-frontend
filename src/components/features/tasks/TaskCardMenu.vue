@@ -4,7 +4,7 @@ import type { TaskUpdateProps, Tasks } from '@/types/Tasks';
 import { EFFORT_LABELS, EFFORT_LEVEL, KARMA_LABELS, KARMA_TYPES } from '@/types/Types';
 import { MoreVertical, Pencil, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
-import Modal from '../modals/Modal.vue';
+import Modal from '@/components/common/modals/Modal.vue';
 import { toast } from 'vue3-toastify';
 
 const props = defineProps<{ task: Tasks }>();

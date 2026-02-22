@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Layout from '@/components/ui/Layout.vue';
+import Layout from '@/components/layout/MainLayout.vue';
 import { UsersService } from '@/services/UsersService';
 import type { UpdateUserProfileProps } from '@/types/User';
 import { UserRound } from 'lucide-vue-next';

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import EditDharmaForm from '@/components/dharmas/EditDharmaForm.vue';
-import Layout from '@/components/ui/Layout.vue';
+import EditDharmaForm from '@/components/features/dharmas/EditDharmaForm.vue';
+import Layout from '@/components/layout/MainLayout.vue';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { ChevronDown } from 'lucide-vue-next';
 import { computed, onMounted, ref } from 'vue';

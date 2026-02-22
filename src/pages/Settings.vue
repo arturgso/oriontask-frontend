@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Layout from '@/components/ui/Layout.vue';
+import Layout from '@/components/layout/MainLayout.vue';
 import type { ThemeMode } from '@/utils/ThemeUtils';
 import { getThemeMode, setThemeMode } from '@/utils/ThemeUtils';
 import { Laptop, Moon, Settings2, Sun } from 'lucide-vue-next';
