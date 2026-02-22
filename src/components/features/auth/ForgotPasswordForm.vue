@@ -2,9 +2,13 @@
 import { ref } from 'vue';
 import { ArrowLeft, Send } from 'lucide-vue-next';
 import { toast } from 'vue3-toastify';
+import { AuthService } from '@/services/AuthService';
 import FormInput from '@/components/common/FormInput.vue';
+import { isAxiosError } from 'axios';
+import type { BackendError } from '@/types/Auth';
 
 const emit = defineEmits(['back']);
+const authService = new AuthService();
 
 const email = ref('');
 const loading = ref(false);
@@ -15,12 +19,17 @@ async function submit() {
 
     loading.value = true;
     try {
-        // Simulating API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        await authService.forgotPassword({ email: email.value });
         sent.value = true;
         toast.success('Email de recuperação enviado!');
     } catch (e) {
-        toast.error('Erro ao enviar email de recuperação');
+        let message = 'Erro ao enviar email de recuperação';
+
+        if (isAxiosError<BackendError>(e)) {
+            message = e.response?.data?.message || message;
+        }
+
+        toast.error(message === 'User not found' ? 'Usuário não encontrado' : message);
         console.error(e);
     } finally {
         loading.value = false;

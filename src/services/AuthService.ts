@@ -1,5 +1,11 @@
 import api from '@/Api';
-import type { LoginProps, SignupProps, SignupResponse } from '@/types/Auth';
+import type {
+    ForgotPasswordProps,
+    LoginProps,
+    ResetPasswordProps,
+    SignupProps,
+    SignupResponse,
+} from '@/types/Auth';
 import type { AxiosResponse } from 'axios';
 import Cookie from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
@@ -101,6 +107,14 @@ export class AuthService {
 
     async confirmEmail(token: string): Promise<void> {
         await api.post(`/auth/confirm-email?token=${token}`);
+    }
+
+    async forgotPassword(data: ForgotPasswordProps): Promise<void> {
+        await api.post('/auth/forgot-password', data);
+    }
+
+    async resetPassword(data: ResetPasswordProps): Promise<void> {
+        await api.post('/auth/reset-password', data);
     }
 
     async validateToken(): Promise<boolean> {

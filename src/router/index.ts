@@ -1,6 +1,7 @@
 import Now from '@/pages/Now.vue';
 import Auth from '@/pages/Auth.vue';
 import ConfirmEmail from '@/pages/ConfirmEmail.vue';
+import ResetPassword from '@/pages/ResetPassword.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Dharmas from '@/pages/Dharmas.vue';
 import { AuthService } from '@/services/AuthService';
@@ -25,6 +26,11 @@ const routes = [
         path: '/confirm-email',
         name: 'confirm-email',
         component: ConfirmEmail,
+    },
+    {
+        path: '/reset-password',
+        name: 'reset-password',
+        component: ResetPassword,
     },
     {
         path: '/dharmas',
@@ -60,7 +66,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-    if (to.name === 'not-found' || to.name === 'confirm-email') {
+    if (to.name === 'not-found' || to.name === 'confirm-email' || to.name === 'reset-password') {
         return true;
     }
 

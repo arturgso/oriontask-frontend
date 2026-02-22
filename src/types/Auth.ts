@@ -26,3 +26,24 @@ export interface SignupResponse {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface ForgotPasswordProps {
+    email: string;
+}
+
+export interface ResetPasswordProps {
+    token: string;
+    newPassword: string;
+}
+
+export interface BackendError {
+    timestamp: string;
+    status: number;
+    error: string;
+    message: string;
+    path: string;
+}
+
+export interface BackendValidationError extends BackendError {
+    errors?: Record<string, string>;
+}
