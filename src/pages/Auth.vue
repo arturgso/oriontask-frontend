@@ -6,12 +6,15 @@ import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import LoginForm from '@/components/features/auth/LoginForm.vue';
 import SignupForm from '@/components/features/auth/SignupForm.vue';
+import ForgotPasswordForm from '@/components/features/auth/ForgotPasswordForm.vue';
 
-const page = ref(false);
+type AuthStep = 'login' | 'signup' | 'forgot-password';
+
+const step = ref<AuthStep>('login');
 const router = useRouter();
 
-function changePage() {
-    return (page.value = !page.value);
+function setStep(newStep: AuthStep) {
+    step.value = newStep;
 }
 
 onMounted(async () => {
@@ -36,34 +39,39 @@ onMounted(async () => {
                 <p class="text-text-secondary text-sm">Tarefas com propósito</p>
             </div>
 
-            <div class="mt-7 border-b border-border flex">
+            <div v-if="step !== 'forgot-password'" class="mt-7 border-b border-border flex">
                 <button
                     :class="[
                         'w-1/2 pb-2 text-sm font-medium transition-colors',
-                        !page
+                        step === 'login'
                             ? 'text-accent border-b-2 border-accent -mb-px'
                             : 'text-text-secondary hover:text-text-primary',
                     ]"
-                    @click="changePage"
+                    @click="setStep('login')"
                 >
                     Entrar
                 </button>
                 <button
                     :class="[
                         'w-1/2 pb-2 text-sm font-medium transition-colors',
-                        page
+                        step === 'signup'
                             ? 'text-accent border-b-2 border-accent -mb-px'
                             : 'text-text-secondary hover:text-text-primary',
                     ]"
-                    @click="changePage"
+                    @click="setStep('signup')"
                 >
                     Cadastrar
                 </button>
             </div>
 
+            <div v-else class="mt-10 mb-4 text-center">
+                <h2 class="text-text-primary text-xl font-medium">Recuperar senha</h2>
+            </div>
+
             <div class="mt-6">
-                <LoginForm v-if="!page" />
-                <SignupForm v-else />
+                <LoginForm v-if="step === 'login'" @forgot-password="setStep('forgot-password')" />
+                <SignupForm v-else-if="step === 'signup'" />
+                <ForgotPasswordForm v-else @back="setStep('login')" />
             </div>
         </div>
     </div>

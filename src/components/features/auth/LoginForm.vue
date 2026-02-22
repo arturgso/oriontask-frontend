@@ -9,6 +9,7 @@ import { toast } from 'vue3-toastify';
 import FormInput from '@/components/common/FormInput.vue';
 
 const router = useRouter();
+const emit = defineEmits(['forgot-password']);
 
 const form = ref<LoginProps>({
     email: '',
@@ -86,11 +87,13 @@ function toggleShowPassword() {
                 />
                 <label class="text-text-secondary" for="rememberMe">Lembrar de mim</label>
             </div>
-            <a
-                class="whitespace-nowrap cursor-pointer text-text-secondary hover:text-text-primary transition-colors"
+            <button
+                type="button"
+                @click="$emit('forgot-password')"
+                class="whitespace-nowrap cursor-pointer text-text-secondary hover:text-text-primary transition-colors bg-transparent border-none p-0"
             >
                 Esqueceu a senha?
-            </a>
+            </button>
         </div>
         <button
             type="submit"
