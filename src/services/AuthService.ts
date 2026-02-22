@@ -97,7 +97,7 @@ export class AuthService {
         } finally {
             Cookie.remove('access_token');
             Cookie.remove('uid');
-            Cookie.remove('uname');
+            localStorage.clear();
         }
     }
 
