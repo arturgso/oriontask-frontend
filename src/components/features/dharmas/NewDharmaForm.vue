@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { NewDharmaProps } from '@/types/Dharma';
-import { styles } from '@/styles/DefaultStyles';
+import FormInput from '@/components/common/FormInput.vue';
 import { defaultColors } from '@/types/DefaultDharmaColors';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { toast } from 'vue3-toastify';
@@ -25,23 +25,14 @@ const submit = async () => {
 </script>
 
 <template>
-    <form :class="styles.input.inputDiv" @submit.prevent="submit">
-        <div :class="styles.input.inputDiv">
-            <label
-                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                for="name"
-            >
-                Nome
-            </label>
-            <input
-                id="name"
-                v-model="form.name"
-                type="text"
-                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                placeholder="Ex: Saúde, Trabalho, Família"
-                required
-            />
-        </div>
+    <form class="flex flex-col gap-4" @submit.prevent="submit">
+        <FormInput
+            id="name"
+            v-model="form.name"
+            label="Nome"
+            placeholder="Ex: Saúde, Trabalho, Família"
+            required
+        />
 
         <div class="flex flex-wrap gap-2 justify-between items-center mt-4">
             <button

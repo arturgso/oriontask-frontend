@@ -5,6 +5,7 @@ import type { UpdateUserProfileProps } from '@/types/User';
 import { UserRound } from 'lucide-vue-next';
 import { computed, onMounted, ref } from 'vue';
 import { toast } from 'vue3-toastify';
+import FormInput from '@/components/common/FormInput.vue';
 
 const usersService = new UsersService();
 const loading = ref(false);
@@ -85,39 +86,22 @@ onMounted(() => {
             <p v-if="loading" class="text-sm text-text-secondary">Carregando perfil...</p>
 
             <form v-else class="flex flex-col gap-4" @submit.prevent="submit">
-                <div class="flex flex-col gap-2">
-                    <label
-                        class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                        for="profile-name"
-                    >
-                        Nome
-                    </label>
-                    <input
-                        id="profile-name"
-                        v-model="form.name"
-                        type="text"
-                        minlength="3"
-                        maxlength="50"
-                        required
-                        class="p-2 border border-border bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent"
-                    />
-                </div>
+                <FormInput
+                    id="profile-name"
+                    v-model="form.name"
+                    label="Nome"
+                    minlength="3"
+                    maxlength="50"
+                    required
+                />
 
-                <div class="flex flex-col gap-2">
-                    <label
-                        class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                        for="profile-email"
-                    >
-                        Email
-                    </label>
-                    <input
-                        id="profile-email"
-                        v-model="form.email"
-                        type="email"
-                        required
-                        class="p-2 border border-border bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent"
-                    />
-                </div>
+                <FormInput
+                    id="profile-email"
+                    v-model="form.email"
+                    type="email"
+                    label="Email"
+                    required
+                />
 
                 <button
                     type="submit"

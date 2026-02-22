@@ -2,6 +2,7 @@
 import { Plus } from 'lucide-vue-next';
 import ActionButton from '@/components/common/ActionButton.vue';
 import Modal from '@/components/common/modals/Modal.vue';
+import FormInput from '@/components/common/FormInput.vue';
 import { ref } from 'vue';
 import { styles } from '@/styles/DefaultStyles';
 import type { NewTaskProps } from '@/types/Tasks';
@@ -74,23 +75,13 @@ async function handleSubmit() {
                 </select>
             </div>
 
-            <div :class="styles.input.inputDiv">
-                <label
-                    class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                    form="title"
-                >
-                    Título
-                </label>
-                <input
-                    id="username"
-                    v-model="form.title"
-                    type="text"
-                    required
-                    placeholder="Saúde"
-                    autocomplete="off"
-                    :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                />
-            </div>
+            <FormInput
+                id="task-title"
+                v-model="form.title"
+                label="Título"
+                placeholder="Ex: Saúde"
+                required
+            />
             <div :class="styles.input.inputDiv">
                 <label
                     class="text-xs font-medium uppercase tracking-wide text-text-secondary"

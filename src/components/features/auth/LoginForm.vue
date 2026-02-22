@@ -6,6 +6,7 @@ import { styles } from '@/styles/DefaultStyles';
 import { useRouter } from 'vue-router';
 import { AuthService } from '@/services/AuthService';
 import { toast } from 'vue3-toastify';
+import FormInput from '@/components/common/FormInput.vue';
 
 const router = useRouter();
 
@@ -41,23 +42,15 @@ function toggleShowPassword() {
 
 <template>
     <form class="flex flex-col gap-4 w-full" @submit.prevent="submit">
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                for="email"
-            >
-                Email
-            </label>
-            <input
-                id="email"
-                v-model="form.email"
-                type="email"
-                autocapitalize="none"
-                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                placeholder="johndoe@mail.com"
-                required
-            />
-        </div>
+        <FormInput
+            id="email"
+            v-model="form.email"
+            type="email"
+            label="Email"
+            placeholder="johndoe@mail.com"
+            autocapitalize="none"
+            required
+        />
         <div class="flex flex-col gap-2 relative">
             <label
                 class="text-xs font-medium uppercase tracking-wide text-text-secondary"

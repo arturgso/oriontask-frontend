@@ -7,6 +7,7 @@ import { AuthService } from '@/services/AuthService';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import PasswordValidator from './PasswordValidator.vue';
+import FormInput from '@/components/common/FormInput.vue';
 
 const form = ref<SignupProps>({
     name: '',
@@ -56,39 +57,16 @@ function toggleShowPassword() {
 
 <template>
     <form class="flex flex-col gap-4 w-full" @submit.prevent="submit">
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                form="name"
-            >
-                Nome
-            </label>
-            <input
-                id="name"
-                v-model="form.name"
-                type="text"
-                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                placeholder="John Doe"
-                required
-            />
-        </div>
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                form="email"
-            >
-                Email
-            </label>
-            <input
-                id="email"
-                v-model="form.email"
-                type="email"
-                autocapitalize="none"
-                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                placeholder="johndoe@mail.com"
-                required
-            />
-        </div>
+        <FormInput id="name" v-model="form.name" label="Nome" placeholder="John Doe" required />
+        <FormInput
+            id="email"
+            v-model="form.email"
+            type="email"
+            label="Email"
+            placeholder="johndoe@mail.com"
+            autocapitalize="none"
+            required
+        />
         <div class="relative" :class="styles.input.inputDiv">
             <label
                 class="text-xs font-medium uppercase tracking-wide text-text-secondary"

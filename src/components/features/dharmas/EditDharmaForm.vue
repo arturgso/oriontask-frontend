@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { styles } from '@/styles/DefaultStyles';
 import type { Dharma, EditDharmaProps } from '@/types/Dharma';
 import { ref } from 'vue';
 import ColorPicker from './ColorPicker.vue';
-import ActionButton from '../ui/ActionButton.vue';
+import ActionButton from '@/components/common/ActionButton.vue';
+import FormInput from '@/components/common/FormInput.vue';
 import { Trash } from 'lucide-vue-next';
 
 const props = defineProps<{
@@ -19,19 +19,7 @@ const form = ref<EditDharmaProps>({
 
 <template>
     <form class="mt-1 flex flex-col gap-4" @submit.prevent="">
-        <div :class="styles.input.inputDiv">
-            <label
-                class="text-xs font-medium uppercase tracking-wide text-text-secondary"
-                for="name"
-            >
-                Nome
-            </label>
-            <input
-                id="name"
-                :class="`${styles.input.defaultInput} bg-card rounded-sm px-3 py-2.5 focus:outline-none focus:ring-0 focus:border-accent`"
-                :placeholder="dharma.name"
-            />
-        </div>
+        <FormInput id="dharma-name" v-model="form.name" label="Nome" :placeholder="dharma.name" />
         <ColorPicker v-model:color="form.color" />
         <div class="flex items-center gap-2">
             <ActionButton
