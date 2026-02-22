@@ -1,19 +1,17 @@
 #!/usr/bin/env sh
 set -e
 
-# garante que o bun do asdf esteja disponível
 export PATH="$HOME/.asdf/shims:$PATH"
 
-staged_files=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx|vue|css|scss|html|json|md|yml|yaml)$' || true)
+echo "pre-commit: formatting staged files with bun/prettier..."
 
-if [ -n "$staged_files" ]; then
-  echo "pre-commit: formatting staged files with bun/prettier..."
+git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '\.(js|jsx|ts|tsx|vue|css|scss|html|json|md|yml|yaml)$' \
+  | xargs -r bunx prettier --write
 
-  # versão segura contra espaços no nome dos arquivos
-  printf '%s\0' "$staged_files" | xargs -0 bunx prettier --write
-
-  printf '%s\0' "$staged_files" | xargs -0 git add
-fi
+git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '\.(js|jsx|ts|tsx|vue|css|scss|html|json|md|yml|yaml)$' \
+  | xargs -r git add
 
 echo "pre-commit: running lint fix with bun..."
 bun run lint:fix
