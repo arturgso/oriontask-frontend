@@ -1,5 +1,12 @@
 #!/usr/bin/env sh
 set -e
 
+export PATH="$HOME/.asdf/shims:$PATH"
+
+if ! command -v bun >/dev/null 2>&1; then
+  echo "bun não encontrado no PATH"
+  exit 1
+fi
+
 echo "pre-push: validating build with bun..."
 bun run build
