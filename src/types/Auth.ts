@@ -17,3 +17,12 @@ export interface AuthResponse {
     name?: string;
     email?: string;
 }
+
+export interface SignupResponse {
+    id: string;
+    name: string;
+    email: string;
+    isConfirmed: boolean;
+    createdAt: string;
+    updatedAt: string;
+}

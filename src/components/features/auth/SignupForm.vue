@@ -4,19 +4,18 @@ import { Eye, EyeOff } from 'lucide-vue-next';
 import { styles } from '@/styles/DefaultStyles';
 import type { SignupProps } from '@/types/Auth';
 import { AuthService } from '@/services/AuthService';
-import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import PasswordValidator from './PasswordValidator.vue';
 import FormInput from '@/components/common/FormInput.vue';
+import SignupSuccess from './SignupSuccess.vue';
 
 const form = ref<SignupProps>({
     name: '',
     email: '',
     password: '',
 });
-const router = useRouter();
-
 const isPasswordValid = ref(false);
+const isSignedUp = ref(false);
 
 async function submit() {
     if (!isPasswordValid.value) {
@@ -26,21 +25,11 @@ async function submit() {
     const authService = new AuthService();
 
     try {
-        const signupStatus = await authService.signup(form.value);
+        const response = await authService.signup(form.value);
 
-        if (signupStatus === 201) {
-            const loginStatus = await authService.login({
-                email: form.value.email,
-                password: form.value.password,
-                rememberMe: false,
-            });
-
-            if (loginStatus === 200) {
-                toast.success('Cadastro realizado e login efetuado');
-                setTimeout(() => {
-                    router.push('/');
-                }, 1500);
-            }
+        if (response.id) {
+            isSignedUp.value = true;
+            toast.success('Cadastro realizado com sucesso!');
         }
     } catch (error) {
         toast.error('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');
@@ -56,7 +45,8 @@ function toggleShowPassword() {
 </script>
 
 <template>
-    <form class="flex flex-col gap-4 w-full" @submit.prevent="submit">
+    <SignupSuccess v-if="isSignedUp" :email="form.email" @back="isSignedUp = false" />
+    <form v-else class="flex flex-col gap-4 w-full" @submit.prevent="submit">
         <FormInput id="name" v-model="form.name" label="Nome" placeholder="John Doe" required />
         <FormInput
             id="email"

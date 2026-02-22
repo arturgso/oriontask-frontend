@@ -1,5 +1,6 @@
 import Now from '@/pages/Now.vue';
 import Auth from '@/pages/Auth.vue';
+import ConfirmEmail from '@/pages/ConfirmEmail.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Dharmas from '@/pages/Dharmas.vue';
 import { AuthService } from '@/services/AuthService';
@@ -19,6 +20,11 @@ const routes = [
         path: '/auth',
         name: 'auth',
         component: Auth,
+    },
+    {
+        path: '/confirm-email',
+        name: 'confirm-email',
+        component: ConfirmEmail,
     },
     {
         path: '/dharmas',
@@ -54,7 +60,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-    if (to.name === 'not-found') {
+    if (to.name === 'not-found' || to.name === 'confirm-email') {
         return true;
     }
 

@@ -1,5 +1,5 @@
 import api from '@/Api';
-import type { LoginProps, SignupProps } from '@/types/Auth';
+import type { LoginProps, SignupProps, SignupResponse } from '@/types/Auth';
 import type { AxiosResponse } from 'axios';
 import Cookie from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
@@ -47,8 +47,8 @@ export class AuthService {
         }
     }
 
-    async signup(form: SignupProps): Promise<number> {
-        const res = await api.post('/auth/signup', {
+    async signup(form: SignupProps): Promise<SignupResponse> {
+        const res = await api.post<SignupResponse>('/auth/signup', {
             name: form.name,
             email: form.email,
             password: form.password,
@@ -58,9 +58,7 @@ export class AuthService {
             throw new Error('Failed to signup');
         }
 
-        const token = this.extractTokenFromResponse(res);
-        if (token) this.setAuthCookie(token);
-        return res.status;
+        return res.data;
     }
 
     async login(form: LoginProps): Promise<number> {
@@ -99,6 +97,10 @@ export class AuthService {
             Cookie.remove('uid');
             localStorage.clear();
         }
+    }
+
+    async confirmEmail(token: string): Promise<void> {
+        await api.post(`/auth/confirm-email?token=${token}`);
     }
 
     async validateToken(): Promise<boolean> {
