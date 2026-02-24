@@ -9,7 +9,7 @@ import { toast } from 'vue3-toastify';
 import FormInput from '@/components/common/FormInput.vue';
 
 const router = useRouter();
-const emit = defineEmits(['forgot-password']);
+defineEmits(['forgot-password']);
 
 const form = ref<LoginProps>({
     email: '',

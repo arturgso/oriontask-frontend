@@ -1,17 +1,11 @@
 import api from '@/Api';
 import type { Dharma, NewDharmaProps } from '@/types/Dharma';
-import { getCookie } from '@/utils/AuthUtils';
-
 export class DharmaService {
-    userId = getCookie('uid');
-    token = getCookie('access_token');
-
     async create(form: NewDharmaProps): Promise<Dharma> {
         try {
             const res = await api.post(`/dharmas`, form, {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${this.token}`,
                 },
             });
 
@@ -23,11 +17,7 @@ export class DharmaService {
     }
 
     async getUserDharmas(): Promise<Dharma[]> {
-        const res = await api.get(`/dharmas`, {
-            headers: {
-                Authorization: `Bearer ${this.token}`,
-            },
-        });
+        const res = await api.get(`/dharmas`);
 
         return res.data as Dharma[];
     }

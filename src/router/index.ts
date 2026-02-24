@@ -9,7 +9,7 @@ import DharmasDetails from '@/pages/DharmasDetails.vue';
 import Profile from '@/pages/Profile.vue';
 import Settings from '@/pages/Settings.vue';
 import NotFound from '@/pages/NotFound.vue';
-import Cookie from 'js-cookie';
+import { useAuthStore } from '@/stores/AuthStore';
 
 const routes = [
     {
@@ -71,31 +71,22 @@ router.beforeEach(async (to) => {
     }
 
     const authService = new AuthService();
-    const hasToken = Boolean(Cookie.get('access_token'));
+    const authStore = useAuthStore();
+
+    let isAuthenticated = authStore.isAuthenticated;
+
+    if (!isAuthenticated) {
+        isAuthenticated = await authService.validateToken();
+    }
 
     if (to.name === 'auth') {
-        if (!hasToken) {
-            return true;
-        }
-
-        const ok = await authService.validateToken();
-
-        if (ok) {
+        if (isAuthenticated) {
             return { name: 'now' };
         }
-
-        await authService.logout();
         return true;
     }
 
-    if (!hasToken) {
-        return { name: 'auth' };
-    }
-
-    const ok = await authService.validateToken();
-
-    if (!ok) {
-        await authService.logout();
+    if (!isAuthenticated) {
         return { name: 'auth' };
     }
 

@@ -7,8 +7,7 @@ import type {
     SignupResponse,
 } from '@/types/Auth';
 import type { AxiosResponse } from 'axios';
-import Cookie from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
+import { useAuthStore } from '@/stores/AuthStore';
 
 export class AuthService {
     private extractTokenFromResponse(response: AxiosResponse): string | null {
@@ -37,20 +36,6 @@ export class AuthService {
         }
 
         return null;
-    }
-
-    private setAuthCookie(token: string): void {
-        try {
-            const decoded = jwtDecode<{ sub: string; exp?: number; iat?: number }>(token);
-            const expires = decoded.exp ? new Date(decoded.exp * 1000) : undefined;
-            const secure = window.location.protocol === 'https:';
-
-            Cookie.set('access_token', token, { expires, path: '/', sameSite: 'Lax', secure });
-            Cookie.set('uid', decoded.sub, { expires, path: '/', sameSite: 'Lax', secure });
-        } catch {
-            const secure = window.location.protocol === 'https:';
-            Cookie.set('access_token', token, { path: '/', sameSite: 'Lax', secure });
-        }
     }
 
     async signup(form: SignupProps): Promise<SignupResponse> {
@@ -90,7 +75,8 @@ export class AuthService {
             throw new Error('Token not found in login response');
         }
 
-        this.setAuthCookie(token);
+        const authStore = useAuthStore();
+        authStore.setToken(token);
 
         return res.status;
     }
@@ -99,8 +85,8 @@ export class AuthService {
         try {
             await api.post('/auth/logout');
         } finally {
-            Cookie.remove('access_token');
-            Cookie.remove('uid');
+            const authStore = useAuthStore();
+            authStore.clearAuth();
             localStorage.clear();
         }
     }
@@ -118,20 +104,18 @@ export class AuthService {
     }
 
     async validateToken(): Promise<boolean> {
-        const token = Cookie.get('access_token');
-
-        if (!token) {
-            return false;
-        }
-
         try {
-            const res = await api.post('/auth/validate', undefined, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const res = await api.post('/auth/validate');
 
-            return res.status === 200 || res.status === 204;
+            if (res.status === 200 || res.status === 204) {
+                const token = this.extractTokenFromResponse(res);
+                if (token) {
+                    const authStore = useAuthStore();
+                    authStore.setToken(token);
+                }
+                return true;
+            }
+            return false;
         } catch {
             return false;
         }

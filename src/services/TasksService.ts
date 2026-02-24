@@ -1,26 +1,19 @@
 import api from '@/Api';
 import type { NewTaskProps, TaskUpdateProps, Tasks } from '@/types/Tasks';
 import type { TaskStatus } from '@/types/Types';
-import { getCookie } from '@/utils/AuthUtils';
-
 export class TasksService {
     private readonly TASKS_ENDPOINT = '/tasks';
-
-    private getAuthHeaders() {
-        try {
-            const token = getCookie('access_token');
-            return { Authorization: `Bearer ${token}` };
-        } catch {
-            return {};
-        }
-    }
 
     private unwrapTasksResponse(data: unknown): Tasks[] {
         if (Array.isArray(data)) {
             return data as Tasks[];
         }
 
-        if (data && typeof data === 'object' && Array.isArray((data as { content?: unknown[] }).content)) {
+        if (
+            data &&
+            typeof data === 'object' &&
+            Array.isArray((data as { content?: unknown[] }).content)
+        ) {
             return (data as { content: Tasks[] }).content;
         }
 
@@ -42,7 +35,6 @@ export class TasksService {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        ...this.getAuthHeaders(),
                     },
                 },
             );
@@ -66,9 +58,6 @@ export class TasksService {
                     page,
                     size,
                 },
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
             });
 
             return this.unwrapTasksResponse(res.data);
@@ -84,9 +73,6 @@ export class TasksService {
                 params: {
                     page,
                     size,
-                },
-                headers: {
-                    ...this.getAuthHeaders(),
                 },
             });
 
@@ -105,9 +91,6 @@ export class TasksService {
                     page,
                     size,
                 },
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
             });
 
             return this.unwrapTasksResponse(res.data);
@@ -122,7 +105,6 @@ export class TasksService {
             const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}`, form, {
                 headers: {
                     'Content-Type': 'application/json',
-                    ...this.getAuthHeaders(),
                 },
             });
 
@@ -135,11 +117,7 @@ export class TasksService {
 
     async moveToNow(taskId: number): Promise<Tasks> {
         try {
-            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/now`, null, {
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
-            });
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/now`, null);
 
             return res.data;
         } catch (e) {
@@ -150,11 +128,7 @@ export class TasksService {
 
     async snooze(taskId: number): Promise<Tasks> {
         try {
-            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/snooze`, null, {
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
-            });
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/snooze`, null);
 
             return res.data;
         } catch (e) {
@@ -167,9 +141,6 @@ export class TasksService {
         try {
             const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/change-status`, null, {
                 params: { status },
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
             });
 
             return res.data;
@@ -181,11 +152,7 @@ export class TasksService {
 
     async done(taskId: number): Promise<Tasks> {
         try {
-            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/done`, null, {
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
-            });
+            const res = await api.patch(`${this.TASKS_ENDPOINT}/${taskId}/done`, null);
 
             return res.data;
         } catch (e) {
@@ -196,11 +163,7 @@ export class TasksService {
 
     async delete(taskId: number): Promise<void> {
         try {
-            await api.delete(`${this.TASKS_ENDPOINT}/${taskId}`, {
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
-            });
+            await api.delete(`${this.TASKS_ENDPOINT}/${taskId}`);
         } catch (e) {
             console.error(e);
             throw new Error('Error while deleting task');
