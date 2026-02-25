@@ -104,19 +104,23 @@ export class AuthService {
     }
 
     async validateToken(): Promise<boolean> {
+        const authStore = useAuthStore();
         try {
             const res = await api.post('/auth/validate');
 
             if (res.status === 200 || res.status === 204) {
                 const token = this.extractTokenFromResponse(res);
                 if (token) {
-                    const authStore = useAuthStore();
                     authStore.setToken(token);
+                } else {
+                    authStore.setLastValidated();
                 }
                 return true;
             }
+            authStore.setLastValidated();
             return false;
         } catch {
+            authStore.setLastValidated();
             return false;
         }
     }

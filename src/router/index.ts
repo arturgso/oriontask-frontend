@@ -75,7 +75,10 @@ router.beforeEach(async (to) => {
 
     let isAuthenticated = authStore.isAuthenticated;
 
-    if (!isAuthenticated) {
+    // Only validate if not authenticated and last validation was more than 5 minutes ago
+    const shouldValidate = !isAuthenticated && Date.now() - authStore.lastValidated > 5 * 60 * 1000;
+
+    if (shouldValidate) {
         isAuthenticated = await authService.validateToken();
     }
 

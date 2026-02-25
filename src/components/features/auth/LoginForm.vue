@@ -14,7 +14,6 @@ defineEmits(['forgot-password']);
 const form = ref<LoginProps>({
     email: '',
     password: '',
-    rememberMe: false,
 });
 
 async function submit() {
@@ -77,16 +76,7 @@ function toggleShowPassword() {
             </button>
         </div>
 
-        <div class="flex items-center justify-between gap-6 text-sm">
-            <div class="flex gap-2 items-center">
-                <input
-                    id="rememberMe"
-                    v-model="form.rememberMe"
-                    type="checkbox"
-                    class="h-4 w-4 rounded-sm border-border text-accent focus:ring-0"
-                />
-                <label class="text-text-secondary" for="rememberMe">Lembrar de mim</label>
-            </div>
+        <div class="flex items-center justify-end text-sm">
             <button
                 type="button"
                 class="whitespace-nowrap cursor-pointer text-text-secondary hover:text-text-primary transition-colors bg-transparent border-none p-0"
