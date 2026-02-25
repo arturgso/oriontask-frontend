@@ -1,22 +1,11 @@
 import api from '@/Api';
 import type { UpdateUserProfileProps, UserProfile } from '@/types/User';
-import { getCookie } from '@/utils/AuthUtils';
-
 export class UsersService {
     private readonly USERS_ENDPOINT = '/users';
 
-    private getAuthHeaders() {
-        const token = getCookie('access_token');
-        return { Authorization: `Bearer ${token}` };
-    }
-
     async me(): Promise<UserProfile> {
         try {
-            const res = await api.get(`${this.USERS_ENDPOINT}/me`, {
-                headers: {
-                    ...this.getAuthHeaders(),
-                },
-            });
+            const res = await api.get(`${this.USERS_ENDPOINT}/me`);
 
             return res.data as UserProfile;
         } catch (error) {
@@ -30,7 +19,6 @@ export class UsersService {
             const res = await api.patch(`${this.USERS_ENDPOINT}/me`, form, {
                 headers: {
                     'Content-Type': 'application/json',
-                    ...this.getAuthHeaders(),
                 },
             });
 

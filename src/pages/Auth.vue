@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { AuthService } from '@/services/AuthService';
-import Cookie from 'js-cookie';
+import { useAuthStore } from '@/stores/AuthStore';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
@@ -18,8 +18,11 @@ function setStep(newStep: AuthStep) {
 }
 
 onMounted(async () => {
-    const token = Cookie.get('access_token');
-    if (!token) return;
+    const authStore = useAuthStore();
+    if (authStore.isAuthenticated) {
+        router.push('/');
+        return;
+    }
 
     const authService = new AuthService();
     const ok = await authService.validateToken();

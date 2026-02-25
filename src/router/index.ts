@@ -9,7 +9,7 @@ import DharmasDetails from '@/pages/DharmasDetails.vue';
 import Profile from '@/pages/Profile.vue';
 import Settings from '@/pages/Settings.vue';
 import NotFound from '@/pages/NotFound.vue';
-import Cookie from 'js-cookie';
+import { useAuthStore } from '@/stores/AuthStore';
 
 const routes = [
     {
@@ -71,31 +71,25 @@ router.beforeEach(async (to) => {
     }
 
     const authService = new AuthService();
-    const hasToken = Boolean(Cookie.get('access_token'));
+    const authStore = useAuthStore();
+
+    let isAuthenticated = authStore.isAuthenticated;
+
+    // Only validate if not authenticated and last validation was more than 5 minutes ago
+    const shouldValidate = !isAuthenticated && Date.now() - authStore.lastValidated > 5 * 60 * 1000;
+
+    if (shouldValidate) {
+        isAuthenticated = await authService.validateToken();
+    }
 
     if (to.name === 'auth') {
-        if (!hasToken) {
-            return true;
-        }
-
-        const ok = await authService.validateToken();
-
-        if (ok) {
+        if (isAuthenticated) {
             return { name: 'now' };
         }
-
-        await authService.logout();
         return true;
     }
 
-    if (!hasToken) {
-        return { name: 'auth' };
-    }
-
-    const ok = await authService.validateToken();
-
-    if (!ok) {
-        await authService.logout();
+    if (!isAuthenticated) {
         return { name: 'auth' };
     }
 

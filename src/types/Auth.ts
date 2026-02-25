@@ -1,7 +1,6 @@
 export interface LoginProps {
     email: string;
     password: string;
-    rememberMe: boolean;
 }
 
 export interface SignupProps {
