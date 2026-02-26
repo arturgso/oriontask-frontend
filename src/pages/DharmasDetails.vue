@@ -13,6 +13,7 @@ const props = defineProps<{
 }>();
 
 const showSnoozed = ref(false);
+const showCompleted = ref(true);
 
 const store = useDharmaStore();
 const tasksStore = useTasksStore();
@@ -20,8 +21,11 @@ const tasksStore = useTasksStore();
 const dharmaId = computed(() => Number(props.id));
 const dharma = computed(() => store.dharmaById(dharmaId.value));
 const tasks = ref<Tasks[]>([]);
-const activeTasks = computed(() => tasks.value.filter((task) => task.status !== 'SNOOZED'));
+const activeTasks = computed(() =>
+    tasks.value.filter((task) => task.status !== 'SNOOZED' && task.status !== 'DONE'),
+);
 const snoozedTasks = computed(() => tasks.value.filter((task) => task.status === 'SNOOZED'));
+const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'DONE'));
 
 async function loadPageData() {
     if (!store.dharmas.length) {
@@ -35,6 +39,10 @@ watch(() => props.id, loadPageData, { immediate: true });
 
 function toggleSnoozed() {
     showSnoozed.value = !showSnoozed.value;
+}
+
+function toggleCompleted() {
+    showCompleted.value = !showCompleted.value;
 }
 </script>
 
@@ -60,6 +68,25 @@ function toggleSnoozed() {
                 <Transition name="fade-slide">
                     <div v-if="showSnoozed" class="flex flex-col gap-3">
                         <div v-for="t in snoozedTasks" :key="t.id">
+                            <TasksCard :task="t" @updated="loadPageData" />
+                        </div>
+                    </div>
+                </Transition>
+            </section>
+
+            <section v-if="completedTasks.length" class="mt-4">
+                <div class="flex items-center justify-between w-full mb-3">
+                    <h2 class="text-xs font-medium uppercase tracking-wide text-text-secondary">
+                        Concluídas
+                    </h2>
+                    <button class="text-text-secondary" @click="toggleCompleted">
+                        <ChevronDown :class="[showCompleted ? 'rotate-180' : '']" :size="18" />
+                    </button>
+                </div>
+
+                <Transition name="fade-slide">
+                    <div v-if="showCompleted" class="flex flex-col gap-3">
+                        <div v-for="t in completedTasks" :key="t.id">
                             <TasksCard :task="t" @updated="loadPageData" />
                         </div>
                     </div>
