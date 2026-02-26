@@ -16,7 +16,7 @@ const emit = defineEmits<{
     (e: 'update:mobileMenuOpen', value: boolean): void;
 }>();
 
-const closed = ref(false);
+const closed = ref(window.innerWidth >= 768 && window.innerWidth < 1024);
 const isMobile = ref(false);
 const router = useRouter();
 const isMobileMenuOpen = computed({
@@ -24,17 +24,23 @@ const isMobileMenuOpen = computed({
     set: (value: boolean) => emit('update:mobileMenuOpen', value),
 });
 
-const checkMobile = () => {
-    isMobile.value = window.innerWidth < 768;
+const handleResize = () => {
+    const width = window.innerWidth;
+    isMobile.value = width < 768;
+    if (width >= 768 && width < 1024) {
+        closed.value = true;
+    } else {
+        closed.value = false;
+    }
 };
 
 onMounted(() => {
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    handleResize();
+    window.addEventListener('resize', handleResize);
 });
 
 onBeforeUnmount(() => {
-    window.removeEventListener('resize', checkMobile);
+    window.removeEventListener('resize', handleResize);
     document.body.style.overflow = '';
 });
 
