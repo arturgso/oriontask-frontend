@@ -13,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const showSnoozed = ref(false);
-const showCompleted = ref(true);
+const showCompleted = ref(false);
 
 const store = useDharmaStore();
 const tasksStore = useTasksStore();
