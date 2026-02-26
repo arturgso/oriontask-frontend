@@ -94,24 +94,32 @@ async function completeTask() {
                 @click="moveTaskToNow"
             />
         </template>
-        <template v-else>
+
+        <template v-else-if="isNow">
             <TaskCardButton
-                text="Adiar"
+                text="Depois"
                 :icon="Clock3"
                 :disabled="updatingStatus"
                 @click="snoozeTask"
             />
             <TaskCardButton
-                text="Agora"
-                :icon="Play"
-                :disabled="updatingStatus || isNow"
-                @click="moveTaskToNow"
-            />
-            <TaskCardButton
                 text="Concluir"
                 :icon="Check"
-                :disabled="updatingStatus || isDone"
+                :disabled="updatingStatus"
                 @click="completeTask"
+            />
+        </template>
+
+        <template v-else-if="isDone">
+            <TaskCardButton text="Concluir" :icon="Check" :disabled="true" />
+        </template>
+
+        <template v-else>
+            <TaskCardButton
+                text="Agora"
+                :icon="Play"
+                :disabled="updatingStatus"
+                @click="moveTaskToNow"
             />
         </template>
     </div>

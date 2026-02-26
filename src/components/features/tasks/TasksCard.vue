@@ -42,7 +42,9 @@ function formatTimestamp(timestamp: number) {
 
         <div class="flex-1 p-4">
             <div class="flex items-start justify-between gap-3">
-                <h1 class="font-semibold text-base text-text-primary">{{ task.title }}</h1>
+                <h1 class="text-xl capitalize font-semibold text-base text-text-primary">
+                    {{ task.title }}
+                </h1>
                 <TaskCardMenu :task="task" @updated="emit('updated')" />
             </div>
 
