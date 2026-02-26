@@ -24,6 +24,8 @@ const dharmasStore = useDharmaStore();
 const tasksStore = useTasksStore();
 const selectedDharma = ref<number | null>(null);
 
+const error = ref<string | null>(null);
+
 const isModalOpen = ref(false);
 
 function toggleModal() {
@@ -37,7 +39,30 @@ const dharmaOptions = computed(() =>
 const effortOptions = EFFORT_LEVEL.map((level) => ({ value: level, label: EFFORT_LABELS[level] }));
 const karmaOptions = KARMA_TYPES.map((type) => ({ value: type, label: KARMA_LABELS[type] }));
 
+function validateForm() {
+    if (selectedDharma.value === null) {
+        error.value = 'Selecione um dharma';
+        return false;
+    }
+
+    if (form.value.title === '') {
+        error.value = 'Digite um título';
+        return false;
+    }
+
+    if (form.value.description === '') {
+        error.value = 'Digite uma descrição';
+        return false;
+    }
+
+    return true;
+}
+
 async function handleSubmit() {
+    if (!validateForm()) {
+        return;
+    }
+
     const res = await tasksStore.createTask(form.value, selectedDharma.value);
 
     if (res) {
@@ -60,9 +85,9 @@ async function handleSubmit() {
     <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
         <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
             <FormSelect
-                id="dharmas"
+                id="dharma"
                 v-model="selectedDharma"
-                label="Dharmas"
+                label="Dharma"
                 placeholder="Selecione o Dharma"
                 :options="dharmaOptions"
             />
@@ -97,6 +122,9 @@ async function handleSubmit() {
                 label="Karma"
                 :options="karmaOptions"
             />
+
+            <p v-if="error" class="text-red-500">{{ error }}</p>
+
             <ActionButton
                 type="submit"
                 text="Criar"
