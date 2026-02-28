@@ -24,6 +24,10 @@ const leftColumnDharmas = computed(() => dharmaStore.dharmas.filter((_, index) =
 const rightColumnDharmas = computed(() =>
     dharmaStore.dharmas.filter((_, index) => index % 2 !== 0),
 );
+
+function handleDharmaAction(id: number) {
+    openById.value[id] = false;
+}
 </script>
 
 <template>
@@ -65,8 +69,8 @@ const rightColumnDharmas = computed(() =>
                         />
                     </button>
 
-                    <div v-if="isOpen(d.id)" class="pt-3">
-                        <EditDharmaForm :dharma="d" />
+                    <div v-if="isOpen(d.id)" class="pt-3" @click.stop>
+                        <EditDharmaForm :dharma="d" @success="handleDharmaAction(d.id)" />
                     </div>
                 </div>
             </div>
@@ -97,8 +101,8 @@ const rightColumnDharmas = computed(() =>
                             />
                         </button>
 
-                        <div v-if="isOpen(d.id)" class="pt-3">
-                            <EditDharmaForm :dharma="d" />
+                        <div v-if="isOpen(d.id)" class="pt-3" @click.stop>
+                            <EditDharmaForm :dharma="d" @success="handleDharmaAction(d.id)" />
                         </div>
                     </div>
                 </div>
@@ -128,8 +132,8 @@ const rightColumnDharmas = computed(() =>
                             />
                         </button>
 
-                        <div v-if="isOpen(d.id)" class="pt-3">
-                            <EditDharmaForm :dharma="d" />
+                        <div v-if="isOpen(d.id)" class="pt-3" @click.stop>
+                            <EditDharmaForm :dharma="d" @success="handleDharmaAction(d.id)" />
                         </div>
                     </div>
                 </div>

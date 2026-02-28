@@ -1,5 +1,5 @@
 import api from '@/Api';
-import type { Dharma, NewDharmaProps } from '@/types/Dharma';
+import type { Dharma, EditDharmaProps, NewDharmaProps } from '@/types/Dharma';
 export class DharmaService {
     private unwrapDharmasResponse(data: unknown): Dharma[] {
         if (Array.isArray(data)) {
@@ -36,5 +36,29 @@ export class DharmaService {
         const res = await api.get(`/dharmas`);
 
         return this.unwrapDharmasResponse(res.data);
+    }
+
+    async update(dharmaId: number, form: EditDharmaProps): Promise<Dharma> {
+        try {
+            const res = await api.patch(`/dharmas/${dharmaId}`, form, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while updating dharma');
+        }
+    }
+
+    async delete(dharmaId: number): Promise<void> {
+        try {
+            await api.delete(`/dharmas/${dharmaId}`);
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while deleting dharma');
+        }
     }
 }
