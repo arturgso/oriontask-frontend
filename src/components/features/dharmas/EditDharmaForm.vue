@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import ColorPicker from './ColorPicker.vue';
 import ActionButton from '@/components/common/ActionButton.vue';
 import FormInput from '@/components/common/FormInput.vue';
-import { Trash } from 'lucide-vue-next';
+import { Trash, Eye } from 'lucide-vue-next';
 import { useDharmaStore } from '@/stores/dharmaStore';
 import { toast } from 'vue3-toastify';
 
@@ -12,7 +12,7 @@ const props = defineProps<{
     dharma: Dharma;
 }>();
 const emit = defineEmits<{
-    (e: 'success', action: 'updated' | 'deleted'): void;
+    (e: 'success', action: 'updated' | 'deleted' | 'hidded'): void;
 }>();
 const dharmaStore = useDharmaStore();
 const loading = ref(false);
@@ -57,6 +57,25 @@ async function handleSave() {
     }
 }
 
+async function handleHide() {
+    if (loading.value) return;
+
+    loading.value = true;
+    error.value = null;
+
+    try {
+        await dharmaStore.hideDharma(props.dharma.id);
+        toast.success('Dharma marcado como oculto');
+        emit('success', 'hidded');
+    } catch (err) {
+        console.error(err);
+        error.value = getErrorMessage(err, 'Não foi possível ocultar o dharma');
+        toast.error(error.value);
+    } finally {
+        loading.value = false;
+    }
+}
+
 async function handleDelete() {
     if (loading.value) return;
 
@@ -88,6 +107,15 @@ async function handleDelete() {
                 :disabled="loading"
                 extra-class="!rounded-xl !font-medium !text-sm !hover:shadow-none"
             />
+            <button
+                title="Ocultar"
+                type="button"
+                :disabled="loading"
+                class="p-2.5 mt-1 rounded-xl border border-border bg-surface text-secondary hover:bg-surface/60 transition-colors"
+                @click="handleHide"
+            >
+                <Eye :size="18" />
+            </button>
             <button
                 type="button"
                 :disabled="loading"

@@ -41,6 +41,17 @@ export const useDharmaStore = defineStore('dharma', () => {
         return updated;
     }
 
+    async function hideDharma(id: number) {
+        const hidded = await serv.hide(id);
+        const index = dharmas.value.findIndex((d) => d.id === id);
+
+        if (index !== -1) {
+            dharmas.value[index] = hidded;
+        }
+
+        return hidded;
+    }
+
     async function deleteDharma(id: number) {
         await serv.delete(id);
         dharmas.value = dharmas.value.filter((d) => d.id !== id);
@@ -67,6 +78,7 @@ export const useDharmaStore = defineStore('dharma', () => {
         fetchDharmas,
         createDharma,
         updateDharma,
+        hideDharma,
         deleteDharma,
         dharmaById,
         getDharmaColor,

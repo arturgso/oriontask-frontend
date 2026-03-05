@@ -53,6 +53,21 @@ export class DharmaService {
         }
     }
 
+    async hide(dharmaId: number): Promise<Dharma> {
+        try {
+            const res = await api.patch(`/dharmas/hide/${dharmaId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while hiding dharma');
+        }
+    }
+
     async delete(dharmaId: number): Promise<void> {
         try {
             await api.delete(`/dharmas/${dharmaId}`);
