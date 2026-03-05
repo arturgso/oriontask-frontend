@@ -113,7 +113,7 @@ async function deleteTask() {
 <template>
     <div class="relative shrink-0">
         <button
-            class="h-8 w-8 flex items-center justify-center rounded-sm border border-transparent text-text-muted hover:bg-surface hover:text-text-primary transition-colors"
+            class="h-8 w-8 flex items-center justify-center rounded-xl border border-transparent text-text-muted hover:bg-surface hover:text-text-primary transition-colors"
             :disabled="updatingTask"
             @click="toggleActions"
         >
@@ -121,17 +121,17 @@ async function deleteTask() {
         </button>
         <div
             v-if="actionsOpen"
-            class="absolute right-0 top-9 z-10 min-w-36 rounded-sm border border-border bg-card p-1"
+            class="absolute right-0 top-9 z-10 min-w-36 rounded-xl border border-border bg-card p-1"
         >
             <button
-                class="w-full flex items-center gap-2 px-2.5 py-2 text-sm rounded-sm hover:bg-surface transition-colors text-text-primary"
+                class="w-full flex items-center gap-2 px-2.5 py-2 text-sm rounded-xl hover:bg-surface transition-colors text-text-primary"
                 @click="openEditModal"
             >
                 <Pencil :size="15" />
                 Editar
             </button>
             <button
-                class="w-full flex items-center gap-2 px-2.5 py-2 text-sm rounded-sm hover:bg-red-50 transition-colors text-red-600"
+                class="w-full flex items-center gap-2 px-2.5 py-2 text-sm rounded-xl hover:bg-red-50 transition-colors text-red-600"
                 @click="openDeleteModal"
             >
                 <Trash2 :size="15" />
@@ -175,7 +175,7 @@ async function deleteTask() {
             <button
                 type="submit"
                 :disabled="updatingTask"
-                class="w-full mt-1 p-2.5 rounded-sm bg-accent text-white font-medium hover:bg-accent-hover transition-colors disabled:opacity-60"
+                class="w-full mt-1 p-2.5 rounded-xl bg-accent text-white font-medium hover:bg-accent-hover transition-colors disabled:opacity-60"
             >
                 Salvar alterações
             </button>
@@ -191,7 +191,7 @@ async function deleteTask() {
             <div class="flex items-center justify-end gap-2">
                 <button
                     type="button"
-                    class="px-3 py-2 rounded-sm border border-border text-sm text-text-primary hover:bg-surface transition-colors"
+                    class="px-3 py-2 rounded-xl border border-border text-sm text-text-primary hover:bg-surface transition-colors"
                     :disabled="updatingTask"
                     @click="closeDeleteModal"
                 >
@@ -199,7 +199,7 @@ async function deleteTask() {
                 </button>
                 <button
                     type="button"
-                    class="px-3 py-2 rounded-sm border border-red-200 bg-red-50 text-sm text-red-600 hover:bg-red-100 transition-colors disabled:opacity-60"
+                    class="px-3 py-2 rounded-xl border border-red-200 bg-red-50 text-sm text-red-600 hover:bg-red-100 transition-colors disabled:opacity-60"
                     :disabled="updatingTask"
                     @click="deleteTask"
                 >

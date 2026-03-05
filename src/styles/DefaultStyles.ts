@@ -1,17 +1,17 @@
 export const styles = {
     input: {
         inputDiv: 'flex flex-col gap-2',
-        defaultInput: 'p-2 border border-border bg-surface rounded-md',
+        defaultInput: 'p-2 border border-border bg-surface rounded-xl',
         navButton: {
             default:
-                'text-text-primary flex flex-row items-center gap-3 w-full rounded-md  transition duration-200',
+                'text-text-primary flex flex-row items-center gap-3 w-full rounded-xl  transition duration-200',
             open: 'p-2 border-b-2 border-border shadow-sm border-border hover:bg-card hover:shadow-md',
         },
     },
 
     card: {
         surface:
-            'border-2 rounded-md border-border w-full h-fit flex flex-col p-3 bg-card hover:shadow-md transition duration-150',
+            'border-2 rounded-xl border-border w-full h-fit flex flex-col p-3 bg-card hover:shadow-md transition duration-150',
     },
 
     badge: 'text-sm font-bold py-1 px-2 text-white rounded-lg',

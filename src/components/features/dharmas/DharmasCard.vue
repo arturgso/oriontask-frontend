@@ -27,7 +27,7 @@ function handleDharmaAction(id: number) {
         @click="toggleOpen(dharma.id)"
     >
         <div class="flex gap-2.5 items-center pr-9">
-            <div :style="{ backgroundColor: dharma.color }" class="h-4 w-4 rounded-sm" />
+            <div :style="{ backgroundColor: dharma.color }" class="h-4 w-4 rounded-xl" />
             <p class="text-base font-semibold capitalize text-text-primary">
                 {{ dharma.name }}
             </p>

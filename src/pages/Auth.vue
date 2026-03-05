@@ -35,7 +35,7 @@ onMounted(async () => {
 
 <template>
     <div class="min-h-screen flex items-center justify-center bg-background px-4">
-        <div class="w-full max-w-[26rem] border border-border rounded-md bg-card p-6 md:p-8">
+        <div class="w-full max-w-[26rem] border border-border rounded-xl bg-card p-6 md:p-8">
             <div class="flex flex-col items-center gap-2">
                 <img src="/logo.svg" class="w-10 dark:invert" />
                 <h1 class="text-text-primary text-2xl font-semibold tracking-tight">OrionTask</h1>

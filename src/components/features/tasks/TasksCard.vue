@@ -31,18 +31,18 @@ function formatTimestamp(timestamp: number) {
 <template>
     <div
         :class="[
-            'w-full h-fit flex flex-row rounded-sm border bg-card',
+            'w-full h-fit flex flex-row rounded-xl border bg-card',
             isSnoozed ? 'border-border/70 bg-surface/60' : 'border-border',
         ]"
     >
         <div
-            class="w-1.5 rounded-l-sm self-stretch"
+            class="w-1.5 rounded-l-xl self-stretch"
             :style="{ backgroundColor: dharmaColor }"
         ></div>
 
         <div class="flex-1 p-4">
             <div class="flex items-start justify-between gap-3">
-                <h1 class="text-xl capitalize font-semibold text-base text-text-primary">
+                <h1 class="text-xl capitalize font-semibold text-text-primary">
                     {{ task.title }}
                 </h1>
                 <TaskCardMenu :task="task" @updated="emit('updated')" />

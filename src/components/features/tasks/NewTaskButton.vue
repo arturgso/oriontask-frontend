@@ -89,7 +89,7 @@ async function handleSubmit() {
         text="Nova task"
         width="auto"
         :icon="Plus"
-        extra-class="!bg-accent/10 !text-accent !border !border-accent/30 !rounded-sm !text-sm !font-medium !hover:bg-accent/15 !hover:shadow-none"
+        extra-class="!bg-accent/10 !text-accent !border !border-accent/30 !rounded-xl !text-sm !font-medium !hover:bg-accent/15 !hover:shadow-none"
         @click="toggleModal"
     />
 
@@ -139,7 +139,7 @@ async function handleSubmit() {
             <ActionButton
                 type="submit"
                 text="Criar"
-                extra-class="mt-2 rounded-sm font-medium text-base hover:shadow-none"
+                extra-class="mt-2 rounded-xl font-medium text-base hover:shadow-none"
             />
         </form>
     </Modal>

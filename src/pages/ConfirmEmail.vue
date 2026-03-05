@@ -40,7 +40,7 @@ function goToLogin() {
 <template>
     <main class="min-h-screen bg-background flex items-center justify-center px-4">
         <div
-            class="w-full max-w-md border border-border rounded-md bg-card p-8 flex flex-col items-center text-center gap-6"
+            class="w-full max-w-md border border-border rounded-xl bg-card p-8 flex flex-col items-center text-center gap-6"
         >
             <div class="flex flex-col items-center gap-2 mb-2">
                 <img src="/logo.svg" class="w-12 dark:invert" alt="OrionTask Logo" />

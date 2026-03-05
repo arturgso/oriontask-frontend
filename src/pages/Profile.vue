@@ -98,7 +98,7 @@ onMounted(() => {
 
 <template>
     <Layout title="Meu perfil" :icon="UserRound">
-        <section class="max-w-xl border border-border rounded-sm bg-card p-4 md:p-5">
+        <section class="max-w-xl border border-border rounded-xl bg-card p-4 md:p-5">
             <p class="text-xs text-text-secondary mb-4">Dados da conta</p>
 
             <p v-if="loading" class="text-sm text-text-secondary">Carregando perfil...</p>
@@ -124,14 +124,14 @@ onMounted(() => {
                 <button
                     type="submit"
                     :disabled="!canSave"
-                    class="mt-1 p-2.5 rounded-sm bg-accent text-white font-medium hover:bg-accent-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                    class="mt-1 p-2.5 rounded-xl bg-accent text-white font-medium hover:bg-accent-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                     {{ saving ? 'Salvando...' : 'Salvar alterações' }}
                 </button>
             </form>
         </section>
 
-        <section class="max-w-xl border border-border rounded-sm bg-card p-4 md:p-5 mt-6">
+        <section class="max-w-xl border border-border rounded-xl bg-card p-4 md:p-5 mt-6">
             <div class="flex items-center gap-3 mb-4">
                 <KeyRound :size="18" class="text-text-secondary" />
                 <h2 class="text-sm font-medium text-text-primary">Segurança</h2>
@@ -145,7 +145,7 @@ onMounted(() => {
             <button
                 type="button"
                 :disabled="resetting || loading"
-                class="flex items-center justify-center gap-2 p-2.5 rounded-sm border border-border text-text-primary text-sm font-medium hover:bg-surface transition-colors disabled:opacity-50"
+                class="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-border text-text-primary text-sm font-medium hover:bg-surface transition-colors disabled:opacity-50"
                 @click="handleResetPassword"
             >
                 <Loader2 v-if="resetting" :size="16" class="animate-spin" />

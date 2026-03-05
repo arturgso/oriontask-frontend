@@ -162,7 +162,7 @@ async function logout() {
             <button
                 title="Sair"
                 :class="[
-                    'w-full flex items-center gap-3 rounded-sm px-2.5 py-2 border text-sm transition-colors',
+                    'w-full flex items-center gap-3 rounded-xl px-2.5 py-2 border text-sm transition-colors',
                     closed
                         ? 'justify-center px-2 border-transparent text-red-600 hover:bg-red-50'
                         : 'border-transparent text-red-600 hover:bg-red-50',

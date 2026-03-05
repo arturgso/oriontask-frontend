@@ -41,7 +41,7 @@ function openModal() {
             :key="d.id"
             :title="d.name"
             :class="[
-                'flex flex-row items-center gap-2 rounded-sm text-sm border transition-colors duration-150',
+                'flex flex-row items-center gap-2 rounded-xl text-sm border transition-colors duration-150',
                 closed
                     ? 'justify-center border-transparent px-2 py-2 hover:bg-surface'
                     : 'border-transparent px-2.5 py-2 hover:bg-surface',
@@ -50,7 +50,7 @@ function openModal() {
         >
             <div
                 :title="d.name"
-                :class="['w-3.5 h-3.5 rounded-sm', closed ? 'w-5 h-5' : '']"
+                :class="['w-3.5 h-3.5 rounded-sm', closed ? 'w-5 h-5 !rounded-md' : '']"
                 :style="{ backgroundColor: d.color }"
             />
             <p :class="['font-medium min-w-0 truncate', closed ? 'hidden' : '']">
@@ -60,7 +60,7 @@ function openModal() {
         <button
             title="Novo Dharma"
             :class="[
-                'flex flex-row items-center rounded-sm text-sm transition-colors',
+                'flex flex-row items-center rounded-xl text-sm transition-colors',
                 closed
                     ? 'justify-center px-2 py-2 hover:bg-surface'
                     : 'gap-2 px-2.5 py-2 border border-dashed border-border hover:bg-surface',

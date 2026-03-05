@@ -39,7 +39,7 @@ watch(
     <Transition name="fade-slide">
         <div
             v-if="password.length > 0"
-            class="flex flex-col gap-1 mt-[-0.5rem] bg-card p-3 rounded-md border border-border"
+            class="flex flex-col gap-1 mt-[-0.5rem] bg-card p-3 rounded-xl border border-border"
         >
             <p class="text-xs font-medium text-text-primary mb-1">A senha deve conter:</p>
             <div

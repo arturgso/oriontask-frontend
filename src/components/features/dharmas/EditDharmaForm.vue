@@ -86,12 +86,12 @@ async function handleDelete() {
                 type="submit"
                 text="Salvar"
                 :disabled="loading"
-                extra-class="!rounded-sm !font-medium !text-sm !hover:shadow-none"
+                extra-class="!rounded-xl !font-medium !text-sm !hover:shadow-none"
             />
             <button
                 type="button"
                 :disabled="loading"
-                class="p-2.5 mt-1 rounded-sm border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
+                class="p-2.5 mt-1 rounded-xl border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 transition-colors"
                 @click="handleDelete"
             >
                 <Trash :size="18" />

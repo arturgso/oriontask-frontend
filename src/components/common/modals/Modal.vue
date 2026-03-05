@@ -38,13 +38,13 @@ function handleClose() {
             @keydown.esc="handleClose"
         >
             <div
-                class="relative w-full max-w-md rounded-sm bg-card p-5 md:p-6 border border-border max-h-[85vh] overflow-y-auto shadow-2xl"
+                class="relative w-full max-w-md rounded-xl bg-card p-5 md:p-6 border border-border max-h-[85vh] overflow-y-auto shadow-2xl"
             >
                 <h1 class="capitalize font-semibold text-base text-text-primary tracking-tight">
                     {{ title }}
                 </h1>
                 <button
-                    class="text-text-muted absolute top-3 right-3 h-8 w-8 flex items-center justify-center rounded-sm border border-transparent hover:bg-surface hover:text-accent transition-colors"
+                    class="text-text-muted absolute top-3 right-3 h-8 w-8 flex items-center justify-center rounded-xl border border-transparent hover:bg-surface hover:text-accent transition-colors"
                     @click="handleClose"
                 >
                     <X :size="18" />

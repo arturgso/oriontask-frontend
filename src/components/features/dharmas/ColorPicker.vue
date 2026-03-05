@@ -12,10 +12,10 @@ const setColor = (value: string) => {
 </script>
 
 <template>
-    <div class="flex flex-wrap gap-2 justify-between items-center mt-1">
+    <div class="flex flex-wrap gap-3 items-center mt-1">
         <button
             type="button"
-            class="w-8 h-8 rounded-sm cursor-pointer border-2 transition-colors"
+            class="w-8 h-8 rounded-xl cursor-pointer border-2 transition-colors"
             :class="props.color === '' ? 'border-accent' : 'border-border'"
             title="Randomizar"
             style="
@@ -38,7 +38,7 @@ const setColor = (value: string) => {
             :key="c"
             type="button"
             :style="{ backgroundColor: c }"
-            class="w-8 h-8 rounded-sm cursor-pointer border-2 transition-colors"
+            class="w-8 h-8 rounded-xl cursor-pointer border-2 transition-colors"
             :class="props.color === c ? 'border-accent' : 'border-transparent'"
             @click="setColor(c)"
         />

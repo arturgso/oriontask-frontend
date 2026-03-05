@@ -37,7 +37,7 @@ const submit = async () => {
         <div class="flex flex-wrap gap-2 justify-between items-center mt-4">
             <button
                 type="button"
-                class="w-8 h-8 rounded-sm cursor-pointer border-2 transition-colors"
+                class="w-8 h-8 rounded-xl cursor-pointer border-2 transition-colors"
                 :class="form.color === '' ? 'border-accent' : 'border-border'"
                 title="Randomizar"
                 style="
@@ -60,7 +60,7 @@ const submit = async () => {
                 :key="color"
                 type="button"
                 :style="{ backgroundColor: color }"
-                class="w-8 h-8 rounded-sm cursor-pointer border-2 transition-colors"
+                class="w-8 h-8 rounded-xl cursor-pointer border-2 transition-colors"
                 :class="form.color === color ? 'border-accent' : 'border-transparent'"
                 @click="form.color = color"
             />
@@ -68,7 +68,7 @@ const submit = async () => {
 
         <button
             type="submit"
-            class="w-full p-2.5 bg-accent rounded-sm font-medium text-white text-base mt-4 hover:bg-accent-hover transition-colors"
+            class="w-full p-2.5 bg-accent rounded-xl font-medium text-white text-base mt-4 hover:bg-accent-hover transition-colors"
         >
             Criar
         </button>

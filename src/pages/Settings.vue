@@ -23,13 +23,13 @@ onMounted(() => {
 
 <template>
     <Layout title="Configurações" :icon="Settings2">
-        <section class="max-w-2xl border border-border rounded-sm bg-card p-4 md:p-5">
+        <section class="max-w-2xl border border-border rounded-xl bg-card p-4 md:p-5">
             <p class="text-xs text-text-secondary mb-4">Preferências de aparência</p>
 
             <div class="flex items-center justify-between gap-4 py-2">
                 <div class="flex items-center gap-3 min-w-0">
                     <div
-                        class="h-8 w-8 rounded-sm border border-border bg-surface flex items-center justify-center"
+                        class="h-8 w-8 rounded-md border border-border bg-surface flex items-center justify-center"
                     >
                         <Moon v-if="mode === 'dark'" :size="16" class="text-accent" />
                         <Sun v-else-if="mode === 'light'" :size="16" class="text-accent" />
@@ -44,12 +44,12 @@ onMounted(() => {
                 </div>
 
                 <div
-                    class="grid grid-cols-3 rounded-sm border border-border bg-surface p-1 text-xs font-medium"
+                    class="grid grid-cols-3 rounded-xl border border-border bg-surface p-1 text-xs font-medium"
                 >
                     <button
                         type="button"
                         :class="[
-                            'px-2.5 py-1.5 rounded-sm transition-colors',
+                            'px-2.5 py-1.5 rounded-xl transition-colors',
                             mode === 'light'
                                 ? 'bg-card text-text-primary border border-border'
                                 : 'text-text-secondary hover:text-text-primary',
@@ -61,7 +61,7 @@ onMounted(() => {
                     <button
                         type="button"
                         :class="[
-                            'px-2.5 py-1.5 rounded-sm transition-colors',
+                            'px-2.5 py-1.5 rounded-xl transition-colors',
                             mode === 'dark'
                                 ? 'bg-card text-text-primary border border-border'
                                 : 'text-text-secondary hover:text-text-primary',
@@ -73,7 +73,7 @@ onMounted(() => {
                     <button
                         type="button"
                         :class="[
-                            'px-2.5 py-1.5 rounded-sm transition-colors',
+                            'px-2.5 py-1.5 rounded-xl transition-colors',
                             mode === 'system'
                                 ? 'bg-card text-text-primary border border-border'
                                 : 'text-text-secondary hover:text-text-primary',

@@ -28,7 +28,7 @@ function handlePush() {
 <template>
     <button
         :class="[
-            'w-full flex items-center gap-3 rounded-sm px-2.5 py-2 border text-sm transition-colors',
+            'w-full flex items-center gap-3 rounded-xl px-2.5 py-2 border text-sm transition-colors',
             closed ? 'justify-center px-2' : '',
             isActive
                 ? 'border-accent/30 bg-accent/10 text-accent'
