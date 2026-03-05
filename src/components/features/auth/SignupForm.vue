@@ -14,6 +14,15 @@ const form = ref<SignupProps>({
     email: '',
     password: '',
 });
+
+function clearForm() {
+    form.value = {
+        name: '',
+        email: '',
+        password: '',
+    };
+}
+
 const isPasswordValid = ref(false);
 const isSignedUp = ref(false);
 
@@ -30,6 +39,7 @@ async function submit() {
         if (response.id) {
             isSignedUp.value = true;
             toast.success('Cadastro realizado com sucesso!');
+            clearForm();
         }
     } catch (error) {
         toast.error('Ocorreu um erro ao realizar o cadastro. Por favor, tente novamente.');

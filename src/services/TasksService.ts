@@ -47,8 +47,8 @@ export class TasksService {
     }
 
     async fetchByDharma(dharmaId: number, page = 0, size = 20): Promise<Tasks[]> {
-        if (dharmaId == null) {
-            throw new Error('id not defined');
+        if (!Number.isFinite(dharmaId) || dharmaId <= 0) {
+            throw new Error('invalid dharma id');
         }
 
         try {

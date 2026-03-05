@@ -1,5 +1,5 @@
 import { DharmaService } from '@/services/DharmaService';
-import type { Dharma, NewDharmaProps } from '@/types/Dharma';
+import type { Dharma, EditDharmaProps, NewDharmaProps } from '@/types/Dharma';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
@@ -30,6 +30,22 @@ export const useDharmaStore = defineStore('dharma', () => {
         return newDharma;
     }
 
+    async function updateDharma(id: number, form: EditDharmaProps) {
+        const updated = await serv.update(id, form);
+        const index = dharmas.value.findIndex((d) => d.id === id);
+
+        if (index !== -1) {
+            dharmas.value[index] = updated;
+        }
+
+        return updated;
+    }
+
+    async function deleteDharma(id: number) {
+        await serv.delete(id);
+        dharmas.value = dharmas.value.filter((d) => d.id !== id);
+    }
+
     function dharmaById(id: number) {
         return dharmas.value.find((d) => d.id === id);
     }
@@ -50,6 +66,8 @@ export const useDharmaStore = defineStore('dharma', () => {
         error,
         fetchDharmas,
         createDharma,
+        updateDharma,
+        deleteDharma,
         dharmaById,
         getDharmaColor,
     };

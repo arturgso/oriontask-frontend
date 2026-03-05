@@ -1,6 +1,22 @@
 import api from '@/Api';
-import type { Dharma, NewDharmaProps } from '@/types/Dharma';
+import type { Dharma, EditDharmaProps, NewDharmaProps } from '@/types/Dharma';
 export class DharmaService {
+    private unwrapDharmasResponse(data: unknown): Dharma[] {
+        if (Array.isArray(data)) {
+            return data as Dharma[];
+        }
+
+        if (
+            data &&
+            typeof data === 'object' &&
+            Array.isArray((data as { content?: unknown[] }).content)
+        ) {
+            return (data as { content: Dharma[] }).content;
+        }
+
+        return [];
+    }
+
     async create(form: NewDharmaProps): Promise<Dharma> {
         try {
             const res = await api.post(`/dharmas`, form, {
@@ -19,6 +35,30 @@ export class DharmaService {
     async getUserDharmas(): Promise<Dharma[]> {
         const res = await api.get(`/dharmas`);
 
-        return res.data as Dharma[];
+        return this.unwrapDharmasResponse(res.data);
+    }
+
+    async update(dharmaId: number, form: EditDharmaProps): Promise<Dharma> {
+        try {
+            const res = await api.patch(`/dharmas/${dharmaId}`, form, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return res.data;
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while updating dharma');
+        }
+    }
+
+    async delete(dharmaId: number): Promise<void> {
+        try {
+            await api.delete(`/dharmas/${dharmaId}`);
+        } catch (e) {
+            console.error(e);
+            throw new Error('Error while deleting dharma');
+        }
     }
 }

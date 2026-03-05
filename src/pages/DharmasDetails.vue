@@ -28,6 +28,11 @@ const snoozedTasks = computed(() => tasks.value.filter((task) => task.status ===
 const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'DONE'));
 
 async function loadPageData() {
+    if (!Number.isFinite(dharmaId.value) || dharmaId.value <= 0) {
+        tasks.value = [];
+        return;
+    }
+
     if (!store.dharmas.length) {
         await store.fetchDharmas();
     }

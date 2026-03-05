@@ -1,6 +1,6 @@
 export interface Dharma {
     id: number;
-    user: string;
+    user?: string;
     name: string;
     description?: string;
     color: string;
