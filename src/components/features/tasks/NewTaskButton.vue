@@ -32,6 +32,22 @@ function toggleModal() {
     isModalOpen.value = !isModalOpen.value;
 }
 
+function clearForm() {
+    form.value = {
+        title: '',
+        description: '',
+        effortLevel: 'MEDIUM',
+        karmaType: 'ACTION',
+    };
+    selectedDharma.value = null;
+    error.value = null;
+}
+
+function closeModal() {
+    isModalOpen.value = false;
+    clearForm();
+}
+
 const dharmaOptions = computed(() =>
     dharmasStore.dharmas.map((d) => ({ value: d.id, label: d.name })),
 );
@@ -62,7 +78,7 @@ async function handleSubmit() {
 
     if (res) {
         toast.success('Task criado com sucesso');
-        isModalOpen.value = false;
+        closeModal();
     }
 }
 </script>
@@ -77,7 +93,7 @@ async function handleSubmit() {
         @click="toggleModal"
     />
 
-    <Modal :open="isModalOpen" title="Nova Task" @close="toggleModal">
+    <Modal :open="isModalOpen" title="Nova Task" @close="closeModal">
         <form class="flex flex-col gap-4" @submit.prevent="handleSubmit">
             <FormSelect
                 id="dharma"
