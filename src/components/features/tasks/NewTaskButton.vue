@@ -50,11 +50,6 @@ function validateForm() {
         return false;
     }
 
-    if (form.value.description === '') {
-        error.value = 'Digite uma descrição';
-        return false;
-    }
-
     return true;
 }
 
