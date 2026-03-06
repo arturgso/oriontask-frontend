@@ -83,11 +83,17 @@ export class TasksService {
         }
     }
 
-    async fetchTasksByStatus(status: TaskStatus, page = 0, size = 20): Promise<Tasks[]> {
+    async fetchTasksByStatus(
+        status: TaskStatus,
+        includeHidden: boolean,
+        page = 0,
+        size = 20,
+    ): Promise<Tasks[]> {
         try {
             const res = await api.get(this.TASKS_ENDPOINT, {
                 params: {
                     status,
+                    includeHidden,
                     page,
                     size,
                 },

@@ -3,7 +3,10 @@ import type { NewTaskProps, Tasks } from '@/types/Tasks';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
+const SHOW_HIDDEN_STORAGE_KEY = 'dharma:showHidden';
+
 export const useTasksStore = defineStore('tasks', () => {
+    const showHidden = ref(localStorage.getItem(SHOW_HIDDEN_STORAGE_KEY) === 'true');
     const tasks = ref<Tasks[]>([]);
     const currentTasks = ref<Tasks[]>([]);
     const loading = ref(false);
@@ -46,7 +49,7 @@ export const useTasksStore = defineStore('tasks', () => {
         error.value = null;
 
         try {
-            currentTasks.value = await serv.fetchTasksByStatus('NOW');
+            currentTasks.value = await serv.fetchTasksByStatus('NOW', showHidden.value);
         } catch (e) {
             console.error(e);
             error.value = 'Erro enquanto fazia fetch das tasks';
