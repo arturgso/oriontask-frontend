@@ -32,8 +32,8 @@ export class DharmaService {
         }
     }
 
-    async getUserDharmas(): Promise<Dharma[]> {
-        const res = await api.get(`/dharmas`);
+    async getUserDharmas(showHidden: boolean): Promise<Dharma[]> {
+        const res = await api.get(`/dharmas?includeHidden=${showHidden}`);
 
         return this.unwrapDharmasResponse(res.data);
     }
@@ -55,7 +55,7 @@ export class DharmaService {
 
     async hide(dharmaId: number): Promise<Dharma> {
         try {
-            const res = await api.patch(`/dharmas/hide/${dharmaId}`, {
+            const res = await api.patch(`/dharmas/${dharmaId}/hidden`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

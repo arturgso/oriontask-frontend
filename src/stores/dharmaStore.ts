@@ -3,19 +3,27 @@ import type { Dharma, EditDharmaProps, NewDharmaProps } from '@/types/Dharma';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
+const SHOW_HIDDEN_STORAGE_KEY = 'dharma:showHidden';
+
 export const useDharmaStore = defineStore('dharma', () => {
     const dharmas = ref<Dharma[]>([]);
+    const showHidden = ref(localStorage.getItem(SHOW_HIDDEN_STORAGE_KEY) === 'true');
     const loading = ref(false);
     const error = ref<string | null>(null);
 
     const serv = new DharmaService();
+
+    const toggleShowHidden = () => {
+        showHidden.value = !showHidden.value;
+        localStorage.setItem(SHOW_HIDDEN_STORAGE_KEY, String(showHidden.value));
+    };
 
     async function fetchDharmas() {
         loading.value = true;
         error.value = null;
 
         try {
-            dharmas.value = await serv.getUserDharmas();
+            dharmas.value = await serv.getUserDharmas(showHidden.value);
         } catch (e) {
             console.error(e);
             error.value = 'Erro ao carregar dharmas';
@@ -73,8 +81,10 @@ export const useDharmaStore = defineStore('dharma', () => {
 
     return {
         dharmas,
+        showHidden,
         loading,
         error,
+        toggleShowHidden,
         fetchDharmas,
         createDharma,
         updateDharma,

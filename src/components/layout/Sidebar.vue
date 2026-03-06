@@ -4,6 +4,7 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import DharmaList from '@/components/features/dharmas/DharmaList.vue';
 import Divider from '@/components/common/Divider.vue';
 import NavButton from './NavButton.vue';
+import ToggleHiddenButton from './ToggleHiddenButton.vue';
 import SettingsSection from './SettingsSection.vue';
 import { AuthService } from '@/services/AuthService';
 import { useRouter } from 'vue-router';
@@ -158,6 +159,7 @@ async function logout() {
         <!-- Bottom Section -->
         <div :class="['flex flex-col', isMobile ? 'gap-2 mt-6 pb-6' : 'gap-3 mt-auto']">
             <Divider />
+            <ToggleHiddenButton :closed="closed" :is-mobile="isMobile" />
             <SettingsSection :closed="closed" />
             <button
                 title="Sair"
